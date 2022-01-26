@@ -136,9 +136,9 @@ struct MixedEvents {
     LOGF(info, "Input data Collisions %d, Tracks %d ", collisions.size(), tracks.size());
 
     for (auto& [c1, tracks1, c2, tracks2] : pair) {
-      LOGF(info, "Mixed event bin: %d collisions: (%d, %d), tracks: (%d, %d)", c1.bin(), c1.globalIndex(), c2.globalIndex(), tracks1.size(), tracks2.size());
+      //LOGF(info, "Mixed event bin: %d collisions: (%d, %d), tracks: (%d, %d)", c1.bin(), c1.globalIndex(), c2.globalIndex(), tracks1.size(), tracks2.size());
       for (auto& [t1, t2] : combinations(CombinationsFullIndexPolicy(tracks1, tracks2))) {
-        LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
+        //LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
       }
     }
   }
@@ -166,7 +166,7 @@ WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
   return WorkflowSpec{
     adaptAnalysisTask<HashTask>(cfgc),
     adaptAnalysisTask<MixedEvents>(cfgc),
-    adaptAnalysisTask<MixedEventsInsideProcess>(cfgc),
-    adaptAnalysisTask<MixedEventsPartitionedTracks>(cfgc),
+    //adaptAnalysisTask<MixedEventsInsideProcess>(cfgc),
+    //adaptAnalysisTask<MixedEventsPartitionedTracks>(cfgc),
   };
 }
