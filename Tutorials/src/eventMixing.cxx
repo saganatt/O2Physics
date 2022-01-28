@@ -145,7 +145,9 @@ struct MixedEvents {
 };
 
 struct MixedEventsInsideProcess {
-  void process(aod::Collisions& collisions, aod::Hashes& hashes, aod::Tracks& tracks)
+  using aodTracks = soa::Join<aod::Tracks, aod::TrackSelection>;
+
+  void process(aod::Collisions& collisions, aod::Hashes& hashes, aodTracks const& tracks)
   {
     LOGF(info, "Input data Collisions %d, Tracks %d ", collisions.size(), tracks.size());
 
