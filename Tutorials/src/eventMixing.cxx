@@ -16,6 +16,7 @@
 #include "Framework/runDataProcessing.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/ASoAHelpers.h"
+#include "Common/DataModel/TrackSelectionTables.h"
 
 namespace o2::aod
 {
@@ -128,26 +129,34 @@ struct MixedEventsPartitionedTracks {
 };
 
 struct MixedEvents {
+  using aodTracks = soa::Join<aod::Tracks, aod::TrackSelection>;
+  // Note: the pair definition asks for different tracks than those in process()!
+  // As a result, there will be no matching pairs, so the pair will stay empty.
   SameKindPair<aod::Hashes, aod::Collisions, aod::Tracks> pair{"fBin", 5, -1};
+  SameKindPair<aod::Hashes, aod::Collisions, aodTracks> correctPair{"fBin", 5, -1};
 
   // Collisions must be first, not hashes!
-  void process(aod::Collisions const& collisions, aod::Hashes const& hashes, aod::Tracks const& tracks)
+  void process(aod::Collisions const& collisions, aod::Hashes const& hashes, aodTracks const& tracks)
   {
     LOGF(info, "Input data Collisions %d, Tracks %d ", collisions.size(), tracks.size());
 
     for (auto& [c1, tracks1, c2, tracks2] : pair) {
-      //LOGF(info, "Mixed event bin: %d collisions: (%d, %d), tracks: (%d, %d)", c1.bin(), c1.globalIndex(), c2.globalIndex(), tracks1.size(), tracks2.size());
+      LOGF(info, "Mixed event bin: %d collisions: (%d, %d), tracks: (%d, %d)", c1.bin(), c1.globalIndex(), c2.globalIndex(), tracks1.size(), tracks2.size());
       for (auto& [t1, t2] : combinations(CombinationsFullIndexPolicy(tracks1, tracks2))) {
-        //LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
+        LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
+      }
+    }
+    for (auto& [c1, tracks1, c2, tracks2] : correctPair) {
+      LOGF(info, "Correct pair mixed event bin: %d collisions: (%d, %d), tracks: (%d, %d)", c1.bin(), c1.globalIndex(), c2.globalIndex(), tracks1.size(), tracks2.size());
+      for (auto& [t1, t2] : combinations(CombinationsFullIndexPolicy(tracks1, tracks2))) {
+        LOGF(info, "Correct pair mixed event tracks: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
       }
     }
   }
 };
 
 struct MixedEventsInsideProcess {
-  using aodTracks = soa::Join<aod::Tracks, aod::TrackSelection>;
-
-  void process(aod::Collisions& collisions, aod::Hashes& hashes, aodTracks const& tracks)
+  void process(aod::Collisions& collisions, aod::Hashes& hashes, aod::Tracks const& tracks)
   {
     LOGF(info, "Input data Collisions %d, Tracks %d ", collisions.size(), tracks.size());
 
