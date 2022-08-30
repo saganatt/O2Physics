@@ -32,7 +32,7 @@ using namespace o2::analysis::hf_cuts_d0_topik;
 struct TaskD0 {
   HistogramRegistry registry{
     "registry",
-    {{"hPtCand", "2-prong candidates;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
+    {{"hPtCand", "2-prong candidates;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}},
      {"hPtProng0", "2-prong candidates;prong 0 #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
      {"hPtProng1", "2-prong candidates;prong 1 #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
      {"hPtRecSig", "2-prong candidates (matched);#it{p}_{T}^{rec.} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
@@ -98,6 +98,19 @@ struct TaskD0 {
      {"hMassReflBkgD0bar", "2-prong candidates (matched);#it{m}_{inv} (GeV/#it{c}^{2}); #it{p}_{T}; #it{y}", {HistType::kTH3F, {{120, 1.5848, 2.1848}, {150, 0., 30.}, {20, -5., 5.}}}},
      {"hMassSigBkgD0bar", "2-prong candidates (not checked);#it{m}_{inv} (GeV/#it{c}^{2}); #it{p}_{T}; #it{y}", {HistType::kTH3F, {{120, 1.5848, 2.1848}, {150, 0., 30.}, {20, -5., 5.}}}}}};
 
+  HistogramRegistry corrQA{
+    "corrQA",
+    {{"hPtCand_befsel", "2-prong candidates before selection;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}},
+     {"hPtCand_wrongdecay", "2-prong candidates rejected by decay cut;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}},
+     {"hPtCand_wrongy", "2-prong candidates rejected by y cut;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}}}};
+
+  HistogramRegistry selQA{
+    "selQA",
+    {{"hPtProng0_befsel", "2-prong candidates before cut on decay and y;prong 0 #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
+     {"hPtProng1_befsel", "2-prong candidates before cut on decay and y;prong 1 #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
+     {"hYRecCand_befsel", "2-prong candidates before cut on decay and y;candidate #it{y};entries", {HistType::kTH1F, {{10, -5., 5.}}}},
+     {"hYRecCand", "2-prong candidates;candidate #it{y};entries", {HistType::kTH1F, {{10, -5., 5.}}}}}};
+
   Configurable<int> d_selectionFlagD0{"d_selectionFlagD0", 1, "Selection Flag for D0"};
   Configurable<int> d_selectionFlagD0bar{"d_selectionFlagD0bar", 1, "Selection Flag for D0bar"};
   Configurable<double> cutYCandMax{"cutYCandMax", -1., "max. cand. rapidity"};
@@ -106,6 +119,8 @@ struct TaskD0 {
   Configurable<int> d_selectionCand{"d_selectionCand", 1, "Selection Flag for conj. topol. selected candidates"};
   Configurable<int> d_selectionPID{"d_selectionPID", 1, "Selection Flag for reco PID candidates"};
   Configurable<std::vector<double>> bins{"pTBins", std::vector<double>{hf_cuts_d0_topik::pTBins_v}, "pT bin limits"};
+
+  Configurable<bool> debugMode{"debugMode", "false", "Flag to run with QA histograms"};
 
   void init(o2::framework::InitContext&)
   {
@@ -124,19 +139,85 @@ struct TaskD0 {
     registry.add("hImpParErr", "2-prong candidates;impact parameter error (cm);entries", {HistType::kTH2F, {{100, -1., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
     registry.add("hDecLenErr", "2-prong candidates;decay length error (cm);entries", {HistType::kTH2F, {{100, 0., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
     registry.add("hDecLenXYErr", "2-prong candidates;decay length xy error (cm);entries", {HistType::kTH2F, {{100, 0., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+
+    selQA.add("hMass_befsel", "2-prong candidates before cut on decay and y;inv. mass (#pi K) (GeV/#it{c}^{2});entries", {HistType::kTH2F, {{500, 0., 5.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hDecLength_befsel", "2-prong candidates before cut on decay and y;decay length (cm);entries", {HistType::kTH2F, {{200, 0., 2.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hDecLengthxy_befsel", "2-prong candidates before cut on decay and y;decay length xy (cm);entries", {HistType::kTH2F, {{200, 0., 2.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hd0Prong0_befsel", "2-prong candidates before cut on decay and y;prong 0 DCAxy to prim. vertex (cm);entries", {HistType::kTH2F, {{100, -1., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hd0Prong1_befsel", "2-prong candidates before cut on decay and y;prong 1 DCAxy to prim. vertex (cm);entries", {HistType::kTH2F, {{100, -1., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hd0d0_befsel", "2-prong candidates before cut on decay and y;product of DCAxy to prim. vertex (cm^{2});entries", {HistType::kTH2F, {{500, -1., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hCTS_befsel", "2-prong candidates before cut on decay and y;cos #it{#theta}* (D^{0});entries", {HistType::kTH2F, {{110, -1.1, 1.1}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hCt_befsel", "2-prong candidates before cut on decay and y;proper lifetime (D^{0}) * #it{c} (cm);entries", {HistType::kTH2F, {{120, -20., 100.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hCPA_befsel", "2-prong candidates before cut on decay and y;cosine of pointing angle;entries", {HistType::kTH2F, {{110, -1.1, 1.1}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hEta_befsel", "2-prong candidates before cut on decay and y;candidate #it{#eta};entries", {HistType::kTH2F, {{100, -2., 2.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hSelectionStatus_befsel", "2-prong candidates before cut on decay and y;selection status;entries", {HistType::kTH2F, {{5, -0.5, 4.5}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hImpParErr_befsel", "2-prong candidates before cut on decay and y;impact parameter error (cm);entries", {HistType::kTH2F, {{100, -1., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hDecLenErr_befsel", "2-prong candidates before cut on decay and y;decay length error (cm);entries", {HistType::kTH2F, {{100, 0., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
+    selQA.add("hDecLenXYErr_befsel", "2-prong candidates before cut on decay and y;decay length xy error (cm);entries", {HistType::kTH2F, {{100, 0., 1.}, {vbins, "#it{p}_{T} (GeV/#it{c})"}}});
   }
 
   Partition<soa::Join<aod::HfCandProng2, aod::HFSelD0Candidate>> selectedD0Candidates = aod::hf_selcandidate_d0::isSelD0 >= d_selectionFlagD0 || aod::hf_selcandidate_d0::isSelD0bar >= d_selectionFlagD0bar;
+  //Filter candidateFilter = aod::hf_selcandidate_d0::isSelD0 >= d_selectionFlagD0 || aod::hf_selcandidate_d0::isSelD0bar >= d_selectionFlagD0bar;
+  using hfCandidates = soa::Join<aod::HfCandProng2, aod::HFSelD0Candidate>;
 
-  void process(soa::Join<aod::HfCandProng2, aod::HFSelD0Candidate>& candidates)
+  template <typename TTrack>
+  bool isAcceptedCandidate(TTrack candidate)
   {
+    if (debugMode) {
+      corrQA.fill(HIST("hPtCand_befsel"), candidate.pt());
+
+      if (candidate.isSelD0() >= d_selectionFlagD0) {
+        selQA.fill(HIST("hMass_befsel"), InvMassD0(candidate), candidate.pt());
+      }
+      if (candidate.isSelD0bar() >= d_selectionFlagD0bar) {
+        selQA.fill(HIST("hMass_befsel"), InvMassD0bar(candidate), candidate.pt());
+      }
+
+      selQA.fill(HIST("hPtProng0_befsel"), candidate.ptProng0());
+      selQA.fill(HIST("hPtProng1_befsel"), candidate.ptProng1());
+      selQA.fill(HIST("hDecLength_befsel"), candidate.decayLength(), candidate.pt());
+      selQA.fill(HIST("hDecLengthxy_befsel"), candidate.decayLengthXY(), candidate.pt());
+      selQA.fill(HIST("hd0Prong0_befsel"), candidate.impactParameter0(), candidate.pt());
+      selQA.fill(HIST("hd0Prong1_befsel"), candidate.impactParameter1(), candidate.pt());
+      selQA.fill(HIST("hd0d0_befsel"), candidate.impactParameterProduct(), candidate.pt());
+      selQA.fill(HIST("hCTS_befsel"), CosThetaStarD0(candidate), candidate.pt());
+      selQA.fill(HIST("hCt_befsel"), CtD0(candidate), candidate.pt());
+      selQA.fill(HIST("hCPA_befsel"), candidate.cpa(), candidate.pt());
+      selQA.fill(HIST("hEta_befsel"), candidate.eta(), candidate.pt());
+      selQA.fill(HIST("hSelectionStatus_befsel"), candidate.isSelD0() + (candidate.isSelD0bar() * 2), candidate.pt());
+      selQA.fill(HIST("hImpParErr_befsel"), candidate.errorImpactParameter0(), candidate.pt());
+      selQA.fill(HIST("hImpParErr_befsel"), candidate.errorImpactParameter1(), candidate.pt());
+      selQA.fill(HIST("hDecLenErr_befsel"), candidate.errorDecayLength(), candidate.pt());
+      selQA.fill(HIST("hDecLenXYErr_befsel"), candidate.errorDecayLengthXY(), candidate.pt());
+
+      selQA.fill(HIST("hYRecCand_befsel"), YD0(candidate));
+    }
+    if (!(candidate.hfflag() & 1 << DecayType::D0ToPiK)) {
+      if (debugMode) {
+        corrQA.fill(HIST("hPtCand_wrongdecay"), candidate.pt());
+      }
+      return false;
+    }
+    if (cutYCandMax >= 0. && std::abs(YD0(candidate)) > cutYCandMax) {
+      if (debugMode) {
+        corrQA.fill(HIST("hPtCand_wrongy"), candidate.pt());
+      }
+      return false;
+    }
+    return true;
+  }
+
+  void process(hfCandidates& candidates)
+  {
+    // LOG(info) << "D0 task candidates: " << candidates.size() << " selected candidates: " << selectedD0Candidates.size();
     for (auto& candidate : selectedD0Candidates) {
-      if (!(candidate.hfflag() & 1 << DecayType::D0ToPiK)) {
+      // LOG(info) << "Processing candidate: " << candidate.index() << " y: " << YD0(candidate) << " decay flag: " << candidate.hfflag();
+
+      if (!isAcceptedCandidate(candidate)) {
         continue;
       }
-      if (cutYCandMax >= 0. && std::abs(YD0(candidate)) > cutYCandMax) {
-        continue;
-      }
+
+      selQA.fill(HIST("hYRecCand"), YD0(candidate));
 
       if (candidate.isSelD0() >= d_selectionFlagD0) {
         registry.fill(HIST("hMass"), InvMassD0(candidate), candidate.pt());
@@ -171,12 +252,9 @@ struct TaskD0 {
                  soa::Join<aod::McParticles, aod::HfCandProng2MCGen> const& particlesMC, aod::BigTracksMC const& tracks)
   {
     // MC rec.
-    //Printf("MC Candidates: %d", candidates.size());
+    // Printf("MC Candidates: %d", candidates.size());
     for (auto& candidate : recoFlag2Prong) {
-      if (!(candidate.hfflag() & 1 << DecayType::D0ToPiK)) {
-        continue;
-      }
-      if (cutYCandMax >= 0. && std::abs(YD0(candidate)) > cutYCandMax) {
+      if (!isAcceptedCandidate(candidate)) {
         continue;
       }
       if (std::abs(candidate.flagMCMatchRec()) == 1 << DecayType::D0ToPiK) {
@@ -303,7 +381,7 @@ struct TaskD0 {
       }
     }
     // MC gen.
-    //Printf("MC Particles: %d", particlesMC.size());
+    // Printf("MC Particles: %d", particlesMC.size());
     for (auto& particle : particlesMC) {
       if (std::abs(particle.flagMCMatchGen()) == 1 << DecayType::D0ToPiK) {
         if (cutYCandMax >= 0. && std::abs(RecoDecay::y(array{particle.px(), particle.py(), particle.pz()}, RecoDecay::getMassPDG(particle.pdgCode()))) > cutYCandMax) {
@@ -324,7 +402,6 @@ struct TaskD0 {
       }
     }
   }
-
   PROCESS_SWITCH(TaskD0, processMC, "Process MC", false);
 };
 
