@@ -13,7 +13,6 @@
 #include "Framework/AnalysisDataModel.h"
 #include "Framework/ASoAHelpers.h"
 #include "CCDB/BasicCCDBManager.h"
-#include "Framework/GroupSlicer.h"
 #include "Framework/StepTHn.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/RunningWorkflowInfo.h"
@@ -45,6 +44,11 @@ using namespace o2::analysis::hf_cuts_d0_topik;
 
 struct HfTaskFlow {
   HistogramRegistry registry{"registry"};
+  HistogramRegistry corrQA{
+    "corrQA",
+    {{"hPtCand_befsel", "2-prong candidates before selection;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}},
+     {"hPtCand_wrongdecay", "2-prong candidates rejected by decay cut;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}},
+     {"hPtCand_wrongy", "2-prong candidates rejected by y cut;candidate #it{p}_{T} (GeV/#it{c});entries", {HistType::kTH1F, {{100, 0., 10.}}}}}};
 
   OutputObj<CorrelationContainer> sameTPCTPCCh{"sameEventTPCTPCChHadrons"};
   OutputObj<CorrelationContainer> sameTPCMFTCh{"sameEventTPCMFTChHadrons"};
@@ -55,6 +59,8 @@ struct HfTaskFlow {
   //  configurables for processing options
   Configurable<bool> processRun2{"processRun2", "false", "Flag to run on Run 2 data"};
   Configurable<bool> processRun3{"processRun3", "true", "Flag to run on Run 3 data"};
+
+  Configurable<bool> debugMode{"debugMode", "false", "Flag to run with QA histograms"};
 
   Configurable<int> cfgNoMixedEvents{"cfgNoMixedEvents", 5, "Number of mixed events per event"};
 
@@ -88,8 +94,9 @@ struct HfTaskFlow {
 
   //  Collision filters
   //  FIXME: The filter is applied also on the candidates! Beware!
-  Filter collisionVtxZFilter = nabs(aod::collision::posZ) < cfgCutVertex;
-  using aodCollisions = soa::Filtered<soa::Join<aod::Collisions, aod::EvSels, aod::Mults>>;
+  //Filter collisionVtxZFilter = nabs(aod::collision::posZ) < cfgCutVertex;
+  //using aodCollisions = soa::Filtered<soa::Join<aod::Collisions, aod::EvSels, aod::Mults>>;
+  using aodCollisions = soa::Join<aod::Collisions, aod::EvSels, aod::Mults>;
 
   //  Charged track filters
   Filter trackFilter = (nabs(aod::track::eta) < cfgCutEta) &&
@@ -100,6 +107,7 @@ struct HfTaskFlow {
   //  HF candidate filter
   //  TODO: use Partition instead of filter
   Filter candidateFilter = aod::hf_selcandidate_d0::isSelD0 >= d_selectionFlagD0 || aod::hf_selcandidate_d0::isSelD0bar >= d_selectionFlagD0bar;
+  // Partition<soa::Join<aod::HfCandProng2, aod::HFSelD0Candidate>> selectedD0Candidates = aod::hf_selcandidate_d0::isSelD0 >= d_selectionFlagD0 || aod::hf_selcandidate_d0::isSelD0bar >= d_selectionFlagD0bar;
   using hfCandidates = soa::Filtered<soa::Join<aod::HfCandProng2, aod::HFSelD0Candidate>>;
 
   //  =========================
@@ -207,24 +215,24 @@ struct HfTaskFlow {
       //  Run 2: trigger selection for data case
       if (fillHistograms)
         registry.fill(HIST("hEventCounter"), 1);
-      if (!collision.alias()[kINT7]) {
-        return false;
-      }
+      //if (!collision.alias()[kINT7]) {
+      //  return false;
+      //}
       //  Run 2: further offline selection
       if (fillHistograms)
         registry.fill(HIST("hEventCounter"), 2);
-      if (!collision.sel7()) {
-        return false;
-      }
+      //if (!collision.sel7()) {
+      //  return false;
+      //}
       if (fillHistograms)
         registry.fill(HIST("hEventCounter"), 3);
     } else {
       //  Run 3: selection
       if (fillHistograms)
         registry.fill(HIST("hEventCounter"), 1);
-      if (!collision.sel8()) {
-        return false;
-      }
+      //if (!collision.sel8()) {
+      //  return false;
+      //}
       if (fillHistograms)
         registry.fill(HIST("hEventCounter"), 3);
     }
@@ -292,12 +300,21 @@ struct HfTaskFlow {
 
   //  TODO: Check how to put this into a Filter
   template <typename TTrack>
-  bool isAcceptedCandidate(TTrack candidate)
+  bool isAcceptedCandidate(TTrack candidate, bool drawHist = true)
   {
+    if (debugMode && drawHist) {
+      corrQA.fill(HIST("hPtCand_befsel"), candidate.pt());
+    }
     if (!(candidate.hfflag() & 1 << DecayType::D0ToPiK)) {
+      if (debugMode && drawHist) {
+        corrQA.fill(HIST("hPtCand_wrongdecay"), candidate.pt());
+      }
       return false;
     }
     if (cutYCandMax >= 0. && std::abs(YD0(candidate)) > cutYCandMax) {
+      if (debugMode && drawHist) {
+        corrQA.fill(HIST("hPtCand_wrongy"), candidate.pt());
+      }
       return false;
     }
     return true;
@@ -305,9 +322,12 @@ struct HfTaskFlow {
 
   //  TODO: Note: we do not need all these plots since they are in D0 and Lc task -> remove it after we are sure this works
   template <typename TTracks>
-  void fillCandidateQA(TTracks candidates)
+  void fillCandidateQA(TTracks candidates, int globalIndex)
   {
+    // auto colCandidates = selectedD0Candidates->sliceByCached(aod::hf_cand::collisionId, globalIndex);
+    // LOG(info) << "Flow task candidates: " << candidates.size(); // << " selected candidates: " << colCandidates.size();
     for (auto& candidate : candidates) {
+      // LOG(info) << "Processing candidate: " << candidate.index() << " pt: " << candidate.pt() << " y: " << YD0(candidate) << " decay flag: " << candidate.hfflag();
       if (!isAcceptedCandidate(candidate)) {
         continue;
       }
@@ -360,7 +380,8 @@ struct HfTaskFlow {
       double invmass = 0;
       if constexpr (std::is_same_v<hfCandidates, TTracksTrig>) {
         //  TODO: Check how to put this into a Filter
-        if (!isAcceptedCandidate(track1)) {
+        +if (!isAcceptedCandidate(track1, false))
+        {
           continue;
         }
         fillingHFcontainer = true;
@@ -499,7 +520,7 @@ struct HfTaskFlow {
     const auto multiplicity = tracks.size();
 
     sameHF->fillEvent(multiplicity, CorrelationContainer::kCFStepReconstructed);
-    fillCandidateQA(candidates);
+    fillCandidateQA(candidates, collision.globalIndex());
     fillCorrelations(sameHF, candidates, tracks, multiplicity, collision.posZ());
   }
   PROCESS_SWITCH(HfTaskFlow, processSameHFHadrons, "Process same-event correlations for HF-h case", true);
