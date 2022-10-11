@@ -896,6 +896,9 @@ struct HfTrackIndexSkimsCreator {
   HistogramRegistry registry{
     "registry",
     {{"hNTracks", ";# of tracks;entries", {HistType::kTH1F, {{2500, 0., 25000.}}}},
+     {"hCollPosX", "Primary vertex PosX;entries", {HistType::kTH1F, {{400, -0.4, 0.4}}}},
+     {"hCollPosY", "Primary vertex PosY;entries", {HistType::kTH1F, {{400, -0.2, 0.6}}}},
+     {"hCollPosZ", "Primary vertex PosZ;entries", {HistType::kTH1F, {{200, -40, 40}}}},
      // 2-prong histograms
      {"hVtx2ProngX", "2-prong candidates;#it{x}_{sec. vtx.} (cm);entries", {HistType::kTH1F, {{1000, -2., 2.}}}},
      {"hVtx2ProngY", "2-prong candidates;#it{y}_{sec. vtx.} (cm);entries", {HistType::kTH1F, {{1000, -2., 2.}}}},
@@ -1448,6 +1451,10 @@ struct HfTrackIndexSkimsCreator {
       nColls++;
     }
     */
+
+    registry.fill(HIST("hCollPosX"), collision.posX());
+    registry.fill(HIST("hCollPosY"), collision.posY());
+    registry.fill(HIST("hCollPosZ"), collision.posZ());
 
     /// retrieve PV contributors for the current collision
     std::vector<int64_t> vecPvContributorGlobId = {};
