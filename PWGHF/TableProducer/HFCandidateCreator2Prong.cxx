@@ -91,7 +91,7 @@ struct HFCandidateCreator2Prong {
                aod::BigTracks const& tracks,
                aod::BCsWithTimestamps const& bcWithTimeStamps)
   {
-    LOG(info) << "2-prong collisions: " << collisions.size() << " tracks: " << tracks.size() << " track pairs: " << rowsTrackIndexProng2.size();
+    //LOG(info) << "2-prong collisions: " << collisions.size() << " tracks: " << tracks.size() << " track pairs: " << rowsTrackIndexProng2.size();
     // 2-prong vertex fitter
     o2::vertexing::DCAFitterN<2> df;
     // df.setBz(magneticField);
@@ -109,9 +109,9 @@ struct HFCandidateCreator2Prong {
       auto trackParVarPos1 = getTrackParCov(track0);
       auto trackParVarNeg1 = getTrackParCov(track1);
       auto collision = track0.collision();
-      LOGF(info,  "2-prong collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
-          collision.globalIndex(), track1.collision().globalIndex(),
-          track0.globalIndex(), track1.globalIndex(), track0.pt(), track1.pt(), track0.eta(), track1.eta(), track0.phi(), track1.phi());
+      //LOGF(info,  "2-prong collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
+      //    collision.globalIndex(), track1.collision().globalIndex(),
+      //    track0.globalIndex(), track1.globalIndex(), track0.pt(), track1.pt(), track0.eta(), track1.eta(), track0.phi(), track1.phi());
 
       /// Set the magnetic field from ccdb.
       /// The static instance of the propagator was already modified in the HFTrackIndexSkimCreator,

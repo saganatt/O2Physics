@@ -1535,10 +1535,15 @@ struct HfTrackIndexSkimsCreator {
 
     // first loop over positive tracks
     // for (auto trackPos1 = tracksPos.begin(); trackPos1 != tracksPos.end(); ++trackPos1) {
+    LOGF(info, "Total tracks: %d", tracks.size());
     for (auto trackPos1 = tracks.begin(); trackPos1 != tracks.end(); ++trackPos1) {
       if (trackPos1.signed1Pt() < 0) {
         continue;
       }
+      LOGF(info, "Positive track for 2-prong: %d col: %d pt: %.3f eta: %.3f phi: %.3f", trackPos1.globalIndex(), trackPos1.collision().globalIndex(), trackPos1.pt(), trackPos1.eta(), trackPos1.phi());
+      //LOGF(info,  "Accepted 2-prong collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
+      //  trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
+      //  trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
       bool sel2ProngStatusPos = TESTBIT(trackPos1.isSelProng(), CandidateType::Cand2Prong);
       bool sel3ProngStatusPos1 = TESTBIT(trackPos1.isSelProng(), CandidateType::Cand3Prong);
       if (!sel2ProngStatusPos && !sel3ProngStatusPos1) {
@@ -1573,6 +1578,7 @@ struct HfTrackIndexSkimsCreator {
 
         // 2-prong vertex reconstruction
         if (sel2ProngStatusPos && sel2ProngStatusNeg) {
+
 
           // 2-prong preselections
           // TODO: in case of PV refit, the single-track DCA is calculated wrt two different PV vertices (only 1 track excluded)
