@@ -1432,6 +1432,8 @@ struct HfTrackIndexSkimsCreator {
   // Partition<SelectedTracks> tracksNeg = aod::track::signed1Pt < 0.f;
 
   // int nColls{0}; //can be added to run over limited collisions per file - for tesing purposes
+  //
+  int totalTracks = 0;
 
   void process( // soa::Join<aod::Collisions, aod::CentV0Ms>::iterator const& collision, //FIXME add centrality when option for variations to the process function appears
     SelectedCollisions::iterator const& collision,
@@ -1452,6 +1454,7 @@ struct HfTrackIndexSkimsCreator {
     }
     */
 
+    
     registry.fill(HIST("hCollPosX"), collision.posX());
     registry.fill(HIST("hCollPosY"), collision.posY());
     registry.fill(HIST("hCollPosZ"), collision.posZ());
@@ -1535,15 +1538,13 @@ struct HfTrackIndexSkimsCreator {
 
     // first loop over positive tracks
     // for (auto trackPos1 = tracksPos.begin(); trackPos1 != tracksPos.end(); ++trackPos1) {
-    LOGF(info, "Total tracks: %d", tracks.size());
+    totalTracks += tracks.size();
+    LOGF(info, "Total tracks: %d cumulated total: %d", tracks.size(), totalTracks);
     for (auto trackPos1 = tracks.begin(); trackPos1 != tracks.end(); ++trackPos1) {
       if (trackPos1.signed1Pt() < 0) {
         continue;
       }
-      LOGF(info, "Positive track for 2-prong: %d col: %d pt: %.3f eta: %.3f phi: %.3f", trackPos1.globalIndex(), trackPos1.collision().globalIndex(), trackPos1.pt(), trackPos1.eta(), trackPos1.phi());
-      //LOGF(info,  "Accepted 2-prong collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
-      //  trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
-      //  trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
+      //LOGF(info, "Positive track for 2-prong: %d col: %d pt: %.3f eta: %.3f phi: %.3f", trackPos1.globalIndex(), trackPos1.collision().globalIndex(), trackPos1.pt(), trackPos1.eta(), trackPos1.phi());
       bool sel2ProngStatusPos = TESTBIT(trackPos1.isSelProng(), CandidateType::Cand2Prong);
       bool sel3ProngStatusPos1 = TESTBIT(trackPos1.isSelProng(), CandidateType::Cand3Prong);
       if (!sel2ProngStatusPos && !sel3ProngStatusPos1) {
@@ -1579,7 +1580,6 @@ struct HfTrackIndexSkimsCreator {
         // 2-prong vertex reconstruction
         if (sel2ProngStatusPos && sel2ProngStatusNeg) {
 
-
           // 2-prong preselections
           // TODO: in case of PV refit, the single-track DCA is calculated wrt two different PV vertices (only 1 track excluded)
           is2ProngPreselected(trackPos1, trackNeg1, cutStatus2Prong, whichHypo2Prong, isSelected2ProngCand);
@@ -1588,6 +1588,7 @@ struct HfTrackIndexSkimsCreator {
           if (isSelected2ProngCand > 0 && df2.process(trackParVarPos1, trackParVarNeg1) > 0) { // should it be this or > 0 or are they equivalent
             // get secondary vertex
             const auto& secondaryVertex2 = df2.getPCACandidate();
+            LOGF(info, "Secondary vertex: %.3f %.3f %.3f", secondaryVertex2[0], secondaryVertex2[1], secondaryVertex2[2]);
             // get track momenta
             array<float, 3> pvec0;
             array<float, 3> pvec1;
@@ -1661,6 +1662,10 @@ struct HfTrackIndexSkimsCreator {
             is2ProngSelected(pVecCandProng2, secondaryVertex2, pvCoord2Prong, cutStatus2Prong, isSelected2ProngCand);
 
             if (isSelected2ProngCand > 0) {
+              LOGF(info,  "Selected 2-prong vertex collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
+                trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
+                trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
+
               // fill table row
               rowTrackIndexProng2(trackPos1.globalIndex(),
                                   trackNeg1.globalIndex(), isSelected2ProngCand);
@@ -1712,6 +1717,10 @@ struct HfTrackIndexSkimsCreator {
                   }
                 }
               }
+            } else {
+              LOGF(info,  "Not selected 2-prong vertex collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
+                trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
+                trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
             }
           }
         }
