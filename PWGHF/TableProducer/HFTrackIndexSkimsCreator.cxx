@@ -919,6 +919,16 @@ struct HfTrackIndexSkimsCreator {
      {"hMassDsToKKPi", "D_{s} candidates;inv. mass (K K #pi) (GeV/#it{c}^{2});entries", {HistType::kTH1F, {{500, 0., 5.}}}},
      {"hMassXicToPKPi", "#Xi_{c} candidates;inv. mass (p K #pi) (GeV/#it{c}^{2});entries", {HistType::kTH1F, {{500, 0., 5.}}}}}};
 
+  Configurable<double> etaMax2Prong{"etaMax2Prong", 4., "max. pseudorapidity for 2 prong candidate"};
+  HistogramRegistry trackRegistry {
+    "track registry",
+      {{"hPt2ProngAll", "tracks selected for 2-prong vertexing;#it{p}_{T}^{track} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
+      {"hPt2ProngPos", "positive tracks selected for 2-prong vertexing;#it{p}_{T}^{track} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
+      {"hPt2ProngNeg", "negative tracks selected for 2-prong vertexing;#it{p}_{T}^{track} (GeV/#it{c});entries", {HistType::kTH1F, {{360, 0., 36.}}}},
+      {"hDCAToPrimXYVsPt2ProngAll", "tracks selected for 2-prong vertexing;#it{p}_{T}^{track} (GeV/#it{c});DCAxy to prim. vtx. (cm);entries", {HistType::kTH2F, {{360, 0., 36.}, {400, -2., 2.}}}},
+      {"hDCAToPrimXYVsPt2ProngPos", "positive tracks selected for 2-prong vertexing;#it{p}_{T}^{track} (GeV/#it{c});DCAxy to prim. vtx. (cm);entries", {HistType::kTH2F, {{360, 0., 36.}, {400, -2., 2.}}}},
+      {"hDCAToPrimXYVsPt2ProngNeg", "negative tracks selected for 2-prong vertexing;#it{p}_{T}^{track} (GeV/#it{c});DCAxy to prim. vtx. (cm);entries", {HistType::kTH2F, {{360, 0., 36.}, {400, -2., 2.}}}}}};
+
   static const int n2ProngDecays = hf_cand_prong2::DecayType::N2ProngDecays; // number of 2-prong hadron types
   static const int n3ProngDecays = hf_cand_prong3::DecayType::N3ProngDecays; // number of 3-prong hadron types
   static const int nCuts2Prong = 4;                                          // how many different selections are made on 2-prongs
@@ -935,6 +945,9 @@ struct HfTrackIndexSkimsCreator {
 
   void init(InitContext const&)
   {
+    trackRegistry.add("hEta2ProngAll", "tracks selected for 2-prong vertexing;#it{#eta};entries", {HistType::kTH1F, {{static_cast<int>(1.2 * etaMax2Prong * 100), -1.2 * etaMax2Prong, 1.2 * etaMax2Prong}}});
+    trackRegistry.add("hEta2ProngPos", "positive tracks selected for 2-prong vertexing;#it{#eta};entries", {HistType::kTH1F, {{static_cast<int>(1.2 * etaMax2Prong * 100), -1.2 * etaMax2Prong, 1.2 * etaMax2Prong}}});
+    trackRegistry.add("hEta2ProngNeg", "negative tracks selected for 2-prong vertexing;#it{#eta};entries", {HistType::kTH1F, {{static_cast<int>(1.2 * etaMax2Prong * 100), -1.2 * etaMax2Prong, 1.2 * etaMax2Prong}}});
     arrMass2Prong[hf_cand_prong2::DecayType::D0ToPiK] = array{array{massPi, massK},
                                                               array{massK, massPi}};
 
@@ -1541,6 +1554,7 @@ struct HfTrackIndexSkimsCreator {
     totalTracks += tracks.size();
     LOGF(info, "Total tracks: %d cumulated total: %d", tracks.size(), totalTracks);
     for (auto trackPos1 = tracks.begin(); trackPos1 != tracks.end(); ++trackPos1) {
+
       if (trackPos1.signed1Pt() < 0) {
         continue;
       }
@@ -1586,6 +1600,21 @@ struct HfTrackIndexSkimsCreator {
 
           // secondary vertex reconstruction and further 2-prong selections
           if (isSelected2ProngCand > 0 && df2.process(trackParVarPos1, trackParVarNeg1) > 0) { // should it be this or > 0 or are they equivalent
+
+            // histos for pos, neg, all
+            trackRegistry.fill(HIST("hPt2ProngAll"), trackPos1.pt());
+            trackRegistry.fill(HIST("hPt2ProngPos"), trackPos1.pt());
+            trackRegistry.fill(HIST("hPt2ProngAll"), trackNeg1.pt());
+            trackRegistry.fill(HIST("hPt2ProngNeg"), trackNeg1.pt());
+            trackRegistry.fill(HIST("hEta2ProngAll"), trackPos1.eta());
+            trackRegistry.fill(HIST("hEta2ProngPos"), trackPos1.eta());
+            trackRegistry.fill(HIST("hEta2ProngAll"), trackNeg1.eta());
+            trackRegistry.fill(HIST("hEta2ProngNeg"), trackNeg1.eta());
+            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngAll"), trackPos1.pt(), trackPos1.dcaXY());
+            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngPos"), trackPos1.pt(), trackPos1.dcaXY());
+            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngAll"), trackNeg1.pt(), trackNeg1.dcaXY());
+            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngNeg"), trackNeg1.pt(), trackNeg1.dcaXY());
+            
             // get secondary vertex
             const auto& secondaryVertex2 = df2.getPCACandidate();
             LOGF(info, "Secondary vertex: %.3f %.3f %.3f", secondaryVertex2[0], secondaryVertex2[1], secondaryVertex2[2]);
@@ -1665,6 +1694,7 @@ struct HfTrackIndexSkimsCreator {
               LOGF(info,  "Selected 2-prong vertex collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
                 trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
                 trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
+              LOGF(info, "Selected secondary vertex: %.3f %.3f %.3f", secondaryVertex2[0], secondaryVertex2[1], secondaryVertex2[2]);
 
               // fill table row
               rowTrackIndexProng2(trackPos1.globalIndex(),
