@@ -1077,10 +1077,13 @@ struct HfTrackIndexSkimsCreator {
           whichHypo[iDecay2P] -= 2;
         }
         if (whichHypo[iDecay2P] == 0) {
+          LOGF(info, "Rejecting tracks: %d %d masses: %.3f %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), massHypos[0], massHypos[1]);
           CLRBIT(isSelected, iDecay2P);
           if (debug) {
             cutStatus[iDecay2P][1] = false;
           }
+        } else {
+          LOGF(info, "Mass accepting tracks: %d %d masses: %.3f %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), massHypos[0], massHypos[1]);
         }
       }
 
@@ -1091,6 +1094,7 @@ struct HfTrackIndexSkimsCreator {
           impParProduct = hfTrack0.pvRefitDcaXY() * hfTrack1.pvRefitDcaXY();
         }
         if (impParProduct > cut2Prong[iDecay2P].get(pTBin, d0d0Index[iDecay2P])) {
+          LOGF(info, "Rejecting tracks with too big impParProduct: (%d, %d), DCA: (%.3f, %.3f), product: %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), hfTrack0.dcaXY(), hfTrack1.dcaXY(), impParProduct);
           CLRBIT(isSelected, iDecay2P);
           if (debug) {
             cutStatus[iDecay2P][2] = false;
@@ -1598,8 +1602,12 @@ struct HfTrackIndexSkimsCreator {
           // TODO: in case of PV refit, the single-track DCA is calculated wrt two different PV vertices (only 1 track excluded)
           is2ProngPreselected(trackPos1, trackNeg1, cutStatus2Prong, whichHypo2Prong, isSelected2ProngCand);
 
+          bool isProcessed = df2.process(trackParVarPos1, trackParVarNeg1) > 0;
+          if (isProcessed <= 0) {
+            LOGF(info, "Prong not processed by df: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
+          }
           // secondary vertex reconstruction and further 2-prong selections
-          if (isSelected2ProngCand > 0 && df2.process(trackParVarPos1, trackParVarNeg1) > 0) { // should it be this or > 0 or are they equivalent
+          if (isSelected2ProngCand > 0 && isProcessed > 0) { // should it be this or > 0 or are they equivalent
 
             // histos for pos, neg, all
             trackRegistry.fill(HIST("hPt2ProngAll"), trackPos1.pt());
@@ -1755,7 +1763,7 @@ struct HfTrackIndexSkimsCreator {
                 //trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
             }
           } else {
-            LOGF("Rejecting prong: %d %d", trackPos1.globalIndex(), trackNeg1.globalIndex());
+            LOGF(info, "Rejecting prong: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
           }
         }
 
