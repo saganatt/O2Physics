@@ -1529,6 +1529,7 @@ struct HfTrackIndexSkimsCreator {
     df2.setBz(o2::base::Propagator::Instance()->getNominalBz());
     df2.setPropagateToPCA(propToDCA);
     df2.setMaxR(maxRad);
+    LOGF(info, "Setting maxr in fitter: %.2f", static_cast<double>(maxRad));
     df2.setMaxDZIni(maxDZIni);
     df2.setMinParamChange(minParamChange);
     df2.setMinRelChi2Change(minRelChi2Change);
@@ -1602,6 +1603,7 @@ struct HfTrackIndexSkimsCreator {
           // TODO: in case of PV refit, the single-track DCA is calculated wrt two different PV vertices (only 1 track excluded)
           is2ProngPreselected(trackPos1, trackNeg1, cutStatus2Prong, whichHypo2Prong, isSelected2ProngCand);
 
+          LOGF(info, "Max r in fitter before process: %.2f", df2.getMaxR());
           bool isProcessed = df2.process(trackParVarPos1, trackParVarNeg1) > 0;
           if (isProcessed <= 0) {
             LOGF(info, "Prong not processed by df: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
