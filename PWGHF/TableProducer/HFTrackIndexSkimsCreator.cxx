@@ -1754,6 +1754,8 @@ struct HfTrackIndexSkimsCreator {
                 //trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
                 //trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
             }
+          } else {
+            LOGF("Rejecting prong: %d %d", trackPos1.globalIndex(), trackNeg1.globalIndex());
           }
         }
 
