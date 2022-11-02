@@ -1603,7 +1603,9 @@ struct HfTrackIndexSkimsCreator {
           // TODO: in case of PV refit, the single-track DCA is calculated wrt two different PV vertices (only 1 track excluded)
           is2ProngPreselected(trackPos1, trackNeg1, cutStatus2Prong, whichHypo2Prong, isSelected2ProngCand);
 
-          LOGF(info, "Max r in fitter before process: %.2f", df2.getMaxR());
+          LOGF(info, "Fitting tracks %d, %d", trackPos1.globalIndex(), trackNeg1.globalIndex());
+          LOGF(info, "O2 vertexer input trackparcov covariances: YY: (%.3f, %.3f), YZ: (%.3f, %.3f), ZZ: (%.3f, %.3f)", trackParVarPos1.getSigmaY2(), trackParVarNeg1.getSigmaY2(), trackParVarPos1.getSigmaZY(), trackParVarNeg1.getSigmaZY(), trackParVarPos1.getSigmaZ2(), trackParVarNeg1.getSigmaZ2());
+
           bool isProcessed = df2.process(trackParVarPos1, trackParVarNeg1) > 0;
           if (isProcessed <= 0) {
             LOGF(info, "Prong not processed by df: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
@@ -1627,6 +1629,7 @@ struct HfTrackIndexSkimsCreator {
             
             // get secondary vertex
             const auto& secondaryVertex2 = df2.getPCACandidate();
+            //LOGF(info, "Result vertex covariances: XX: %.3f, XY: %.3f, YY: %.3f, XZ: %.3f, YZ: %.3f, ZZ: %.3f", secondaryVertex2.getSigmaX2(), secondaryVertex2.getSigmaXY(), secondaryVertex2.getSigmaY2(), secondaryVertex2.getSigmaXZ(), secondaryVertex2.getSigmaYZ(), secondaryVertex2.getSigmaZ2());
             //LOGF(info, "Secondary vertex: %.3f %.3f %.3f", secondaryVertex2[0], secondaryVertex2[1], secondaryVertex2[2]);
             // get track momenta
             array<float, 3> pvec0;
