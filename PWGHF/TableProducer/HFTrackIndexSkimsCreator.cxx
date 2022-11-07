@@ -1077,13 +1077,13 @@ struct HfTrackIndexSkimsCreator {
           whichHypo[iDecay2P] -= 2;
         }
         if (whichHypo[iDecay2P] == 0) {
-          LOGF(info, "Rejecting tracks: %d %d masses: %.3f %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), massHypos[0], massHypos[1]);
+          //LOGF(info, "Rejecting tracks: %d %d masses: %.3f %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), massHypos[0], massHypos[1]);
           CLRBIT(isSelected, iDecay2P);
           if (debug) {
             cutStatus[iDecay2P][1] = false;
           }
         } else {
-          LOGF(info, "Mass accepting tracks: %d %d masses: %.3f %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), massHypos[0], massHypos[1]);
+          //LOGF(info, "Mass accepting tracks: %d %d masses: %.3f %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), massHypos[0], massHypos[1]);
         }
       }
 
@@ -1094,7 +1094,7 @@ struct HfTrackIndexSkimsCreator {
           impParProduct = hfTrack0.pvRefitDcaXY() * hfTrack1.pvRefitDcaXY();
         }
         if (impParProduct > cut2Prong[iDecay2P].get(pTBin, d0d0Index[iDecay2P])) {
-          LOGF(info, "Rejecting tracks with too big impParProduct: (%d, %d), DCA: (%.3f, %.3f), product: %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), hfTrack0.dcaXY(), hfTrack1.dcaXY(), impParProduct);
+          //LOGF(info, "Rejecting tracks with too big impParProduct: (%d, %d), DCA: (%.3f, %.3f), product: %.3f", hfTrack0.globalIndex(), hfTrack1.globalIndex(), hfTrack0.dcaXY(), hfTrack1.dcaXY(), impParProduct);
           CLRBIT(isSelected, iDecay2P);
           if (debug) {
             cutStatus[iDecay2P][2] = false;
@@ -1529,7 +1529,7 @@ struct HfTrackIndexSkimsCreator {
     df2.setBz(o2::base::Propagator::Instance()->getNominalBz());
     df2.setPropagateToPCA(propToDCA);
     df2.setMaxR(maxRad);
-    LOGF(info, "Setting maxr in fitter: %.2f", static_cast<double>(maxRad));
+    //LOGF(info, "Setting maxr in fitter: %.2f", static_cast<double>(maxRad));
     df2.setMaxDZIni(maxDZIni);
     df2.setMinParamChange(minParamChange);
     df2.setMinRelChi2Change(minRelChi2Change);
@@ -1603,8 +1603,8 @@ struct HfTrackIndexSkimsCreator {
           // TODO: in case of PV refit, the single-track DCA is calculated wrt two different PV vertices (only 1 track excluded)
           is2ProngPreselected(trackPos1, trackNeg1, cutStatus2Prong, whichHypo2Prong, isSelected2ProngCand);
 
-          LOGF(info, "Fitting tracks %d, %d", trackPos1.globalIndex(), trackNeg1.globalIndex());
-          LOGF(info, "O2 vertexer input trackparcov covariances: YY: (%.3f, %.3f), YZ: (%.3f, %.3f), ZZ: (%.3f, %.3f)", trackParVarPos1.getSigmaY2(), trackParVarNeg1.getSigmaY2(), trackParVarPos1.getSigmaZY(), trackParVarNeg1.getSigmaZY(), trackParVarPos1.getSigmaZ2(), trackParVarNeg1.getSigmaZ2());
+          //LOGF(info, "Fitting tracks %d, %d", trackPos1.globalIndex(), trackNeg1.globalIndex());
+          //LOGF(info, "O2 vertexer input trackparcov covariances: YY: (%.3f, %.3f), YZ: (%.3f, %.3f), ZZ: (%.3f, %.3f)", trackParVarPos1.getSigmaY2(), trackParVarNeg1.getSigmaY2(), trackParVarPos1.getSigmaZY(), trackParVarNeg1.getSigmaZY(), trackParVarPos1.getSigmaZ2(), trackParVarNeg1.getSigmaZ2());
 
           // histos for pos, neg, all
           trackRegistry.fill(HIST("hPt2ProngAll"), trackPos1.pt());
@@ -1622,7 +1622,7 @@ struct HfTrackIndexSkimsCreator {
 
           bool isProcessed = df2.process(trackParVarPos1, trackParVarNeg1) > 0;
           if (isProcessed <= 0) {
-            LOGF(info, "Prong not processed by df: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
+            //LOGF(info, "Prong not processed by df: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
           }
           // secondary vertex reconstruction and further 2-prong selections
           if (isSelected2ProngCand > 0 && isProcessed > 0) { // should it be this or > 0 or are they equivalent
@@ -1707,9 +1707,9 @@ struct HfTrackIndexSkimsCreator {
               //LOGF(info,  "Selected 2-prong vertex collision: (%d, %d) tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)",
               //  trackPos1.collision().globalIndex(), trackNeg1.collision().globalIndex(),
               //  trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
-              LOGF(info,  "Selected 2-prong tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f) DCA: (%.3f, %.3f)",
-                trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi(), trackPos1.dcaXY(), trackNeg1.dcaXY());
-              LOGF(info, "Selected secondary vertex: %.3f %.3f %.3f", secondaryVertex2[0], secondaryVertex2[1], secondaryVertex2[2]);
+              //LOGF(info,  "Selected 2-prong tracks: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f) DCA: (%.3f, %.3f)",
+              //  trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi(), trackPos1.dcaXY(), trackNeg1.dcaXY());
+              //LOGF(info, "Selected secondary vertex: %.3f %.3f %.3f", secondaryVertex2[0], secondaryVertex2[1], secondaryVertex2[2]);
 
               // fill table row
               rowTrackIndexProng2(trackPos1.globalIndex(),
@@ -1768,7 +1768,7 @@ struct HfTrackIndexSkimsCreator {
                 //trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
             }
           } else {
-            LOGF(info, "Rejecting prong: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
+            //LOGF(info, "Rejecting prong: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
           }
         }
 
