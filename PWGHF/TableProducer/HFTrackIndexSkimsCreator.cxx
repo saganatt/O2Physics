@@ -1606,26 +1606,26 @@ struct HfTrackIndexSkimsCreator {
           LOGF(info, "Fitting tracks %d, %d", trackPos1.globalIndex(), trackNeg1.globalIndex());
           LOGF(info, "O2 vertexer input trackparcov covariances: YY: (%.3f, %.3f), YZ: (%.3f, %.3f), ZZ: (%.3f, %.3f)", trackParVarPos1.getSigmaY2(), trackParVarNeg1.getSigmaY2(), trackParVarPos1.getSigmaZY(), trackParVarNeg1.getSigmaZY(), trackParVarPos1.getSigmaZ2(), trackParVarNeg1.getSigmaZ2());
 
+          // histos for pos, neg, all
+          trackRegistry.fill(HIST("hPt2ProngAll"), trackPos1.pt());
+          trackRegistry.fill(HIST("hPt2ProngPos"), trackPos1.pt());
+          trackRegistry.fill(HIST("hPt2ProngAll"), trackNeg1.pt());
+          trackRegistry.fill(HIST("hPt2ProngNeg"), trackNeg1.pt());
+          trackRegistry.fill(HIST("hEta2ProngAll"), trackPos1.eta());
+          trackRegistry.fill(HIST("hEta2ProngPos"), trackPos1.eta());
+          trackRegistry.fill(HIST("hEta2ProngAll"), trackNeg1.eta());
+          trackRegistry.fill(HIST("hEta2ProngNeg"), trackNeg1.eta());
+          trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngAll"), trackPos1.pt(), trackPos1.dcaXY());
+          trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngPos"), trackPos1.pt(), trackPos1.dcaXY());
+          trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngAll"), trackNeg1.pt(), trackNeg1.dcaXY());
+          trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngNeg"), trackNeg1.pt(), trackNeg1.dcaXY());
+
           bool isProcessed = df2.process(trackParVarPos1, trackParVarNeg1) > 0;
           if (isProcessed <= 0) {
             LOGF(info, "Prong not processed by df: (%d, %d) pt: (%.3f, %.3f) eta: (%.3f, %.3f) phi: (%.3f, %.3f)", trackPos1.globalIndex(), trackNeg1.globalIndex(), trackPos1.pt(), trackNeg1.pt(), trackPos1.eta(), trackNeg1.eta(), trackPos1.phi(), trackNeg1.phi());
           }
           // secondary vertex reconstruction and further 2-prong selections
           if (isSelected2ProngCand > 0 && isProcessed > 0) { // should it be this or > 0 or are they equivalent
-
-            // histos for pos, neg, all
-            trackRegistry.fill(HIST("hPt2ProngAll"), trackPos1.pt());
-            trackRegistry.fill(HIST("hPt2ProngPos"), trackPos1.pt());
-            trackRegistry.fill(HIST("hPt2ProngAll"), trackNeg1.pt());
-            trackRegistry.fill(HIST("hPt2ProngNeg"), trackNeg1.pt());
-            trackRegistry.fill(HIST("hEta2ProngAll"), trackPos1.eta());
-            trackRegistry.fill(HIST("hEta2ProngPos"), trackPos1.eta());
-            trackRegistry.fill(HIST("hEta2ProngAll"), trackNeg1.eta());
-            trackRegistry.fill(HIST("hEta2ProngNeg"), trackNeg1.eta());
-            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngAll"), trackPos1.pt(), trackPos1.dcaXY());
-            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngPos"), trackPos1.pt(), trackPos1.dcaXY());
-            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngAll"), trackNeg1.pt(), trackNeg1.dcaXY());
-            trackRegistry.fill(HIST("hDCAToPrimXYVsPt2ProngNeg"), trackNeg1.pt(), trackNeg1.dcaXY());
             
             // get secondary vertex
             const auto& secondaryVertex2 = df2.getPCACandidate();
