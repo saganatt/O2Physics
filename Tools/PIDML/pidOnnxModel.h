@@ -70,19 +70,21 @@ struct PidONNXModel {
     mSession.reset(new Ort::Experimental::Session{*mEnv, modelFile, sessionOptions});
     LOG(info) << "ONNX model loaded";
 
+    mBinding.reset(new Ort::IoBinding{*mSession});
+
     mInputNames = mSession->GetInputNames();
     mInputShapes = mSession->GetInputShapes();
     mOutputNames = mSession->GetOutputNames();
     mOutputShapes = mSession->GetOutputShapes();
 
-    LOG(debug) << "Input Node Name/Shape (" << mInputNames.size() << "):";
+    LOG(info) << "Input Node Name/Shape (" << mInputNames.size() << "):";
     for (size_t i = 0; i < mInputNames.size(); i++) {
-      LOG(debug) << "\t" << mInputNames[i] << " : " << printShape(mInputShapes[i]);
+      LOG(info) << "\t" << mInputNames[i] << " : " << printShape(mInputShapes[i]);
     }
 
-    LOG(debug) << "Output Node Name/Shape (" << mOutputNames.size() << "):";
+    LOG(info) << "Output Node Name/Shape (" << mOutputNames.size() << "):";
     for (size_t i = 0; i < mOutputNames.size(); i++) {
-      LOG(debug) << "\t" << mOutputNames[i] << " : " << printShape(mOutputShapes[i]);
+      LOG(info) << "\t" << mOutputNames[i] << " : " << printShape(mOutputShapes[i]);
     }
 
     // Assume model has 1 input node and 1 output node.
@@ -94,6 +96,12 @@ struct PidONNXModel {
   PidONNXModel(const PidONNXModel&) = delete;
   PidONNXModel& operator=(const PidONNXModel&) = delete;
   ~PidONNXModel() = default;
+
+  //template<typename... Ts>
+  //void bindInput(const Ts& tables...)
+  //{
+  //  //mBinding.BindInput("", tables.asArrowTable());
+  //}
 
   template <typename T>
   float applyModel(const T& track)
@@ -231,7 +239,7 @@ struct PidONNXModel {
     // Double-check the dimensions of the input tensor
     assert(inputTensors[0].IsTensor() &&
            inputTensors[0].GetTensorTypeAndShapeInfo().GetShape() == input_shape);
-    LOG(debug) << "input tensor shape: " << printShape(inputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
+    LOG(info) << "input tensor shape: " << printShape(inputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
 
     try {
       auto outputTensors = mSession->Run(mInputNames, inputTensors, mOutputNames);
@@ -239,7 +247,7 @@ struct PidONNXModel {
       // Double-check the dimensions of the output tensors
       // The number of output tensors is equal to the number of output nodes specified in the Run() call
       assert(outputTensors.size() == mOutputNames.size() && outputTensors[0].IsTensor());
-      LOG(debug) << "output tensor shape: " << printShape(outputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
+      LOG(info) << "output tensor shape: " << printShape(outputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
 
       const float* output_value = outputTensors[0].GetTensorData<float>();
       float certainty = sigmoid(*output_value); // FIXME: Temporary, sigmoid will be added as network layer
@@ -266,6 +274,7 @@ struct PidONNXModel {
   std::shared_ptr<Ort::Env> mEnv = nullptr;
   // No empty constructors for Session, we need a pointer
   std::shared_ptr<Ort::Experimental::Session> mSession = nullptr;
+  std::shared_ptr<Ort::IoBinding> mBinding = nullptr;
 
   std::vector<std::string> mInputNames;
   std::vector<std::vector<int64_t>> mInputShapes;
