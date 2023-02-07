@@ -27,6 +27,12 @@ o2physics_add_dpl_workflow(simple-apply-pid-onnx-model
                            PUBLIC_LINK_LIBRARIES O2::Framework ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::DataModel
                            COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(simple-apply-pid-onnx-model-bindings
+                           SOURCES simpleApplyPidOnnxModelBindings.cxx
+                           JOB_POOL analysis
+                           PUBLIC_LINK_LIBRARIES O2::Framework ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::DataModel
+                           COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(simple-apply-pid-onnx-interface
                            SOURCES simpleApplyPidOnnxInterface.cxx
                            JOB_POOL analysis
