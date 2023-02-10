@@ -1,12 +1,15 @@
 {
   "IsMC": false,
-  "InFileName": "input file directory ",
+  "InFileName": "d0_LHC18bde_proj.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "output file directory",
+  "OutFileName": "d0_LHC18bde_out.root",
   "InputHistoName": [
-    "name array of the input data histogram for fit",
-    "once the projection macro is ready",
-    "these names will no longer need to be input manually"
+    "proj_1.0-2.0",
+    "proj_2.0-4.0",
+    "proj_4.0-6.0",
+    "proj_6.0-8.0",
+    "proj_8.0-12.0",
+    "proj_12.0-24.0"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
@@ -25,13 +28,14 @@
   ],
   "Particle": "D0",
   "_Particles": [
+    "D0",
     "Dplus",
     "Ds",
     "LcToPKPi",
     "LcToPK0s",
     "Dstar"
   ],
-  "EnableRefl": true,
+  "EnableRefl": false,
   "FixSigma": false,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
@@ -78,6 +82,22 @@
     2.03,
     2.03,
     2.03
+  ],
+  "_MassMin": [
+    2.40,
+    2.40,
+    2.40,
+    2.40,
+    2.40,
+    2.40
+  ],
+  "_MassMax": [
+    2.55,
+    2.55,
+    2.55,
+    2.55,
+    2.55,
+    2.55
   ],
   "Rebin": [
     6,
