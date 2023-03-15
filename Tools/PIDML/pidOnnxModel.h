@@ -75,14 +75,14 @@ struct PidONNXModel {
     mOutputNames = mSession->GetOutputNames();
     mOutputShapes = mSession->GetOutputShapes();
 
-    LOG(info) << "Input Node Name/Shape (" << mInputNames.size() << "):";
+    LOG(debug) << "Input Node Name/Shape (" << mInputNames.size() << "):";
     for (size_t i = 0; i < mInputNames.size(); i++) {
-      LOG(info) << "\t" << mInputNames[i] << " : " << printShape(mInputShapes[i]);
+      LOG(debug) << "\t" << mInputNames[i] << " : " << printShape(mInputShapes[i]);
     }
 
-    LOG(info) << "Output Node Name/Shape (" << mOutputNames.size() << "):";
+    LOG(debug) << "Output Node Name/Shape (" << mOutputNames.size() << "):";
     for (size_t i = 0; i < mOutputNames.size(); i++) {
-      LOG(info) << "\t" << mOutputNames[i] << " : " << printShape(mOutputShapes[i]);
+      LOG(debug) << "\t" << mOutputNames[i] << " : " << printShape(mOutputShapes[i]);
     }
 
     // Assume model has 1 input node and 1 output node.
@@ -231,7 +231,7 @@ struct PidONNXModel {
     // Double-check the dimensions of the input tensor
     assert(inputTensors[0].IsTensor() &&
            inputTensors[0].GetTensorTypeAndShapeInfo().GetShape() == input_shape);
-    LOG(info) << "input tensor shape: " << printShape(inputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
+    LOG(debug) << "input tensor shape: " << printShape(inputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
 
     try {
       auto outputTensors = mSession->Run(mInputNames, inputTensors, mOutputNames);
@@ -239,7 +239,7 @@ struct PidONNXModel {
       // Double-check the dimensions of the output tensors
       // The number of output tensors is equal to the number of output nodes specified in the Run() call
       assert(outputTensors.size() == mOutputNames.size() && outputTensors[0].IsTensor());
-      LOG(info) << "output tensor shape: " << printShape(outputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
+      LOG(debug) << "output tensor shape: " << printShape(outputTensors[0].GetTensorTypeAndShapeInfo().GetShape());
 
       const float* output_value = outputTensors[0].GetTensorData<float>();
       float certainty = sigmoid(*output_value); // FIXME: Temporary, sigmoid will be added as network layer
