@@ -70,8 +70,6 @@ struct PidONNXModel {
     mSession.reset(new Ort::Experimental::Session{*mEnv, modelFile, sessionOptions});
     LOG(info) << "ONNX model loaded";
 
-    mBinding.reset(new Ort::IoBinding{*mSession});
-
     mInputNames = mSession->GetInputNames();
     mInputShapes = mSession->GetInputShapes();
     mOutputNames = mSession->GetOutputNames();
@@ -96,12 +94,6 @@ struct PidONNXModel {
   PidONNXModel(const PidONNXModel&) = delete;
   PidONNXModel& operator=(const PidONNXModel&) = delete;
   ~PidONNXModel() = default;
-
-  //template<typename... Ts>
-  //void bindInput(const Ts& tables...)
-  //{
-  //  //mBinding.BindInput("", tables.asArrowTable());
-  //}
 
   template <typename T>
   float applyModel(const T& track)
@@ -274,7 +266,6 @@ struct PidONNXModel {
   std::shared_ptr<Ort::Env> mEnv = nullptr;
   // No empty constructors for Session, we need a pointer
   std::shared_ptr<Ort::Experimental::Session> mSession = nullptr;
-  std::shared_ptr<Ort::IoBinding> mBinding = nullptr;
 
   std::vector<std::string> mInputNames;
   std::vector<std::vector<int64_t>> mInputShapes;

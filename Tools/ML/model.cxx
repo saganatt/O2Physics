@@ -76,6 +76,7 @@ void OnnxModel::initModel(std::string localPath, bool enableOptimizations, int t
 
   mEnv = std::make_shared<Ort::Env>(ORT_LOGGING_LEVEL_WARNING, "onnx-model");
   mSession = std::make_shared<Ort::Experimental::Session>(*mEnv, modelPath, sessionOptions);
+  mBinding.reset(new Ort::IoBinding{*mSession});
 
   mInputNames = mSession->GetInputNames();
   mInputShapes = mSession->GetInputShapes();

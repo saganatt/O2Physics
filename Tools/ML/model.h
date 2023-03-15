@@ -53,18 +53,18 @@ class OnnxModel
   template <typename T>
   T* evalModel(std::vector<Ort::Value>& input)
   {
-    LOG(debug) << "Input tensor shape: " << printShape(input[0].GetTensorTypeAndShapeInfo().GetShape());
+    LOG(info) << "Input tensor shape: " << printShape(input[0].GetTensorTypeAndShapeInfo().GetShape());
     // assert(input[0].GetTensorTypeAndShapeInfo().GetShape() == getNumInputNodes()); --> Fails build in debug mode, TODO: assertion should be checked somehow
 
     try {
       auto outputTensors = mSession->Run(mInputNames, input, mOutputNames);
-      LOG(debug) << "Number of output tensors: " << outputTensors.size();
+      LOG(info) << "Number of output tensors: " << outputTensors.size();
       if (outputTensors.size() != mOutputNames.size()) {
         LOG(fatal) << "Number of output tensors: " << outputTensors.size() << " does not agree with the model specified size: " << mOutputNames.size();
       }
       for (std::size_t i = 0; i < outputTensors.size(); i++) {
-        LOG(debug) << "Output tensor shape: " << printShape(outputTensors[i].GetTensorTypeAndShapeInfo().GetShape());
-        if ((outputTensors[i].GetTensorTypeAndShapeInfo().GetShape() != mOutputShapes[i]) && (mOutputShapes[i][0] != -1)) {
+        LOG(info) << "Output tensor shape: " << printShape(outputTensors[i].GetTensorTypeAndShapeInfo().GetShape());
+        if (outputTensors[i].GetTensorTypeAndShapeInfo().GetShape() != mOutputShapes[i]) {
           LOG(fatal) << "Shape of tensor " << i << " does not agree with model specification! Output: " << printShape(outputTensors[i].GetTensorTypeAndShapeInfo().GetShape()) << " model: " << printShape(mOutputShapes[i]);
         }
       }
@@ -84,9 +84,15 @@ class OnnxModel
     std::vector<int64_t> inputShape{size / mInputShapes[0][1], mInputShapes[0][1]};
     std::vector<Ort::Value> inputTensors;
     inputTensors.emplace_back(Ort::Experimental::Value::CreateTensor<T>(input.data(), size, inputShape));
-    LOG(debug) << "Input shape calculated from vector: " << printShape(inputShape);
+    LOG(info) << "Input shape calculated from vector: " << printShape(inputShape);
     return evalModel<T>(inputTensors);
   }
+
+  //template<typename... Ts>
+  //void bindInput(const Ts& tables...)
+  //{
+  //  //mBinding.BindInput("", tables.asArrowTable().GetColumnByName(""));
+  //}
 
   // Reset session
   void resetSession() { mSession.reset(new Ort::Experimental::Session{*mEnv, modelPath, sessionOptions}); }
@@ -105,6 +111,7 @@ class OnnxModel
   std::shared_ptr<Ort::Env> mEnv = nullptr;
   std::shared_ptr<Ort::Experimental::Session> mSession = nullptr;
   Ort::SessionOptions sessionOptions;
+  std::shared_ptr<Ort::IoBinding> mBinding = nullptr;
 
   // Input & Output specifications of the loaded network
   std::vector<std::string> mInputNames;
