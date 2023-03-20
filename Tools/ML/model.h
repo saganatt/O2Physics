@@ -88,6 +88,45 @@ class OnnxModel
     return evalModel<T>(inputTensors);
   }
 
+  template <typename T>
+  T* evalModelBinding()
+  {
+    try {
+      mSession->Run(Ort::RunOptions(), mBinding);
+    } catch (const Ort::Exception& exception) {
+      LOG(error) << "Error running model inference: " << exception.what();
+      return nullptr;
+    }
+    LOG(info) << "Number of output tensors: " << mOutputTensors->size();
+    if (mOutputTensors->size() != mOutputNames.size()) {
+      LOG(fatal) << "Number of output tensors: " << mOutputTensors->size() << " does not agree with the model specified size: " << mOutputNames.size();
+    }
+    for (std::size_t i = 0; i < mOutputTensors->size(); i++) {
+      LOG(info) << "Output tensor shape: " << printShape((*mOutputTensors)[i].GetTensorTypeAndShapeInfo().GetShape());
+      if ((*mOutputTensors)[i].GetTensorTypeAndShapeInfo().GetShape() != mOutputShapes[i]) {
+        LOG(fatal) << "Shape of tensor " << i << " does not agree with model specification! Output: " << printShape((*mOutputTensors)[i].GetTensorTypeAndShapeInfo().GetShape()) << " model: " << printShape(mOutputShapes[i]);
+      }
+    }
+    T* outputValues = mOutputTensors->back().GetTensorMutableData<T>();
+    return outputValues;
+  }
+
+  template <typename T>
+  void bindIO(const T& table, std::vector<Ort::Value>& outputTensors)
+  {
+    mBinding.BindInput("fX", table.asArrowTable().GetColumnByName("fX"));
+    mBinding.BindInput("fY", table.asArrowTable().GetColumnByName("fY"));
+    mBinding.BindInput("fPt", table.asArrowTable().GetColumnByName("fPt"));
+    mBinding.BindInput("fEta", table.asArrowTable().GetColumnByName("fEta"));
+    mBinding.BindInput("fPhi", table.asArrowTable().GetColumnByName("fPhi"));
+    mOutputTensors = std::make_shared<std::vector<OrtValue>>(std::move(outputTensors));
+    int64_t size = table.size();
+    LOG(info) << "Table size: " << size << " mOutputShapes[0][1]: " << mOutputShapes[0][1] << " divided: " << size / mOutputShapes[0][1];
+    std::vector<int64_t> outputShape{size / mOutputShapes[0][1] + 1, mOutputShapes[0][1]};
+    mOutputTensors->emplace_back(Ort::Experimental::Value::CreateTensor<T>(outputShape));
+    mBinding.BindOutput("output", *mOutputTensors);
+  }
+
   //template<typename... Ts>
   //void bindInput(const Ts& tables...)
   //{
@@ -112,6 +151,7 @@ class OnnxModel
   std::shared_ptr<Ort::Experimental::Session> mSession = nullptr;
   Ort::SessionOptions sessionOptions;
   std::shared_ptr<Ort::IoBinding> mBinding = nullptr;
+  std::shared_ptr<std::vector<OrtValue>> mOutputTensors = nullptr;
 
   // Input & Output specifications of the loaded network
   std::vector<std::string> mInputNames;

@@ -57,7 +57,6 @@ bool OnnxModel::checkHyperloop(bool verbose)
 
 void OnnxModel::initModel(std::string localPath, bool enableOptimizations, int threads, uint64_t from, uint64_t until)
 {
-
   assert(from <= until);
 
   LOG(info) << "--- ONNX-ML model ---";
