@@ -97,17 +97,18 @@ class OnnxModel
       LOG(error) << "Error running model inference: " << exception.what();
       return nullptr;
     }
-    LOG(info) << "Number of output tensors: " << mOutputTensors->size();
-    if (mOutputTensors->size() != mOutputNames.size()) {
-      LOG(fatal) << "Number of output tensors: " << mOutputTensors->size() << " does not agree with the model specified size: " << mOutputNames.size();
+    std::vector<Ort::Value> outputTensors = mBinding.GetOutputs();
+    LOG(info) << "Number of output tensors: " << outputTensors.size();
+    if (outputTensors.size() != mOutputNames.size()) {
+      LOG(fatal) << "Number of output tensors: " << outputTensors.size() << " does not agree with the model specified size: " << mOutputNames.size();
     }
-    for (std::size_t i = 0; i < mOutputTensors->size(); i++) {
-      LOG(info) << "Output tensor shape: " << printShape((*mOutputTensors)[i].GetTensorTypeAndShapeInfo().GetShape());
-      if ((*mOutputTensors)[i].GetTensorTypeAndShapeInfo().GetShape() != mOutputShapes[i]) {
-        LOG(fatal) << "Shape of tensor " << i << " does not agree with model specification! Output: " << printShape((*mOutputTensors)[i].GetTensorTypeAndShapeInfo().GetShape()) << " model: " << printShape(mOutputShapes[i]);
+    for (std::size_t i = 0; i < outputTensors.size(); i++) {
+      LOG(info) << "Output tensor shape: " << printShape(outputTensors[i].GetTensorTypeAndShapeInfo().GetShape());
+      if (outputTensors[i].GetTensorTypeAndShapeInfo().GetShape() != mOutputShapes[i]) {
+        LOG(fatal) << "Shape of tensor " << i << " does not agree with model specification! Output: " << printShape(outputTensors[i].GetTensorTypeAndShapeInfo().GetShape()) << " model: " << printShape(mOutputShapes[i]);
       }
     }
-    T* outputValues = mOutputTensors->back().GetTensorMutableData<T>();
+    T* outputValues = outputTensors.back().GetTensorMutableData<T>();
     return outputValues;
   }
 
@@ -119,19 +120,16 @@ class OnnxModel
     mBinding.BindInput("fPt", table.asArrowTable().GetColumnByName("fPt"));
     mBinding.BindInput("fEta", table.asArrowTable().GetColumnByName("fEta"));
     mBinding.BindInput("fPhi", table.asArrowTable().GetColumnByName("fPhi"));
-    mOutputTensors = std::make_shared<std::vector<OrtValue>>(std::move(outputTensors));
     int64_t size = table.size();
     LOG(info) << "Table size: " << size << " mOutputShapes[0][1]: " << mOutputShapes[0][1] << " divided: " << size / mOutputShapes[0][1];
-    std::vector<int64_t> outputShape{size / mOutputShapes[0][1] + 1, mOutputShapes[0][1]};
-    mOutputTensors->emplace_back(Ort::Experimental::Value::CreateTensor<T>(outputShape));
-    mBinding.BindOutput("output", *mOutputTensors);
-  }
+    std::vector<int64_t> outputShape{size / mOutputShapes[0][1], mOutputShapes[0][1]};
+    outputTensors.emplace_back(Ort::Experimental::Value::CreateTensor<T>(outputShape));
 
-  //template<typename... Ts>
-  //void bindInput(const Ts& tables...)
-  //{
-  //  //mBinding.BindInput("", tables.asArrowTable().GetColumnByName(""));
-  //}
+    Ort::MemoryInfo outputMemInfo{"Cpu", Ort::OrtDeviceAllocator, 0, Ort::OrtMemTypeDefault};
+    //Ort::MemoryInfo outputMemInfo = Ort::MemoryInfo::CreateCpu(Ort::OrtDeviceAllocator, Ort::OrtMemTypeDefault);
+    mBinding.BindOutput("output", outputMemInfo);
+    //mBinding.BindOutput("output", outputTensors);
+  }
 
   // Reset session
   void resetSession() { mSession.reset(new Ort::Experimental::Session{*mEnv, modelPath, sessionOptions}); }
@@ -151,7 +149,6 @@ class OnnxModel
   std::shared_ptr<Ort::Experimental::Session> mSession = nullptr;
   Ort::SessionOptions sessionOptions;
   std::shared_ptr<Ort::IoBinding> mBinding = nullptr;
-  std::shared_ptr<std::vector<OrtValue>> mOutputTensors = nullptr;
 
   // Input & Output specifications of the loaded network
   std::vector<std::string> mInputNames;
