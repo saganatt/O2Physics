@@ -19,7 +19,7 @@
 #include "CCDB/CcdbApi.h"
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/DataModel/PIDResponse.h"
-#include "Tools/PIDML/pidOnnxModel.h"
+#include "Tools/ML/model.h"
 
 #include <string>
 

@@ -17,5 +17,5 @@ o2physics_add_library(MLCore
 o2physics_add_dpl_workflow(simple-apply-onnx-model-bindings
                            SOURCES simpleApplyOnnxModelBindings.cxx
                            JOB_POOL analysis
-                           PUBLIC_LINK_LIBRARIES O2::Framework ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::DataModel
+                           PUBLIC_LINK_LIBRARIES O2::Framework ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::DataModel O2Physics::MLCore
                            COMPONENT_NAME Analysis)
