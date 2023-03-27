@@ -23,7 +23,6 @@
 // C++ and system includes
 #include <onnxruntime/core/session/experimental_onnxruntime_cxx_api.h>
 #include <onnxruntime/core/session/onnxruntime_cxx_api.h>
-#include <onnxruntime/core/session/IOBinding.h>
 #include <vector>
 #include <string>
 #include <memory>
@@ -94,12 +93,12 @@ class OnnxModel
   T* evalModelBinding()
   {
     try {
-      mSession->Run(Ort::RunOptions(), mBinding);
+      mSession->Run(Ort::RunOptions(), *mBinding);
     } catch (const Ort::Exception& exception) {
       LOG(error) << "Error running model inference: " << exception.what();
       return nullptr;
     }
-    std::vector<Ort::Value> outputTensors = mBinding->GetOutputs();
+    std::vector<Ort::Value> outputTensors = mBinding->GetOutputValues();
     LOG(info) << "Number of output tensors: " << outputTensors.size();
     if (outputTensors.size() != mOutputNames.size()) {
       LOG(fatal) << "Number of output tensors: " << outputTensors.size() << " does not agree with the model specified size: " << mOutputNames.size();
@@ -117,11 +116,11 @@ class OnnxModel
   template <typename T>
   void bindIO(const T& table, std::vector<Ort::Value>& outputTensors)
   {
-    mBinding->BindInput("fX", table.asArrowTable().GetColumnByName("fX"));
-    mBinding->BindInput("fY", table.asArrowTable().GetColumnByName("fY"));
-    mBinding->BindInput("fPt", table.asArrowTable().GetColumnByName("fPt"));
-    mBinding->BindInput("fEta", table.asArrowTable().GetColumnByName("fEta"));
-    mBinding->BindInput("fPhi", table.asArrowTable().GetColumnByName("fPhi"));
+    mBinding->BindInput("fX", table.asArrowTable()->GetColumnByName("fX"));
+    mBinding->BindInput("fY", table.asArrowTable()->GetColumnByName("fY"));
+    mBinding->BindInput("fPt", table.asArrowTable()->GetColumnByName("fPt"));
+    mBinding->BindInput("fEta", table.asArrowTable()->GetColumnByName("fEta"));
+    mBinding->BindInput("fPhi", table.asArrowTable()->GetColumnByName("fPhi"));
     int64_t size = table.size();
     LOG(info) << "Table size: " << size << " mOutputShapes[0][1]: " << mOutputShapes[0][1] << " divided: " << size / mOutputShapes[0][1];
     std::vector<int64_t> outputShape{size / mOutputShapes[0][1], mOutputShapes[0][1]};
@@ -149,7 +148,7 @@ class OnnxModel
   std::shared_ptr<Ort::Env> mEnv = nullptr;
   std::shared_ptr<Ort::Experimental::Session> mSession = nullptr;
   Ort::SessionOptions sessionOptions;
-  std::shared_ptr<Ort::IOBinding> mBinding = nullptr;
+  std::shared_ptr<Ort::IoBinding> mBinding = nullptr;
 
   // Input & Output specifications of the loaded network
   std::vector<std::string> mInputNames;

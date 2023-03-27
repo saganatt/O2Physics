@@ -27,11 +27,8 @@ using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
 
-namespace o2::aod
-{
-
 struct SimpleApplyOnnxModelBindings {
-  ONNXModel simpleModel;
+  ml::OnnxModel simpleModel;
 
   Configurable<std::string> cfgPathCCDB{"ccdb-path", "Users/m/mkabus/PIDML", "base path to the CCDB directory with ONNX models"};
   Configurable<std::string> cfgCCDBURL{"ccdb-url", "http://alice-ccdb.cern.ch", "URL of the CCDB repository"};
@@ -44,11 +41,10 @@ struct SimpleApplyOnnxModelBindings {
   o2::ccdb::CcdbApi ccdbApi;
   std::map<std::string, std::string> metadata;
 
-  const AxisSpec axis{{100, 0, 1.0}, "output"};
   HistogramRegistry registry{
     "registry",
-    {{"outputVector", "outputVector", kTH1F, {axis}},
-     {"outputBinding", "outputBinding", kTH1F, {axis}}}};
+    {{"outputVector", "outputVector", {HistType::kTH1F, {{{100, 0, 1.0}}}}},
+     {"outputBinding", "outputBinding", {HistType::kTH1F, {{{100, 0, 1.0}}}}}}};
 
   void init(InitContext const&)
   {
