@@ -414,6 +414,7 @@ int runMassFitter(const TString& configFileName)
 
   for (unsigned int iSliceVar = 0; iSliceVar < nSliceVarBins; iSliceVar++) {
     Int_t iCanvas = floor(static_cast<float>(iSliceVar) / nCanvasesMax);
+    cout << "Plotting histogram " << iSliceVar << " pt: " << sliceVarMin[iSliceVar] << ", " << sliceVarMax[iSliceVar] << std::endl;
 
     hMassForFit[iSliceVar] = static_cast<TH1*>(hMass[iSliceVar]->Rebin(nRebin[iSliceVar]));
     TString ptTitle =

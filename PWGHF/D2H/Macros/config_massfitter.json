@@ -1,127 +1,136 @@
 {
-    "IsMC": false,
-    "InFileName": "hMasses.root",
-    "_InFileName": "download example file here https://cernbox.cern.ch/s/uoWicuRAVGArDsV",
-    "ReflFileName": "",
-    "OutFileName": "mInvFits.root",
-    "InputHistoName": [
-        "hMass_T_0.20_0.35",
-        "hMass_T_0.35_0.50",
-        "hMass_T_0.50_0.70",
-        "hMass_T_0.70_0.90",
-        "hMass_T_0.90_1.60"
-    ],
-    "PromptHistoName": [
-        "MC prompt histogram name array"
-    ],
-    "FDHistoName": [
-        "MC FD histogram name array"
-    ],
-    "ReflHistoName": [
-        "MC reflection histogram name array"
-    ],
-    "PromptSecPeakHistoName": [
-        "MC prompt second peak histogram name array"
-    ],
-    "FDSecPeakHistoName": [
-        "MC FD second peak histogram name array"
-    ],
-    "Particle": "LcToPKPi",
-    "_Particles": [
-        "Dplus",
-        "Ds",
-        "LcToPKPi",
-        "LcToPK0s",
-        "Dstar"
-    ],
-    "EnableRefl": false,
-    "FixSigma": false,
-    "SigmaFile": "",
-    "_SigmaFile": "fix sigma from file",
-    "FixSigmaManual": [
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "_FixSigmaManual": "fix sigma manually",
-    "FixMean": false,
-    "MeanFile": "",
-    "_MeanFile": "fix mean from file",
-    "SliceVarName": "T",
-    "SliceVarUnit": "ps",
-    "_SliceVarName, _SliceVarUnit": "e.g. pT, GeV/c or something else depending on user's needs",
-    "SliceVarMin": [
-        0.2,
-        0.35,
-        0.5,
-        0.7,
-        0.9
-    ],
-    "SliceVarMax": [
-        0.35,
-        0.5,
-        0.7,
-        0.9,
-        1.6
-    ],
-    "MassMin": [
-        2.12,
-        2.12,
-        2.12,
-        2.12,
-        2.12
-    ],
-    "MassMax": [
-        2.42,
-        2.42,
-        2.42,
-        2.42,
-        2.42
-    ],
-    "Rebin": [
-        4,
-        4,
-        4,
-        4,
-        4
-    ],
-    "InclSecPeak": false,
-    "UseLikelihood": false,
-    "_UseLikelihood": [
-        "true: likelihood fit",
-        "false: chi2 fit"
-    ],
-    "BkgFunc": [
-        2,
-        2,
-        2,
-        2,
-        2
-    ],
-    "_BkgFuncs": [
-        "0 for Expo",
-        "1 for Poly1",
-        "2 for Poly2",
-        "3 for Pow",
-        "4 for PowEx",
-        "5 for Poly3",
-        "6 for NoBkg"
-    ],
-    "SgnFunc": [
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "_SgnFuncs": [
-        "0 for SingleGaus",
-        "1 for DoubleGaus",
-        "2 for DoubleGausSigmaRatioPar",
-        "3 for GausSec"
-    ],
-    "drawBgPrefit": true,
-    "highlightPeakRegion": true
+  "IsMC": false,
+  "InFileName": "invmass_Lc_LHC22b1b_cpa099_dl001.root",
+  "_InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/invmass_Lc_LHC22b1b_cpa099_dl001.root",
+  "ReflFileName": "input reflection file directory",
+  "OutFileName": "fitter.root",
+  "InputHistoName": [
+    "proj_1.0-2.0",
+    "proj_2.0-4.0",
+    "proj_4.0-6.0",
+    "proj_6.0-8.0",
+    "proj_8.0-12.0",
+    "proj_12.0-24.0"
+  ],
+  "PromptHistoName": [
+    "MC prompt histogram name array"
+  ],
+  "FDHistoName": [
+    "MC FD histogram name array"
+  ],
+  "ReflHistoName": [
+    "MC reflection histogram name array"
+  ],
+  "PromptSecPeakHistoName": [
+    "MC prompt second peak histogram name array"
+  ],
+  "FDSecPeakHistoName": [
+    "MC FD second peak histogram name array"
+  ],
+  "Particle": "LcToPKPi",
+  "_Particles": [
+    "Dplus",
+    "Ds",
+    "LcToPKPi",
+    "LcToPK0s",
+    "Dstar"
+  ],
+  "EnableRefl": false,
+  "FixSigma": false,
+  "SigmaFile": "",
+  "_SigmaFile": "fix sigma from file",
+  "FixSigmaManual": [
+    0.0136,
+    0.0136,
+    0.0136,
+    0.0136,
+    0.0136,
+    0.0136
+  ],
+  "_FixSigmaManual": "fix sigma mannually",
+  "FixMean": false,
+  "MeanFile": "",
+  "_MeanFile": "fix mean from file",
+  "SliceVarName": "pT",
+  "SliceVarUnit": "GeV/c",
+  "_SliceVarName, _SliceVarUnit": "e.g. pT, GeV/c or something else depending on user's needs",
+  "SliceVarMin": [
+    1.0,
+    2.0,
+    4.0,
+    6.0,
+    8.0,
+    12
+  ],
+  "SliceVarMax": [
+    2.0,
+    4.0,
+    6.0,
+    8.0,
+    12.0,
+    24.0
+  ],
+  "MassMin": [
+    2.22,
+    2.22,
+    2.22,
+    2.22,
+    2.22,
+    2.22
+  ],
+  "MassMax": [
+    2.36,
+    2.36,
+    2.36,
+    2.36,
+    2.36,
+    2.36
+  ],
+  "Rebin": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+  ],
+  "InclSecPeak": false,
+  "UseLikelihood": true,
+  "_UseLikelihood": [
+    "true: likelihood fit",
+    "false: chi2 fit"
+  ],
+  "BkgFunc": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "_BkgFuncs": [
+    "0 for Expo",
+    "1 for Poly1",
+    "2 for Poly2",
+    "3 for Pow",
+    "4 for PowEx",
+    "5 for Poly3",
+    "6 for NoBkg"
+  ],
+  "SgnFunc": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "_SgnFuncs": [
+    "0 for SingleGaus",
+    "1 for DoubleGaus",
+    "2 for DoubleGausSigmaRatioPar",
+    "3 for GausSec"
+  ],
+  "drawBgPrefit": true,
+  "highlightPeakRegion": true
 }
