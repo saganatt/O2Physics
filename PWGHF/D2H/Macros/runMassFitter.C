@@ -29,8 +29,8 @@
 #include <TROOT.h>
 
 // if .h file not found, please include your local rapidjson/document.h and rapidjson/filereadstream.h here
-#include </home/mkabus/alice/sw/ubuntu2004_x86-64/RapidJSON/latest/include/rapidjson/document.h>
-#include </home/mkabus/alice/sw/ubuntu2004_x86-64/RapidJSON/latest/include/rapidjson/filereadstream.h>
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
 
 #endif
 
