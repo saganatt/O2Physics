@@ -29,8 +29,8 @@
 #include <TROOT.h>
 
 // if .h file not found, please include your local rapidjson/document.h and rapidjson/filereadstream.h here
-#include <rapidjson/document.h>
-#include <rapidjson/filereadstream.h>
+#include </home/mkabus/alice/sw/ubuntu2004_x86-64/RapidJSON/latest/include/rapidjson/document.h>
+#include </home/mkabus/alice/sw/ubuntu2004_x86-64/RapidJSON/latest/include/rapidjson/filereadstream.h>
 
 #endif
 
@@ -429,6 +429,7 @@ int runMassFitter(TString configFileName)
   }
 
   for (unsigned int iPt = 0; iPt < nPtBins; iPt++) {
+    cout << "Plotting histogram " << iPt << " pt: " << ptMin[iPt] << ", " << ptMax[iPt] << std::endl;
     Int_t iCanvas = floor((float)iPt / nCanvasesMax);
 
     hMassForFit[iPt] = reinterpret_cast<TH1F*>(hMass[iPt]->Rebin(nRebin[iPt]));
