@@ -39,10 +39,10 @@ HFInvMassFitter::HFInvMassFitter() : TNamed(),
                                      mMinMass(0),
                                      mMaxMass(5),
                                      mTypeOfBkgPdf(Expo),
-                                     mMassParticle(1.864),
+                                     mMassParticle(2.286),
                                      mTypeOfSgnPdf(SingleGaus),
                                      mTypeOfReflPdf(1),
-                                     mMass(1.865),
+                                     mMass(2.286),
                                      mSecMass(1.969),
                                      mMassErr(0.),
                                      mSigmaSgn(0.012),
@@ -108,7 +108,7 @@ HFInvMassFitter::HFInvMassFitter(const TH1F* histoToFit, Double_t minValue, Doub
                                                                                                                                      mMassParticle(1.864),
                                                                                                                                      mTypeOfSgnPdf(fitTypeSgn),
                                                                                                                                      mTypeOfReflPdf(1),
-                                                                                                                                     mMass(1.865),
+                                                                                                                                     mMass(2.286),
                                                                                                                                      mSecMass(1.969),
                                                                                                                                      mMassErr(0.),
                                                                                                                                      mSigmaSgn(0.012),
@@ -366,10 +366,10 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace)
   RooAbsPdf* bkgFuncPowExpo = new RooGamma("bkgFuncPowExpo", "background pdf", mass, PowExpoParam3, PowExpoParam4, massPi);
   workspace.import(*bkgFuncPowExpo);
   // signal pdf
-  RooRealVar mean("mean", "mean for signal fit", mMass, 1.86, 1.87);
+  RooRealVar mean("mean", "mean for signal fit", mMass, 2.26, 2.30);
   if (mBoundMean) {
-    mean.setMax(mMassUpLimit);
-    mean.setMin(mMassLowLimit);
+    mean.setMax(2.36);
+    mean.setMin(2.21);
   }
   // signal Guassian
   if (mFixedMean) {

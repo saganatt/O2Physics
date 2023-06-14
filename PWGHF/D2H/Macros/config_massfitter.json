@@ -1,12 +1,16 @@
 {
   "IsMC": false,
-  "InFileName": "input file directory ",
+  "InFileName": "invmass_Lc_LHC22b1b_cpa099_dl001.root",
+  "_InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/invmass_Lc_LHC22b1b_cpa099_dl001.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "output file directory",
+  "OutFileName": "fitter.root",
   "InputHistoName": [
-    "name array of the input data histogram for fit",
-    "once the projection macro is ready",
-    "these names will no longer need to be input manually"
+    "proj_1.0-2.0",
+    "proj_2.0-4.0",
+    "proj_4.0-6.0",
+    "proj_6.0-8.0",
+    "proj_8.0-12.0",
+    "proj_12.0-24.0"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
@@ -23,7 +27,7 @@
   "FDSecPeakHistoName": [
     "MC FD second peak histogram name array"
   ],
-  "Particle": "D0",
+  "Particle": "LcToPKPi",
   "_Particles": [
     "Dplus",
     "Ds",
@@ -31,17 +35,17 @@
     "LcToPK0s",
     "Dstar"
   ],
-  "EnableRefl": true,
+  "EnableRefl": false,
   "FixSigma": false,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
-    0.012,
-    0.012,
-    0.013,
-    0.015,
-    0.017,
-    0.02
+    0.0136,
+    0.0136,
+    0.0136,
+    0.0136,
+    0.0136,
+    0.0136
   ],
   "_FixSigmaManual": "fix sigma mannually",
   "FixMean": false,
@@ -53,7 +57,7 @@
     4.0,
     6.0,
     8.0,
-    12.0
+    12
   ],
   "PtMax": [
     2.0,
@@ -64,28 +68,28 @@
     24.0
   ],
   "MassMin": [
-    1.72,
-    1.72,
-    1.72,
-    1.72,
-    1.72,
-    1.72
+    2.22,
+    2.22,
+    2.22,
+    2.22,
+    2.22,
+    2.22
   ],
   "MassMax": [
-    2.03,
-    2.03,
-    2.03,
-    2.03,
-    2.03,
-    2.03
+    2.36,
+    2.36,
+    2.36,
+    2.36,
+    2.36,
+    2.36
   ],
   "Rebin": [
-    6,
-    6,
-    6,
-    6,
-    6,
-    6
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
   ],
   "InclSecPeak": false,
   "SigmaSecPeak": "",
@@ -98,12 +102,12 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
   ],
   "_BkgFuncs": [
     "0 for Expo",
