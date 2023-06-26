@@ -1,16 +1,16 @@
 {
   "IsMC": false,
-  "InFileName": "tree_Lc_LHC22o_small_noLcSel_dl001_histos.root",
+  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/noLcSel_dl001_cosp99/tree_noLcSel_dl001_cosp99_histos.root",
   "_InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/invmass_Lc_LHC22b1b_cpa099_dl001.root",
   "ReflFileName": "input reflection file directory",
   "OutFileName": "fitter_real.root",
   "InputHistoName": [
-    "h_bkg_mass_pt_1-2",
-    "h_bkg_mass_pt_2-4",
-    "h_bkg_mass_pt_4-6",
-    "h_bkg_mass_pt_6-8",
-    "h_bkg_mass_pt_8-12",
-    "h_bkg_mass_pt_12-24"
+    "h_sig_mass_pt_0-1",
+    "h_sig_mass_pt_2-4",
+    "h_sig_mass_pt_4-6",
+    "h_sig_mass_pt_6-8",
+    "h_sig_mass_pt_8-12",
+    "h_sig_mass_pt_12-24"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
