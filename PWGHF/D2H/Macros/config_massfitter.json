@@ -3,7 +3,7 @@
   "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/noLcSel_dl001_cosp99/tree_noLcSel_dl001_cosp99_histos.root",
   "_InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/invmass_Lc_LHC22b1b_cpa099_dl001.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "fitter_real.root",
+  "OutFileName": "fitter.root",
   "InputHistoName": [
     "h_sig_mass_pt_0-1",
     "h_sig_mass_pt_2-4",
