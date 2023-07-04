@@ -1,11 +1,10 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/noLcSel_dl001_cosp99/tree_noLcSel_dl001_cosp99_histos.root",
+  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/tree_Lc_LHC22o_small_noLcSel_dl0005_cosp70_all_histos_bins.root",
   "_InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/invmass_Lc_LHC22b1b_cpa099_dl001.root",
   "ReflFileName": "input reflection file directory",
   "OutFileName": "fitter.root",
   "InputHistoName": [
-    "h_total_mass_pt_1-2",
     "h_total_mass_pt_2-4",
     "h_total_mass_pt_4-6",
     "h_total_mass_pt_6-8",
@@ -44,7 +43,6 @@
     0.0136,
     0.0136,
     0.0136,
-    0.0136,
     0.0136
   ],
   "_FixSigmaManual": "fix sigma mannually",
@@ -55,15 +53,13 @@
   "SliceVarUnit": "GeV/c",
   "_SliceVarName, _SliceVarUnit": "e.g. pT, GeV/c or something else depending on user's needs",
   "SliceVarMin": [
-    1.0,
     2.0,
     4.0,
     6.0,
     8.0,
-    12
+    12.0
   ],
   "SliceVarMax": [
-    2.0,
     4.0,
     6.0,
     8.0,
@@ -71,28 +67,25 @@
     24.0
   ],
   "MassMin": [
-    2.22,
-    2.22,
-    2.22,
-    2.22,
-    2.22,
-    2.22
+    2.18,
+    2.18,
+    2.18,
+    2.18,
+    2.18
   ],
   "MassMax": [
-    2.36,
-    2.36,
-    2.36,
-    2.36,
-    2.36,
-    2.36
+    2.38,
+    2.38,
+    2.38,
+    2.38,
+    2.38
   ],
   "Rebin": [
-    6,
-    6,
-    6,
-    6,
-    6,
-    6
+    18,
+    18,
+    18,
+    24,
+    24
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
@@ -101,7 +94,6 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
-    2,
     2,
     2,
     2,
@@ -118,7 +110,6 @@
     "6 for NoBkg"
   ],
   "SgnFunc": [
-    0,
     0,
     0,
     0,
