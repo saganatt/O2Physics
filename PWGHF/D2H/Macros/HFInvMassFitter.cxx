@@ -586,6 +586,9 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     if (mHistoTemplateRefl) {
       mReflFrame->Draw("same");
     }
+    float max = mHistoInvMass->GetMaximum();
+    float min = mHistoInvMass->GetMinimum();
+    mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
   }
 }
 
