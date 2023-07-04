@@ -449,9 +449,9 @@ int runMassFitter(TString configFileName)
 
     Double_t reflOverSgn = 0;
     double markerSize = 1.;
-    if (nPtBins > 15) {
+    //if (nPtBins > 15) {
       markerSize = 0.5;
-    }
+    //}
 
     if (isMc) {
       HFInvMassFitter* massFitter;
