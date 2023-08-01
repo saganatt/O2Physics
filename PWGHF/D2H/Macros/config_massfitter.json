@@ -1,9 +1,8 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/tree_Lc_LHC22o_small_noLcSel_dl0005_cosp70_all_histos_bins.root",
-  "_InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/invmass_Lc_LHC22b1b_cpa099_dl001.root",
+  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/noLcSel_dl0005_cosp70/tree_Lc_LHC22b1b_noLcSel_dl0005_cosp70_histos.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "fitter.root",
+  "OutFileName": "fitter_LHC22b1b_conf2.root",
   "InputHistoName": [
     "h_total_mass_pt_2-4",
     "h_total_mass_pt_4-6",
@@ -84,8 +83,8 @@
     18,
     18,
     18,
-    24,
-    24
+    18,
+    18
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
