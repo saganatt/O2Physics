@@ -29,13 +29,10 @@
 #include <TROOT.h>
 
 // if .h file not found, please include your local rapidjson/document.h and rapidjson/filereadstream.h here
-#include </home/mkabus/alice/sw/ubuntu2004_x86-64/RapidJSON/v1.1.0-alice2-8/include/rapidjson/document.h>
-#include </home/mkabus/alice/sw/ubuntu2004_x86-64/RapidJSON/v1.1.0-alice2-8/include/rapidjson/filereadstream.h>
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
 
 #endif
-//#if !defined(__CINT__) || defined(__CLING__)
-//gSystem->SetIncludePath("-I${ALIBUILD_WORK_DIR}/ubuntu2004_x86-64/RapidJSON/v1.1.0-alice2-8/include/");
-//#endif
 
 using namespace std;
 using namespace rapidjson;
@@ -274,8 +271,6 @@ int runMassFitter(TString configFileName)
     hMass[iPt]->SetDirectory(0);
   }
   inputFile->Close();
-
-  std::cout << "Finished initialization" << std::endl;
 
   // define output histos
   auto hRawYields = new TH1D("hRawYields", ";#it{p}_{T} (GeV/#it{c});raw yield",
