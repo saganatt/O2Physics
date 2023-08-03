@@ -1,14 +1,14 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/noLcSel_dl0005_cosp70/tree_Lc_LHC22b1b_noLcSel_dl0005_cosp70_histos.root",
+  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/invmass_LHC22o_small_noLcSel_dl0005_cosp70_dca.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "fitter_LHC22b1b_conf2.root",
+  "OutFileName": "fitter_LHC22o_dca.root",
   "InputHistoName": [
-    "h_total_mass_pt_2-4",
-    "h_total_mass_pt_4-6",
-    "h_total_mass_pt_6-8",
-    "h_total_mass_pt_8-12",
-    "h_total_mass_pt_12-24"
+    "proj_2.0-4.0",
+    "proj_4.0-6.0",
+    "proj_6.0-8.0",
+    "proj_8.0-12.0",
+    "proj_12.0-24.0"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
@@ -80,11 +80,11 @@
     2.38
   ],
   "Rebin": [
-    18,
-    18,
-    18,
-    18,
-    18
+    6,
+    6,
+    6,
+    9,
+    9
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
