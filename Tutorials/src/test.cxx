@@ -172,7 +172,7 @@ struct DeltaEtaHistograms {
 
       for (auto& [track1, track2] : combinations(CombinationsStrictlyUpperIndexPolicy(groupedTracks2, groupedTracks2))) {
         float deltaEta = track1.eta() - track2.eta();
-        LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+        //LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
       }
 
