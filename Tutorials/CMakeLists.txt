@@ -9,15 +9,15 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-add_subdirectory(Skimming)
-add_subdirectory(OpenData)
-add_subdirectory(ML)
-add_subdirectory(PWGEM)
-add_subdirectory(PWGUD)
-add_subdirectory(PWGLF)
-add_subdirectory(PWGCF)
-add_subdirectory(PWGMM)
-add_subdirectory(PWGHF)
+#add_subdirectory(Skimming)
+#add_subdirectory(OpenData)
+#add_subdirectory(ML)
+#add_subdirectory(PWGEM)
+#add_subdirectory(PWGUD)
+#add_subdirectory(PWGLF)
+#add_subdirectory(PWGCF)
+#add_subdirectory(PWGMM)
+#add_subdirectory(PWGHF)
 
 o2physics_add_dpl_workflow(histogram-track-selection
                     SOURCES src/histogramTrackSelection.cxx
@@ -226,5 +226,10 @@ o2physics_add_dpl_workflow(preprocess
 
 o2physics_add_dpl_workflow(consume
                   SOURCES src/consume.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework
+                  COMPONENT_NAME AnalysisTutorial)
+
+o2physics_add_dpl_workflow(test-loops
+                  SOURCES src/test.cxx
                   PUBLIC_LINK_LIBRARIES O2::Framework
                   COMPONENT_NAME AnalysisTutorial)
