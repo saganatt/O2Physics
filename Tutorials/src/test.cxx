@@ -53,6 +53,8 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
+      int offset1 = 0;
+      int offset2 = 0;
       int counterT = 0;
 
       LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
@@ -65,8 +67,11 @@ struct DeltaEtaHistograms {
         if (track1.index() == groupedTracks1.size() - 1) {
           break;
         }
+        offset2 = 0;
         for (auto& track2 : groupedTracks2) {
-          if (track1.index() < track2.index()) {
+          if (offset1 < offset2) {
+            // Note: the different partitions have elements of different index at their starts.
+            // Strictly uppers emits (0, 1)th element of each partition, but a double loop with index check emits (0, 0) instead!
             if (counterT >= 100) {
               break;
             }
@@ -75,7 +80,9 @@ struct DeltaEtaHistograms {
             deltaEtaTwoForLoops->Fill(deltaEta);
             counterT++;
           }
+          offset2++;
         }
+        offset1++;
       }
 
       counter++;
