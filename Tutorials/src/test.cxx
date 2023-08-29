@@ -33,6 +33,8 @@ struct DeltaEtaHistograms {
 
   bool processedLoops = false;
   bool processedStrictlyUpper = false;
+  bool processedUpper = false;
+  bool processedFull = false;
 
   void processTwoForLoops(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
@@ -51,14 +53,27 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
+      int counterT = 0;
+
       LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& track1 : groupedTracks1) {
+        if (counterT >= 100) {
+          break;
+        }
+        // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
+        if (track1.index() == groupedTracks1.size() - 1) {
+          break;
+        }
         for (auto& track2 : groupedTracks2) {
           if (track1.index() < track2.index()) {
+            if (counterT >= 100) {
+              break;
+            }
             float deltaEta = track1.eta() - track2.eta();
             LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
             deltaEtaTwoForLoops->Fill(deltaEta);
+            counterT++;
           }
         }
       }
@@ -95,6 +110,9 @@ struct DeltaEtaHistograms {
 
   void processFullIndexPolicy(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
+    if (processedFull) {
+      return;
+    }
     int counter = 0;
     for (auto& c : collisions) {
       if (counter >= 1) {
@@ -107,23 +125,37 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
+      int counterT = 0;
+
       LOG(info) << "Full policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsFullIndexPolicy(groupedTracks1, groupedTracks2))) {
+        // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
+        if (track1.index() == groupedTracks1.size() - 1) {
+          break;
+        }
         if (track1.index() < track2.index()) {
+          if (counterT >= 100) {
+            break;
+          }
           float deltaEta = track1.eta() - track2.eta();
           LOG(info) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaFull->Fill(deltaEta);
+          counterT++;
         }
       }
 
       counter++;
     }
+    processedFull = true;
   }
   PROCESS_SWITCH(DeltaEtaHistograms, processFullIndexPolicy, "Enable full index", false);
 
   void processUpperIndexPolicy(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
+    if (processedUpper) {
+      return;
+    }
     int counter = 0;
     for (auto& c : collisions) {
       if (counter >= 1) {
@@ -136,18 +168,29 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
+      int counterT = 0;
+
       LOG(info) << "Upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
+        // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
+        if (track1.index() == groupedTracks1.size() - 1) {
+          break;
+        }
         if (track1.index() < track2.index()) {
+          if (counterT >= 100) {
+            break;
+          }
           float deltaEta = track1.eta() - track2.eta();
           LOG(info) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaUpper->Fill(deltaEta);
+          counterT++;
         }
       }
 
       counter++;
     }
+    processedUpper = true;
   }
   PROCESS_SWITCH(DeltaEtaHistograms, processUpperIndexPolicy, "Enable upper index", false);
 
@@ -168,12 +211,18 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
+      int counterT = 0;
+
       LOG(info) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsStrictlyUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
+        if (counterT >= 100) {
+          break;
+        }
         float deltaEta = track1.eta() - track2.eta();
         LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
+        counterT++;
       }
 
       counter++;
