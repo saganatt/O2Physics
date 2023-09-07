@@ -36,17 +36,22 @@ struct DeltaEtaHistograms {
   bool processedUpper = false;
   bool processedFull = false;
 
+  int colMax = 10000000;
+  int pairMax = 1000000;
+
   void processTwoForLoops(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
-    if (processedLoops) {
-      return;
-    }
+    // if (processedLoops) {
+    //   LOG(info) << "Loops processed, skipping dataframe";
+    //   return;
+    // }
 
     int counter = 0;
     for (auto& c : collisions) {
-      if (counter >= 1) {
-        break;
-      }
+      // if (counter >= colMax) {
+      //  LOG(info) << "No more collisions";
+      // break;
+      // }
 
       Partition<aod::FullTracks> groupedTracks1 = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt < 0.5f);
       Partition<aod::FullTracks> groupedTracks2 = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt >= 0.5f && aod::track::pt < 1.0f);
@@ -57,13 +62,13 @@ struct DeltaEtaHistograms {
       int offset2 = 0;
       int counterT = 0;
 
-      LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      // LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& track1 : groupedTracks1) {
-        if (counterT >= 100) {
-          break;
-        }
-        // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
+        // if (counterT >= pairMax) {
+        //   break;
+        // }
+        //  In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
         if (track1.index() == groupedTracks1.size() - 1) {
           break;
         }
@@ -72,11 +77,11 @@ struct DeltaEtaHistograms {
           if (offset1 < offset2) {
             // Note: the different partitions have elements of different index at their starts.
             // Strictly uppers emits (0, 1)th element of each partition, but a double loop with index check emits (0, 0) instead!
-            if (counterT >= 100) {
-              break;
-            }
+            // if (counterT >= pairMax) {
+            //  break;
+            //}
             float deltaEta = track1.eta() - track2.eta();
-            LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+            // LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
             deltaEtaTwoForLoops->Fill(deltaEta);
             counterT++;
           }
@@ -95,7 +100,7 @@ struct DeltaEtaHistograms {
   {
     int counter = 0;
     for (auto& c : collisions) {
-      if (counter >= 1) {
+      if (counter >= colMax) {
         break;
       }
 
@@ -122,7 +127,7 @@ struct DeltaEtaHistograms {
     }
     int counter = 0;
     for (auto& c : collisions) {
-      if (counter >= 1) {
+      if (counter >= colMax) {
         break;
       }
 
@@ -142,7 +147,7 @@ struct DeltaEtaHistograms {
           break;
         }
         if (track1.index() < track2.index()) {
-          if (counterT >= 100) {
+          if (counterT >= pairMax) {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
@@ -165,7 +170,7 @@ struct DeltaEtaHistograms {
     }
     int counter = 0;
     for (auto& c : collisions) {
-      if (counter >= 1) {
+      if (counter >= colMax) {
         break;
       }
 
@@ -185,7 +190,7 @@ struct DeltaEtaHistograms {
           break;
         }
         if (track1.index() < track2.index()) {
-          if (counterT >= 100) {
+          if (counterT >= pairMax) {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
@@ -203,14 +208,14 @@ struct DeltaEtaHistograms {
 
   void processStrictlyUpper(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
-    if (processedStrictlyUpper) {
-      return;
-    }
+    // if (processedStrictlyUpper) {
+    //   return;
+    // }
     int counter = 0;
     for (auto& c : collisions) {
-      if (counter >= 1) {
-        break;
-      }
+      // if (counter >= colMax) {
+      //   break;
+      // }
 
       // create the partition groupedTracks
       Partition<aod::FullTracks> groupedTracks1 = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt < 0.5f);
@@ -220,14 +225,14 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      // LOG(info) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsStrictlyUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
-        if (counterT >= 100) {
-          break;
-        }
+        // if (counterT >= pairMax) {
+        //   break;
+        // }
         float deltaEta = track1.eta() - track2.eta();
-        LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+        // LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
         counterT++;
       }
