@@ -36,7 +36,7 @@ struct DeltaEtaHistograms {
   bool processedUpper = false;
   bool processedFull = false;
 
-  int colMax = 10000000;
+  int colMax = 10;
   int pairMax = 1000000;
 
   void processTwoForLoops(aod::Collisions const& collisions, aod::FullTracks& tracks)
@@ -48,10 +48,10 @@ struct DeltaEtaHistograms {
 
     int counter = 0;
     for (auto& c : collisions) {
-      // if (counter >= colMax) {
-      //  LOG(info) << "No more collisions";
-      // break;
-      // }
+      if (counter >= colMax) {
+        LOG(info) << "No more collisions";
+        break;
+      }
 
       Partition<aod::FullTracks> groupedTracks1 = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt < 0.5f);
       Partition<aod::FullTracks> groupedTracks2 = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt >= 0.5f && aod::track::pt < 1.0f);
@@ -213,9 +213,9 @@ struct DeltaEtaHistograms {
     // }
     int counter = 0;
     for (auto& c : collisions) {
-      // if (counter >= colMax) {
-      //   break;
-      // }
+      if (counter >= colMax) {
+        break;
+      }
 
       // create the partition groupedTracks
       Partition<aod::FullTracks> groupedTracks1 = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt < 0.5f);
@@ -223,7 +223,7 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
-      int counterT = 0;
+      // int counterT = 0;
 
       // LOG(info) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
@@ -234,7 +234,7 @@ struct DeltaEtaHistograms {
         float deltaEta = track1.eta() - track2.eta();
         // LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
-        counterT++;
+        // counterT++;
       }
 
       counter++;
