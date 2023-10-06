@@ -36,7 +36,7 @@ struct DeltaEtaHistograms {
   bool processedUpper = false;
   bool processedFull = false;
 
-  int colMax = 10;
+  int colMax = 100;
   int pairMax = 1000000;
 
   void processTwoForLoops(aod::Collisions const& collisions, aod::FullTracks& tracks)
