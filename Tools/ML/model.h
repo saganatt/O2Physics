@@ -116,7 +116,26 @@ class OnnxModel
   template <typename T>
   void bindIO(const T& table, std::vector<Ort::Value>& outputTensors)
   {
-    mBinding->BindInput("fX", table.asArrowTable()->GetColumnByName("fX"));
+    std::shared_ptr<ChunkedArray> colX = table.asArrowTable()->GetColumnByName("fX");
+    if (colX == nullptr) {
+      LOG(fatal) << "Column fX not found in the input, exiting";
+    }
+    PandasOptions c_options = _convert_pandas_options(options);
+    // pyRef is python wrapper for ChunkedArray which owns the array object.
+    // Anyways, its ownership is lost during the conversion, so we don't need pyRef.
+    // Put a dummy argument or implement our C++ version of ConvertChunkedArrayToPandas?
+    // There are more complicated internals like locks. What would we need...?
+    PyObject* pyRef;
+    PyObject* pyOut;
+
+    auto status = ConvertChunkedArrayToPandas(options, colX, pyRef, &pyOut);
+    if (!status.ok()) {
+      LOG(fatal) << "Conversion of column fX to pandas failed";
+    }
+    // This converts to numpy in
+    values = PyObject_to_object(out)
+
+               mBinding->BindInput("fX", table.asArrowTable()->GetColumnByName("fX"));
     mBinding->BindInput("fY", table.asArrowTable()->GetColumnByName("fY"));
     mBinding->BindInput("fPt", table.asArrowTable()->GetColumnByName("fPt"));
     mBinding->BindInput("fEta", table.asArrowTable()->GetColumnByName("fEta"));
@@ -128,7 +147,7 @@ class OnnxModel
 
     Ort::MemoryInfo outputMemInfo{"Cpu", OrtDeviceAllocator, 0, OrtMemTypeDefault};
     mBinding->BindOutput("output", outputMemInfo);
-    //mBinding.BindOutput("output", outputTensors);
+    // mBinding.BindOutput("output", outputTensors);
   }
 
   // Reset session
