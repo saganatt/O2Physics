@@ -31,13 +31,13 @@ struct DeltaEtaHistograms {
   OutputObj<TH1F> deltaEtaUpper{TH1F("deltaEtaUpper", "#Delta#eta", 40, -2, 2)};
   OutputObj<TH1F> deltaEtaStrictlyUpper{TH1F("deltaEtaStrictlyUpper", "#Delta#eta", 40, -2, 2)};
 
+  Configurable<int32_t> colMax{"colMax", 100, "collisions limit"};
+  Configurable<int32_t> pairMax{"pairMax", 1000000, "pairs limit"};
+
   bool processedLoops = false;
   bool processedStrictlyUpper = false;
   bool processedUpper = false;
   bool processedFull = false;
-
-  int colMax = 100;
-  int pairMax = 1000000;
 
   void processTwoForLoops(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
