@@ -62,7 +62,7 @@ struct DeltaEtaHistograms {
       int offset2 = 0;
       int counterT = 0;
 
-      // LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& track1 : groupedTracks1) {
         // if (counterT >= pairMax) {
@@ -81,7 +81,7 @@ struct DeltaEtaHistograms {
             //  break;
             //}
             float deltaEta = track1.eta() - track2.eta();
-            // LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+            LOG(debug) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
             deltaEtaTwoForLoops->Fill(deltaEta);
             counterT++;
           }
@@ -139,7 +139,7 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Full policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Full policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsFullIndexPolicy(groupedTracks1, groupedTracks2))) {
         // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
@@ -151,7 +151,7 @@ struct DeltaEtaHistograms {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
-          LOG(info) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+          LOG(debug) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaFull->Fill(deltaEta);
           counterT++;
         }
@@ -182,7 +182,7 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
         // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
@@ -194,7 +194,7 @@ struct DeltaEtaHistograms {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
-          LOG(info) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+          LOG(debug) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaUpper->Fill(deltaEta);
           counterT++;
         }
@@ -225,14 +225,14 @@ struct DeltaEtaHistograms {
 
       // int counterT = 0;
 
-      // LOG(info) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsStrictlyUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
         // if (counterT >= pairMax) {
         //   break;
         // }
         float deltaEta = track1.eta() - track2.eta();
-        // LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+        LOG(debug) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
         // counterT++;
       }
