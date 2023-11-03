@@ -59,8 +59,6 @@ struct DeltaEtaHistograms {
       groupedTracks1.bindTable(tracks);
       groupedTracks2.bindTable(tracks);
 
-      int offset1 = 0;
-      int offset2 = 0;
       int counterT = 0;
 
       LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
@@ -70,25 +68,20 @@ struct DeltaEtaHistograms {
           break;
         }
         //  In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
-        if (track1.index() == groupedTracks1.size() - 1) {
+        if (track1.filteredIndex() == groupedTracks1.size() - 1) {
           break;
         }
-        offset2 = 0;
         for (auto& track2 : groupedTracks2) {
-          if (offset1 < offset2) {
-            // Note: the different partitions have elements of different index at their starts.
-            // Strictly uppers emits (0, 1)th element of each partition, but a double loop with index check emits (0, 0) instead!
+          if (track1.filteredIndex() < track2.filteredIndex()) {
             if (counterT >= pairMax) {
               break;
             }
             float deltaEta = track1.eta() - track2.eta();
-            LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+            LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
             deltaEtaTwoForLoops->Fill(deltaEta);
             counterT++;
           }
-          offset2++;
         }
-        offset1++;
       }
 
       counter++;
@@ -154,7 +147,7 @@ struct DeltaEtaHistograms {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
-          LOG(info) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+          LOG(info) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaFull->Fill(deltaEta);
           counterT++;
         }
@@ -199,7 +192,7 @@ struct DeltaEtaHistograms {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
-          LOG(info) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+          LOG(info) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaUpper->Fill(deltaEta);
           counterT++;
         }
@@ -239,7 +232,7 @@ struct DeltaEtaHistograms {
           break;
         }
         float deltaEta = track1.eta() - track2.eta();
-        LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.index() << ", " << track2.index() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+        LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
         counterT++;
       }
