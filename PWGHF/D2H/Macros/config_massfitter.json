@@ -1,8 +1,8 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/rect-cuts/Lc/invmass_LHC22o_small_noLcSel_dl0005_cosp70_dca.root",
+  "InFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/invmass.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "fitter_LHC22o_dca.root",
+  "OutFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/fitter.root",
   "InputHistoName": [
     "proj_2.0-4.0",
     "proj_4.0-6.0",
