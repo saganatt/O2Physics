@@ -18,6 +18,7 @@
 #include "Framework/ASoAHelpers.h"
 #include <TH1F.h>
 #include <cmath>
+#include <cstdlib>
 
 using namespace o2;
 using namespace o2::soa;
@@ -34,6 +35,7 @@ struct DeltaEtaHistograms {
   Configurable<int32_t> colMax{"colMax", 100, "collisions limit"};
   Configurable<int32_t> pairMax{"pairMax", 1000000, "pairs limit"};
   Configurable<int32_t> dfMax{"dfMax", 100, "dataframes limit"};
+  Configurable<bool> randomSwap{"randomSwap", true, "swap randomly elements in a pair"};
 
   int countTwoLoops = 0;
   int countFull = 0;
@@ -75,6 +77,9 @@ struct DeltaEtaHistograms {
               break;
             }
             float deltaEta = track1.eta() - track2.eta();
+            if (randomSwap && std::rand() > (RAND_MAX / 2)) {
+              deltaEta = track2.eta() - track1.eta();
+            }
             // LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
             deltaEtaTwoForLoops->Fill(deltaEta);
             counterT++;
@@ -144,6 +149,9 @@ struct DeltaEtaHistograms {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
+          if (randomSwap && std::rand() > (RAND_MAX / 2)) {
+            deltaEta = track2.eta() - track1.eta();
+          }
           // LOG(info) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaFull->Fill(deltaEta);
           counterT++;
@@ -188,6 +196,9 @@ struct DeltaEtaHistograms {
             break;
           }
           float deltaEta = track1.eta() - track2.eta();
+          if (randomSwap && std::rand() > (RAND_MAX / 2)) {
+            deltaEta = track2.eta() - track1.eta();
+          }
           // LOG(info) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaUpper->Fill(deltaEta);
           counterT++;
@@ -227,6 +238,9 @@ struct DeltaEtaHistograms {
           break;
         }
         float deltaEta = track1.eta() - track2.eta();
+        if (randomSwap && std::rand() > (RAND_MAX / 2)) {
+          deltaEta = track2.eta() - track1.eta();
+        }
         // LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
         counterT++;
