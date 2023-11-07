@@ -1,8 +1,8 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22b1b/invmass.root",
+  "InFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/invmass.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22b1b/fitter.root",
+  "OutFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/fitter.root",
   "InputHistoName": [
     "proj_2.0-4.0",
     "proj_4.0-6.0",
@@ -80,11 +80,11 @@
     2.38
   ],
   "Rebin": [
-    6,
-    6,
-    6,
-    9,
-    9
+    1,
+    1,
+    1,
+    1,
+    1
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
