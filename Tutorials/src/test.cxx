@@ -80,7 +80,10 @@ struct DeltaEtaHistograms {
             if (randomSwap && std::rand() > (RAND_MAX / 2)) {
               deltaEta = track2.eta() - track1.eta();
             }
-            LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+            LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex()
+                      << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta
+                      << " pt: " << track1.pt() << ", " << track2.pt()
+                      << " phi: " << track1.phi() << ", " << track2.phi();
             deltaEtaTwoForLoops->Fill(deltaEta);
             counterT++;
           }
