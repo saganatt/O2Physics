@@ -1,0 +1,1 @@
+{"columns_for_training": ["fPx", "fPy", "fPz", "fSign", "fX", "fY", "fZ", "fAlpha", "fTrackType", "fTPCNClsShared", "fDcaXY", "fDcaZ", "P", "fTPCSignal"]}
