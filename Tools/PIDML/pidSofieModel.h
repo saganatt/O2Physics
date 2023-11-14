@@ -9,7 +9,7 @@
 // granted to it by virtue of its status as an Intergovernmental Organization
 // or submit itself to any jurisdiction.
 
-/// \file pidSophieModel.h
+/// \file pidSofieModel.h
 /// \brief A class that manages PID ML ONNX model using ROOT TMVA SOPHIE.
 ///
 /// \author Maja Kabus <mkabus@cern.ch>
@@ -61,9 +61,9 @@ bool readJsonFile(const std::string& config, rapidjson::Document& d)
 }
 } // namespace
 
-struct PidSophieModel {
+struct PidSofieModel {
  public:
-  PidSophieModel(std::string& localPath, std::string& ccdbPath, bool useCCDB, o2::ccdb::CcdbApi& ccdbApi, uint64_t timestamp, int pid, PidMLDetector detector, double minCertainty) : mDetector(detector), mPid(pid), mMinCertainty(minCertainty)
+  PidSofieModel(std::string& localPath, std::string& ccdbPath, bool useCCDB, o2::ccdb::CcdbApi& ccdbApi, uint64_t timestamp, int pid, PidMLDetector detector, double minCertainty) : mDetector(detector), mPid(pid), mMinCertainty(minCertainty)
   {
     std::string modelFile;
     loadInputFiles(localPath, ccdbPath, useCCDB, ccdbApi, timestamp, pid, modelFile);
@@ -71,12 +71,12 @@ struct PidSophieModel {
     gInterpreter.Declare("#include <" + modelFile + ".hxx>");
   }
 
-  PidSophieModel() = default;
-  PidSophieModel(PidSophieModel&&) = default;
-  PidSophieModel& operator=(PidSophieModel&&) = default;
-  PidSophieModel(const PidSophieModel&) = delete;
-  PidSophieModel& operator=(const PidSophieModel&) = delete;
-  ~PidSophieModel() = default;
+  PidSofieModel() = default;
+  PidSofieModel(PidSofieModel&&) = default;
+  PidSofieModel& operator=(PidSofieModel&&) = default;
+  PidSofieModel(const PidSofieModel&) = delete;
+  PidSofieModel& operator=(const PidSofieModel&) = delete;
+  ~PidSofieModel() = default;
 
   template <typename T>
   float applyModel(const T& track)
