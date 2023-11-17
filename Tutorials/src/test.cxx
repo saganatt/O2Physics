@@ -26,7 +26,8 @@ using namespace o2::framework;
 using namespace o2::framework::expressions;
 
 struct DeltaEtaHistograms {
-  OutputObj<TH1F> deltaEtaTwoForLoops{TH1F("deltaEtaTwoForLoops", "#Delta#eta", 40, -2, 2)};
+  OutputObj<TH1F> deltaEtaTwoForLoopsDiffPartitions{TH1F("deltaEtaTwoForLoopsDiffPartitions", "#Delta#eta", 40, -2, 2)};
+  OutputObj<TH1F> deltaEtaTwoForLoopsSamePartition{TH1F("deltaEtaTwoForLoopsSamePartition", "#Delta#eta", 40, -2, 2)};
   OutputObj<TH1F> deltaEtaFullNoIndexCheck{TH1F("deltaEtaFullNoIndexCheck", "#Delta#eta", 40, -2, 2)};
   OutputObj<TH1F> deltaEtaFull{TH1F("deltaEtaFull", "#Delta#eta", 40, -2, 2)};
   OutputObj<TH1F> deltaEtaUpper{TH1F("deltaEtaUpper", "#Delta#eta", 40, -2, 2)};
@@ -37,14 +38,15 @@ struct DeltaEtaHistograms {
   Configurable<int32_t> dfMax{"dfMax", 100, "dataframes limit"};
   Configurable<bool> randomSwap{"randomSwap", true, "swap randomly elements in a pair"};
 
-  int countTwoLoops = 0;
+  int countTwoLoopsDiffPartitions = 0;
+  int countTwoLoopsSamePartition = 0;
   int countFull = 0;
   int countUpper = 0;
   int countStrictlyUpper = 0;
 
-  void processTwoForLoops(aod::Collisions const& collisions, aod::FullTracks& tracks)
+  void processTwoForLoopsDiffPartitions(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
-    if (countTwoLoops >= dfMax) {
+    if (countTwoLoopsDiffPartitions >= dfMax) {
       return;
     }
 
@@ -61,7 +63,7 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& track1 : groupedTracks1) {
         if (counterT >= pairMax) {
@@ -80,11 +82,11 @@ struct DeltaEtaHistograms {
             if (randomSwap && std::rand() > (RAND_MAX / 2)) {
               deltaEta = track2.eta() - track1.eta();
             }
-            LOG(info) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex()
+            LOG(debug) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex()
                       << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta
                       << " pt: " << track1.pt() << ", " << track2.pt()
                       << " phi: " << track1.phi() << ", " << track2.phi();
-            deltaEtaTwoForLoops->Fill(deltaEta);
+            deltaEtaTwoForLoopsDiffPartitions->Fill(deltaEta);
             counterT++;
           }
         }
@@ -92,9 +94,61 @@ struct DeltaEtaHistograms {
 
       counter++;
     }
-    countTwoLoops++;
+    countTwoLoopsDiffPartitions++;
   }
-  PROCESS_SWITCH(DeltaEtaHistograms, processTwoForLoops, "Enable two for loops", true);
+  PROCESS_SWITCH(DeltaEtaHistograms, processTwoForLoopsDiffPartitions, "Enable two for loops on different partitions", true);
+
+  void processTwoForLoopsSamePartition(aod::Collisions const& collisions, aod::FullTracks& tracks)
+  {
+    if (countTwoLoopsSamePartition >= dfMax) {
+      return;
+    }
+
+    int counter = 0;
+    for (auto& c : collisions) {
+      if (counter >= colMax) {
+        break;
+      }
+
+      Partition<aod::FullTracks> groupedTracks = (aod::track::collisionId == c.globalIndex()) && (aod::track::pt >= 0.5f && aod::track::pt < 1.0f);
+      groupedTracks.bindTable(tracks);
+
+      int counterT = 0;
+
+      LOG(debug) << "Two loops collision: " << c.globalIndex() << " tracks: " << groupedTracks.size() << ", " << groupedTracks.size();
+
+      for (auto& track1 : groupedTracks) {
+        if (counterT >= pairMax) {
+          break;
+        }
+        //  In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
+        if (track1.filteredIndex() == groupedTracks.size() - 1) {
+          break;
+        }
+        for (auto& track2 : groupedTracks) {
+          if (track1.filteredIndex() < track2.filteredIndex()) {
+            if (counterT >= pairMax) {
+              break;
+            }
+            float deltaEta = track1.eta() - track2.eta();
+            if (randomSwap && std::rand() > (RAND_MAX / 2)) {
+              deltaEta = track2.eta() - track1.eta();
+            }
+            LOG(debug) << "Two loops filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex()
+                      << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta
+                      << " pt: " << track1.pt() << ", " << track2.pt()
+                      << " phi: " << track1.phi() << ", " << track2.phi();
+            deltaEtaTwoForLoopsSamePartition->Fill(deltaEta);
+            counterT++;
+          }
+        }
+      }
+
+      counter++;
+    }
+    countTwoLoopsSamePartition++;
+  }
+  PROCESS_SWITCH(DeltaEtaHistograms, processTwoForLoopsSamePartition, "Enable two for loops on same partition", true);
 
   void processFullIndexPolicyNoIndexCheck(aod::Collisions const& collisions, aod::FullTracks& tracks)
   {
@@ -140,7 +194,7 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Full policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Full policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsFullIndexPolicy(groupedTracks1, groupedTracks2))) {
         // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
@@ -155,7 +209,7 @@ struct DeltaEtaHistograms {
           if (randomSwap && std::rand() > (RAND_MAX / 2)) {
             deltaEta = track2.eta() - track1.eta();
           }
-          LOG(info) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+          LOG(debug) << "Full policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaFull->Fill(deltaEta);
           counterT++;
         }
@@ -187,7 +241,7 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
         // In strictly upper 1st element can be max groupedTracks1.size() - 2 as strictly upper is designed for avoiding repetitions in the case of same-table iteration
@@ -202,7 +256,7 @@ struct DeltaEtaHistograms {
           if (randomSwap && std::rand() > (RAND_MAX / 2)) {
             deltaEta = track2.eta() - track1.eta();
           }
-          LOG(info) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+          LOG(debug) << "Upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
           deltaEtaUpper->Fill(deltaEta);
           counterT++;
         }
@@ -234,7 +288,7 @@ struct DeltaEtaHistograms {
 
       int counterT = 0;
 
-      LOG(info) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
+      LOG(debug) << "Strictly upper policy collision: " << c.globalIndex() << " tracks: " << groupedTracks1.size() << ", " << groupedTracks2.size();
 
       for (auto& [track1, track2] : combinations(CombinationsStrictlyUpperIndexPolicy(groupedTracks1, groupedTracks2))) {
         if (counterT >= pairMax) {
@@ -244,7 +298,7 @@ struct DeltaEtaHistograms {
         if (randomSwap && std::rand() > (RAND_MAX / 2)) {
           deltaEta = track2.eta() - track1.eta();
         }
-        LOG(info) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
+        LOG(debug) << "Strictly upper policy filling for tracks: " << track1.globalIndex() << ", " << track2.globalIndex() << " ind: " << track1.filteredIndex() << ", " << track2.filteredIndex() << " eta: " << track1.eta() << ", " << track2.eta() << " delta: " << deltaEta;
         deltaEtaStrictlyUpper->Fill(deltaEta);
         counterT++;
       }
