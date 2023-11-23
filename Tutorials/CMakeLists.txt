@@ -233,3 +233,13 @@ o2physics_add_dpl_workflow(test-loops
                   SOURCES src/test.cxx
                   PUBLIC_LINK_LIBRARIES O2::Framework
                   COMPONENT_NAME AnalysisTutorial)
+
+o2physics_add_dpl_workflow(test-mc-mixed
+                  SOURCES src/testmcmixed.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework
+                  COMPONENT_NAME AnalysisTutorial)
+
+o2physics_add_dpl_workflow(test-mc-same
+                  SOURCES src/testmcsame.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework
+                  COMPONENT_NAME AnalysisTutorial)
