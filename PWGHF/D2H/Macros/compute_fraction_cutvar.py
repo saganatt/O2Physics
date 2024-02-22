@@ -113,7 +113,7 @@ def main(config):
 
     output = ROOT.TFile(os.path.join(cfg["output"]["directory"], cfg["output"]["file"]), "recreate")
     n_sets = len(hist_rawy)
-    for ipt in range(hist_rawy[0].GetNbinsX()):
+    for ipt in range(hist_rawy[0].GetNbinsX() - 1):
         pt_min = hist_rawy[0].GetXaxis().GetBinLowEdge(ipt + 1)
         pt_max = hist_rawy[0].GetXaxis().GetBinUpEdge(ipt + 1)
 
@@ -153,25 +153,31 @@ def main(config):
             hist_frac_raw_nonprompt.SetBinContent(ipt + 1, raw_frac_nonprompt[0])
             hist_frac_raw_nonprompt.SetBinError(ipt + 1, raw_frac_nonprompt[1])
 
-        canv_rawy, histos_rawy, leg_r = minimiser.plot_result(f"_pt{pt_min:.0f}_{pt_max:.0f}")
+        canv_rawy, histos_rawy, leg_r = minimiser.plot_result(
+           suffix=f"_pt{pt_min:.0f}_{pt_max:.0f}"
+        )
         output.cd()
         canv_rawy.Write()
         for _, hist in histos_rawy.items():
             hist.Write()
 
-        canv_eff, histos_eff, leg_e = minimiser.plot_efficiencies(f"_pt{pt_min:.0f}_{pt_max:.0f}")
+        canv_eff, histos_eff, leg_e = minimiser.plot_efficiencies(
+            suffix=f"_pt{pt_min:.0f}_{pt_max:.0f}"
+        )
         output.cd()
         canv_eff.Write()
         for _, hist in histos_eff.items():
             hist.Write()
 
-        canv_frac, histos_frac, leg_f = minimiser.plot_fractions(f"_pt{pt_min:.0f}_{pt_max:.0f}")
+        canv_frac, histos_frac, leg_f = minimiser.plot_fractions(
+            suffix=f"_pt{pt_min:.0f}_{pt_max:.0f}"
+        )
         output.cd()
         canv_frac.Write()
         for _, hist in histos_frac.items():
             hist.Write()
 
-        canv_cov, histo_cov = minimiser.plot_cov_matrix(True, f"_pt{pt_min:.0f}_{pt_max:.0f}")
+        canv_cov, histo_cov = minimiser.plot_cov_matrix(suffix=f"_pt{pt_min:.0f}_{pt_max:.0f}")
         output.cd()
         canv_cov.Write()
         histo_cov.Write()
@@ -181,19 +187,43 @@ def main(config):
         output_name_frac_pdf = f"Frac_{cfg['output']['file'].replace('.root', '.pdf')}"
         output_name_covmat_pdf = f"CovMatrix_{cfg['output']['file'].replace('.root', '.pdf')}"
         if ipt == 0:
-            canv_rawy.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_rawy_pdf)}[")
-            canv_eff.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_eff_pdf)}[")
-            canv_frac.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_frac_pdf)}[")
-            canv_cov.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_covmat_pdf)}[")
-        canv_rawy.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_rawy_pdf)}")
-        canv_eff.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_eff_pdf)}")
-        canv_frac.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_frac_pdf)}")
-        canv_cov.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_covmat_pdf)}")
-        if ipt == hist_rawy[0].GetNbinsX() - 1:
-            canv_rawy.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_rawy_pdf)}]")
-            canv_eff.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_eff_pdf)}]")
-            canv_frac.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_frac_pdf)}]")
-            canv_cov.SaveAs(f"{os.path.join(cfg['output']['directory'], output_name_covmat_pdf)}]")
+            canv_rawy.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_rawy_pdf)}["
+            )
+            canv_eff.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_eff_pdf)}["
+            )
+            canv_frac.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_frac_pdf)}["
+            )
+            canv_cov.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_covmat_pdf)}["
+            )
+        canv_rawy.SaveAs(
+            f"{os.path.join(cfg['output']['directory'], output_name_rawy_pdf)}"
+        )
+        canv_eff.SaveAs(
+            f"{os.path.join(cfg['output']['directory'], output_name_eff_pdf)}"
+        )
+        canv_frac.SaveAs(
+            f"{os.path.join(cfg['output']['directory'], output_name_frac_pdf)}"
+        )
+        canv_cov.SaveAs(
+            f"{os.path.join(cfg['output']['directory'], output_name_covmat_pdf)}"
+        )
+        if ipt == hist_rawy[0].GetNbinsX() - 2:
+            canv_rawy.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_rawy_pdf)}]"
+            )
+            canv_eff.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_eff_pdf)}]"
+            )
+            canv_frac.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_frac_pdf)}]"
+            )
+            canv_cov.SaveAs(
+                f"{os.path.join(cfg['output']['directory'], output_name_covmat_pdf)}]"
+            )
 
     output.cd()
     hist_corry_prompt.Write()
