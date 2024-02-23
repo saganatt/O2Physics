@@ -427,7 +427,7 @@ class CutVarMinimiser:
         set_object_style(hist_raw_yield_nonprompt, color=ROOT.kAzure + 4, fillstyle=3154)
         set_object_style(hist_raw_yield_sum, color=ROOT.kGreen + 2, fillstyle=0)
 
-        canvas = ROOT.TCanvas(f"cRawYieldVsCut{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cRawYieldVsCut{suffix}", suffix, 500, 500)
         canvas.DrawFrame(
             -0.5,
             0.0,
@@ -511,7 +511,7 @@ class CutVarMinimiser:
                         rho = 0.0
                 hist_corr_matrix.SetBinContent(i_row + 1, i_col + 1, rho)
 
-        canvas = ROOT.TCanvas(f"cCorrMatrixCutSets{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cCorrMatrixCutSets{suffix}", suffix, 500, 500)
         hist_corr_matrix.Draw("colz")
         canvas.Modified()
         canvas.Update()
@@ -580,7 +580,7 @@ class CutVarMinimiser:
             markerstyle=ROOT.kFullSquare,
         )
 
-        canvas = ROOT.TCanvas(f"cEffVsCut{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cEffVsCut{suffix}", suffix, 500, 500)
         canvas.DrawFrame(
             -0.5,
             1.0e-5,
@@ -666,7 +666,7 @@ class CutVarMinimiser:
             markerstyle=ROOT.kFullSquare,
         )
 
-        canvas = ROOT.TCanvas(f"cFracVsCut{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cFracVsCut{suffix}", suffix, 500, 500)
         canvas.DrawFrame(-0.5, 0.0, self.n_sets - 0.5, 1.0, ";cut set;fraction")
         hist_f_prompt.Draw("esame")
         hist_f_nonprompt.Draw("esame")
