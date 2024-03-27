@@ -41,6 +41,12 @@ using namespace o2::framework::expressions;
 using namespace o2::soa;
 
 struct femtoDreamTripletTaskTrackTrackTrack {
+  Configurable<int32_t> colMax{"colMax", 100, "collisions limit"};
+  Configurable<int32_t> pairMax{"pairMax", 1000000, "pairs limit"};
+  Configurable<int32_t> dfMax{"dfMax", 100, "dataframes limit"};
+  int countProcessMixed = 0;
+  int countProcessMixedMasked = 0;
+
   SliceCache cache;
   Preslice<aod::FDParticles> perCol = aod::femtodreamparticle::fdCollisionId;
 
@@ -312,8 +318,37 @@ struct femtoDreamTripletTaskTrackTrackTrack {
   void processMixedEvent(o2::aod::FDCollisions& cols,
                          o2::aod::FDParticles& parts)
   {
+    if (countProcessMixed >= dfMax) {
+      return;
+    }
+
+    for (auto& collision : cols) {
+      std::cout << "globalIndex: " << collision.globalIndex() << std::endl;
+      std::cout << "index: " << collision.index() << std::endl;
+      std::cout << "posZ: " << std::fixed << std::setprecision(3) << collision.posZ() << std::endl;
+      std::cout << "multNtr: " << std::fixed << std::setprecision(3) << collision.multNtr() << std::endl;
+      int bin = colBinning.getBin({collision.posZ(), collision.multNtr()});
+      std::cout << "bin: " << bin << std::endl;
+    }
+
+    int counter = 0;
     for (auto& [collision1, collision2, collision3] : soa::selfCombinations(colBinning, ConfNEventsMix, -1, cols, cols, cols)) {
-      const int multiplicityCol = collision1.multNtr();
+      if (counter >= colMax) {
+        break;
+      }
+
+      std::cout << "globalIndex: " << std::fixed << std::setprecision(3) << collision1.globalIndex() << " " << collision2.globalIndex() << " " << collision3.globalIndex() << " " << std::endl;
+      std::cout << "index: " << std::fixed << std::setprecision(3) << collision1.index() << " " << collision2.index() << " " << collision3.index() << " " << std::endl;
+      std::cout << "posZ: " << std::fixed << std::setprecision(3) << collision1.posZ() << " " << collision2.posZ() << " " << collision3.posZ() << " " << std::endl;
+      std::cout << "MultNtr: " << std::fixed << std::setprecision(3) << collision1.multNtr() << " " << collision2.multNtr() << " " << collision3.multNtr() << " " << std::endl;
+      int bin1 = colBinning.getBin({collision1.posZ(), collision1.multNtr()});
+      int bin2 = colBinning.getBin({collision2.posZ(), collision2.multNtr()});
+      int bin3 = colBinning.getBin({collision3.posZ(), collision3.multNtr()});
+      std::cout << "bin: " << bin1 << " " << bin2 << " " << bin3 << " " << std::endl;
+
+      counter++;
+
+      /*const int multiplicityCol = collision1.multNtr();
       ThreeBodyQARegistry.fill(HIST("TripletTaskQA/hMECollisionBins"), colBinning.getBin({collision1.posZ(), multiplicityCol}));
 
       auto groupPartsOne = SelectedParts->sliceByCached(aod::femtodreamparticle::fdCollisionId, collision1.globalIndex(), cache);
@@ -329,8 +364,9 @@ struct femtoDreamTripletTaskTrackTrackTrack {
       }
       // CONSIDER testing different strategies to which events to use
 
-      doMixedEvent<false>(groupPartsOne, groupPartsTwo, groupPartsThree, parts, magFieldTesla1, multiplicityCol);
+      doMixedEvent<false>(groupPartsOne, groupPartsTwo, groupPartsThree, parts, magFieldTesla1, multiplicityCol);*/
     }
+    countProcessMixed++;
   }
   PROCESS_SWITCH(femtoDreamTripletTaskTrackTrackTrack, processMixedEvent, "Enable processing mixed events", true);
 
@@ -339,13 +375,43 @@ struct femtoDreamTripletTaskTrackTrackTrack {
   /// @param parts subscribe to the femtoDreamParticleTable
   void processMixedEventMasked(MaskedCollisions& cols, o2::aod::FDParticles& parts)
   {
+    if (countProcessMixedMasked >= dfMax) {
+      return;
+    }
+
+    for (auto& collision : cols) {
+      std::cout << "globalIndex: " << collision.globalIndex() << std::endl;
+      std::cout << "index: " << collision.index() << std::endl;
+      std::cout << "posZ: " << std::fixed << std::setprecision(3) << collision.posZ() << std::endl;
+      std::cout << "multNtr: " << std::fixed << std::setprecision(3) << collision.multNtr() << std::endl;
+      int bin = colBinning.getBin({collision.posZ(), collision.multNtr()});
+      std::cout << "bin: " << bin << std::endl;
+    }
+
     Partition<MaskedCollisions> PartitionMaskedCol1 = (ConfTracksInMixedEvent == 1 && (aod::femtodreamcollision::bitmaskTrackOne & MaskBit) == MaskBit) ||
                                                       (ConfTracksInMixedEvent == 2 && (aod::femtodreamcollision::bitmaskTrackTwo & MaskBit) == MaskBit) ||
                                                       (ConfTracksInMixedEvent == 3 && (aod::femtodreamcollision::bitmaskTrackThree & MaskBit) == MaskBit);
     PartitionMaskedCol1.bindTable(cols);
 
-    for (auto& [collision1, collision2, collision3] : soa::selfCombinations(colBinning, ConfNEventsMix, -1, PartitionMaskedCol1, PartitionMaskedCol1, PartitionMaskedCol1)) {
-      const int multiplicityCol = collision1.multNtr();
+    int counter = 0;
+    for (auto const& [collision1, collision2, collision3] : selfCombinations(colBinning, ConfNEventsMix, -1, *PartitionMaskedCol1.mFiltered, *PartitionMaskedCol1.mFiltered, *PartitionMaskedCol1.mFiltered)) {
+    //for (auto& [collision1, collision2, collision3] : soa::selfCombinations(colBinning, ConfNEventsMix, -1, PartitionMaskedCol1, PartitionMaskedCol1, PartitionMaskedCol1)) {
+      if (counter >= colMax) {
+        break;
+      }
+
+      std::cout << "globalIndex: " << std::fixed << std::setprecision(3) << collision1.globalIndex() << " " << collision2.globalIndex() << " " << collision3.globalIndex() << " " << std::endl;
+      std::cout << "index: " << std::fixed << std::setprecision(3) << collision1.index() << " " << collision2.index() << " " << collision3.index() << " " << std::endl;
+      std::cout << "posZ: " << std::fixed << std::setprecision(3) << collision1.posZ() << " " << collision2.posZ() << " " << collision3.posZ() << " " << std::endl;
+      std::cout << "MultNtr: " << std::fixed << std::setprecision(3) << collision1.multNtr() << " " << collision2.multNtr() << " " << collision3.multNtr() << " " << std::endl;
+      int bin1 = colBinning.getBin({collision1.posZ(), collision1.multNtr()});
+      int bin2 = colBinning.getBin({collision2.posZ(), collision2.multNtr()});
+      int bin3 = colBinning.getBin({collision3.posZ(), collision3.multNtr()});
+      std::cout << "bin: " << bin1 << " " << bin2 << " " << bin3 << " " << std::endl;
+
+      counter++;
+
+      /*const int multiplicityCol = collision1.multNtr();
       ThreeBodyQARegistry.fill(HIST("TripletTaskQA/hMECollisionBins"), colBinning.getBin({collision1.posZ(), multiplicityCol}));
 
       auto groupPartsOne = SelectedParts->sliceByCached(aod::femtodreamparticle::fdCollisionId, collision1.globalIndex(), cache);
@@ -359,8 +425,9 @@ struct femtoDreamTripletTaskTrackTrackTrack {
       if ((magFieldTesla1 != magFieldTesla2) || (magFieldTesla2 != magFieldTesla3) || (magFieldTesla1 != magFieldTesla3)) {
         continue;
       }
-      doMixedEvent<false>(groupPartsOne, groupPartsTwo, groupPartsThree, parts, magFieldTesla1, multiplicityCol);
+      doMixedEvent<false>(groupPartsOne, groupPartsTwo, groupPartsThree, parts, magFieldTesla1, multiplicityCol);*/
     }
+    countProcessMixed++;
   }
   PROCESS_SWITCH(femtoDreamTripletTaskTrackTrackTrack, processMixedEventMasked, "Enable processing mixed events", false);
 
