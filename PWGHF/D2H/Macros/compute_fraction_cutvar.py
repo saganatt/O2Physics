@@ -113,7 +113,7 @@ def main(config):
 
     output = ROOT.TFile(os.path.join(cfg["output"]["directory"], cfg["output"]["file"]), "recreate")
     n_sets = len(hist_rawy)
-    for ipt in range(1, hist_rawy[0].GetNbinsX() - 1):
+    for ipt in range(hist_rawy[0].GetNbinsX() - 1):
         pt_min = hist_rawy[0].GetXaxis().GetBinLowEdge(ipt + 1)
         pt_max = hist_rawy[0].GetXaxis().GetBinUpEdge(ipt + 1)
 
@@ -177,7 +177,7 @@ def main(config):
         for _, hist in histos_frac.items():
             hist.Write()
 
-        canv_cov, histo_cov = minimiser.plot_cov_matrix(suffix=f"_pt{pt_min:.0f}_{pt_max:.0f}")
+        canv_cov, histo_cov = minimiser.plot_cov_matrix(True, suffix=f"_pt{pt_min:.0f}_{pt_max:.0f}")
         output.cd()
         canv_cov.Write()
         histo_cov.Write()
