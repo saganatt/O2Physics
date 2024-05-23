@@ -1,25 +1,29 @@
 {  
   "rawyields": {
-    "inputdir": "/data2/mkabus/MLHEP/input-fdd",
+    "inputdir": "/data8/majak/MLHEP/input-fdd",
     "inputfiles": [
       "yieldsLcpKpiRun3analysis-fd_20.root",
       "yieldsLcpKpiRun3analysis-fd_30.root",
       "yieldsLcpKpiRun3analysis-fd_40.root",
       "yieldsLcpKpiRun3analysis-fd_50.root",
       "yieldsLcpKpiRun3analysis-fd_60.root",
-      "yieldsLcpKpiRun3analysis-fd_70.root"
+      "yieldsLcpKpiRun3analysis-fd_70.root",
+      "yieldsLcpKpiRun3analysis-fd_80.root",
+      "yieldsLcpKpiRun3analysis-fd_90.root"
     ],
     "histoname": "hyields0"
   },
   "efficiencies": {
-    "inputdir": "/data2/mkabus/MLHEP/input-fdd",
+    "inputdir": "/data8/majak/MLHEP/input-fdd",
     "inputfiles": [
       "efficienciesLcpKpiRun3analysis-fd_20.root",
       "efficienciesLcpKpiRun3analysis-fd_30.root",
       "efficienciesLcpKpiRun3analysis-fd_40.root",
       "efficienciesLcpKpiRun3analysis-fd_50.root",
       "efficienciesLcpKpiRun3analysis-fd_60.root",
-      "efficienciesLcpKpiRun3analysis-fd_70.root"
+      "efficienciesLcpKpiRun3analysis-fd_70.root",
+      "efficienciesLcpKpiRun3analysis-fd_80.root",
+      "efficienciesLcpKpiRun3analysis-fd_90.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -30,16 +34,16 @@
     "correlated": "true"
   },
   "central_efficiency": {
-      "computerawfrac": true,
-      "inputdir": "path/to/central/efficiency",
+      "computerawfrac": false,
+      "inputdir": "/data8/majak/MLHEP/input-fdd",
       "inputfile": "efficiency.root",
       "histonames": {
-          "prompt": "hAccEffPrompt",
-          "nonprompt": "hAccEffFD"
+          "prompt": "eff",
+          "nonprompt": "eff_fd"
       }
   },
   "output": {
-    "directory": "fdd-results-20-70",
-    "file": "CutVarDplus_pp13TeV_MB.root"
+    "directory": "fdd-results-pass6",
+    "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
