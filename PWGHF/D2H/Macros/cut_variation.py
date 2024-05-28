@@ -178,7 +178,9 @@ class CutVarMinimiser:
             self.m_covariance = np.linalg.inv(np.linalg.cholesky(self.m_covariance))
             self.m_covariance = self.m_covariance.T * self.m_covariance
 
+            print(f"covariance:\n{self.m_covariance}\nm_eff_tr\n{m_eff_tr}\nm_weights\n{self.m_weights}\nm_rawy\n{self.m_rawy}")
             self.m_corr_yields = self.m_covariance * (m_eff_tr * self.m_weights) * self.m_rawy
+            print(f"covariance:\n{self.m_covariance}\nm_eff_tr\n{m_eff_tr}\nm_weights\n{self.m_weights}\nm_rawy\n{self.m_rawy}\nresulting corr yields:\n{self.m_corr_yields}")
             self.m_res = self.m_eff * self.m_corr_yields - self.m_rawy
 
             rel_delta = [
@@ -213,8 +215,11 @@ class CutVarMinimiser:
                 + der_fnp_np**2 * self.m_covariance.item(1, 1)
                 + 2 * der_fnp_p * der_fnp_np * self.m_covariance.item(1, 0)
             )
+            print(f"i_set {i_set} corr yields p: {self.m_corr_yields.item(0)}, effp: {effp} rawyp: {rawyp}")
+            print(f"i_set {i_set} corr yields np: {self.m_corr_yields.item(1)}, effnp: {effnp} rawynp: {rawynp}")
             self.frac_prompt.itemset(i_set, rawyp / (rawyp + rawynp))
             self.frac_nonprompt.itemset(i_set, rawynp / (rawyp + rawynp))
+            print(f"frac prompt: {self.frac_prompt}, non-prompt: {self.frac_nonprompt}")
             self.unc_frac_prompt.itemset(i_set, unc_fp)
             self.unc_frac_nonprompt.itemset(i_set, unc_fnp)
 
