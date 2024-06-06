@@ -263,6 +263,12 @@ def main(config):
     if cfg["central_efficiency"]["computerawfrac"]:
         hist_frac_raw_prompt.Write()
         hist_frac_raw_nonprompt.Write()
+
+    for hist, outname in zip ((hist_corry_prompt, hist_corry_nonprompt, hist_covariance, hist_corrfrac_prompt, hist_corrfrac_nonprompt), ("CorrYieldPrompt", "CorrYieldNonPrompt", "Covariance", "CorrFracPrompt", "CorrFracNonPrompt")):
+        canv = ROOT.TCanvas("", "")
+        hist.Draw()
+        canv.SaveAs(f"{os.path.join(cfg['output']['directory'], outname)}.png")
+
     output.Close()
 
 
