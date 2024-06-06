@@ -1,37 +1,37 @@
 {  
   "rawyields": {
-    "inputdir": "/data8/majak/MLHEP/pass6-input-fdd-rebin",
+    "inputdir": "/data8/majak/MLHEP/pass6-input-fd_precise_0524",
     "inputfiles": [
-      "yieldsLcpKpiRun3analysis-fd_0.root",
-      "yieldsLcpKpiRun3analysis-fd_5.root",
-      "yieldsLcpKpiRun3analysis-fd_10.root",
-      "yieldsLcpKpiRun3analysis-fd_15.root",
-      "yieldsLcpKpiRun3analysis-fd_20.root",
-      "yieldsLcpKpiRun3analysis-fd_25.root",
-      "yieldsLcpKpiRun3analysis-fd_30.root",
-      "yieldsLcpKpiRun3analysis-fd_35.root",
-      "yieldsLcpKpiRun3analysis-fd_40.root",
-      "yieldsLcpKpiRun3analysis-fd_45.root",
-      "yieldsLcpKpiRun3analysis-fd_50.root",
-      "yieldsLcpKpiRun3analysis-fd_55.root"
+      "yieldsLcpKpiRun3analysis-fd_0.55_0.2_0.15_0.05_0.0.root",
+      "yieldsLcpKpiRun3analysis-fd_0.65_0.3_0.25_0.15_0.1.root",
+      "yieldsLcpKpiRun3analysis-fd_0.6_0.25_0.2_0.1_0.05.root",
+      "yieldsLcpKpiRun3analysis-fd_0.75_0.4_0.35_0.25_0.2.root",
+      "yieldsLcpKpiRun3analysis-fd_0.7_0.35_0.3_0.2_0.15.root",
+      "yieldsLcpKpiRun3analysis-fd_0.85_0.5_0.45_0.35_0.3.root",
+      "yieldsLcpKpiRun3analysis-fd_0.8_0.45_0.4_0.3_0.25.root",
+      "yieldsLcpKpiRun3analysis-fd_0.92_0.6_0.55_0.45_0.4.root",
+      "yieldsLcpKpiRun3analysis-fd_0.94_0.65_0.6_0.5_0.45.root",
+      "yieldsLcpKpiRun3analysis-fd_0.96_0.7_0.65_0.55_0.5.root",
+      "yieldsLcpKpiRun3analysis-fd_0.98_0.75_0.7_0.6_0.55.root",
+      "yieldsLcpKpiRun3analysis-fd_0.9_0.55_0.5_0.4_0.35.root"
     ],
     "histoname": "hyields0"
   },
   "efficiencies": {
-    "inputdir": "/data8/majak/MLHEP/pass6-input-fdd-rebin",
+    "inputdir": "/data8/majak/MLHEP/pass6-input-fd_precise_0524",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis-fd_0.root",
-      "efficienciesLcpKpiRun3analysis-fd_5.root",
-      "efficienciesLcpKpiRun3analysis-fd_10.root",
-      "efficienciesLcpKpiRun3analysis-fd_15.root",
-      "efficienciesLcpKpiRun3analysis-fd_20.root",
-      "efficienciesLcpKpiRun3analysis-fd_25.root",
-      "efficienciesLcpKpiRun3analysis-fd_30.root",
-      "efficienciesLcpKpiRun3analysis-fd_35.root",
-      "efficienciesLcpKpiRun3analysis-fd_40.root",
-      "efficienciesLcpKpiRun3analysis-fd_45.root",
-      "efficienciesLcpKpiRun3analysis-fd_50.root",
-      "efficienciesLcpKpiRun3analysis-fd_55.root"
+      "efficienciesLcpKpiRun3analysis-fd_0.55_0.2_0.15_0.05_0.0.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.65_0.3_0.25_0.15_0.1.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.6_0.25_0.2_0.1_0.05.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.75_0.4_0.35_0.25_0.2.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.7_0.35_0.3_0.2_0.15.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.85_0.5_0.45_0.35_0.3.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.8_0.45_0.4_0.3_0.25.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.92_0.6_0.55_0.45_0.4.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.94_0.65_0.6_0.5_0.45.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.96_0.7_0.65_0.55_0.5.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.98_0.75_0.7_0.6_0.55.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.9_0.55_0.5_0.4_0.35.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -43,7 +43,7 @@
   },
   "central_efficiency": {
       "computerawfrac": false,
-      "inputdir": "/data8/majak/MLHEP/pass6-input-fdd-rebin",
+      "inputdir": "/data8/majak/MLHEP/pass6-input-fd_precise_0524",
       "inputfile": "efficiency.root",
       "histonames": {
           "prompt": "eff",
@@ -51,7 +51,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results-pass6-0-55-rebin",
+    "directory": "fdd-results-precise_0524",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
