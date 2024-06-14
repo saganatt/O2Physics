@@ -1,9 +1,10 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/invmass.root",
+  "InFileName": "/data8/majak/MLHEP/input-d2h-fitter/projections.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/fitter.root",
+  "OutFileName": "/data8/majak/d2h-fitter/100624/results-probs-bkg/fits.root",
   "InputHistoName": [
+    "proj_1.0-2.0",
     "proj_2.0-4.0",
     "proj_4.0-6.0",
     "proj_6.0-8.0",
@@ -42,6 +43,7 @@
     0.0136,
     0.0136,
     0.0136,
+    0.0136,
     0.0136
   ],
   "_FixSigmaManual": "fix sigma mannually",
@@ -52,6 +54,7 @@
   "SliceVarUnit": "GeV/c",
   "_SliceVarName, _SliceVarUnit": "e.g. pT, GeV/c or something else depending on user's needs",
   "SliceVarMin": [
+    1.0,
     2.0,
     4.0,
     6.0,
@@ -59,6 +62,7 @@
     12.0
   ],
   "SliceVarMax": [
+    2.0,
     4.0,
     6.0,
     8.0,
@@ -68,23 +72,26 @@
   "MassMin": [
     2.18,
     2.18,
-    2.18,
-    2.18,
-    2.18
+    2.16,
+    2.14,
+    2.13,
+    2.10
   ],
   "MassMax": [
-    2.38,
-    2.38,
-    2.38,
-    2.38,
-    2.38
+    2.40,
+    2.40,
+    2.42,
+    2.436,
+    2.446,
+    2.47
   ],
   "Rebin": [
-    1,
-    1,
-    1,
-    1,
-    1
+    5,
+    5,
+    6,
+    7,
+    8,
+    14
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
@@ -93,6 +100,7 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
+    2,
     2,
     2,
     2,
@@ -109,6 +117,7 @@
     "6 for NoBkg"
   ],
   "SgnFunc": [
+    0,
     0,
     0,
     0,
