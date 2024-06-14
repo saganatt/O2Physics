@@ -1,9 +1,10 @@
 {
   "IsMC": false,
-  "InFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/invmass.root",
+  "InFileName": "/data8/majak/MLHEP/input-d2h-fitter/projections.root",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "/home/mkabus/Run3Analysisvalidation/codeHF/lc-bkg-checks/LHC22o/fitter.root",
+  "OutFileName": "/data8/majak/d2h-fitter/100624/results-probs-bkg/fits.root",
   "InputHistoName": [
+    "proj_1.0-2.0",
     "proj_2.0-4.0",
     "proj_4.0-6.0",
     "proj_6.0-8.0",
@@ -42,6 +43,7 @@
     0.0136,
     0.0136,
     0.0136,
+    0.0136,
     0.0136
   ],
   "_FixSigmaManual": "fix sigma mannually",
@@ -49,6 +51,7 @@
   "MeanFile": "",
   "_MeanFile": "fix mean from file",
   "PtMin": [
+    1.0,
     2.0,
     4.0,
     6.0,
@@ -56,6 +59,7 @@
     12.0
   ],
   "PtMax": [
+    2.0,
     4.0,
     6.0,
     8.0,
@@ -65,23 +69,26 @@
   "MassMin": [
     2.18,
     2.18,
-    2.18,
-    2.18,
-    2.18
+    2.16,
+    2.14,
+    2.13,
+    2.10
   ],
   "MassMax": [
-    2.38,
-    2.38,
-    2.38,
-    2.38,
-    2.38
+    2.40,
+    2.40,
+    2.42,
+    2.436,
+    2.446,
+    2.47
   ],
   "Rebin": [
-    1,
-    1,
-    1,
-    1,
-    1
+    5,
+    5,
+    6,
+    7,
+    8,
+    14
   ],
   "InclSecPeak": false,
   "SigmaSecPeak": "",
@@ -94,6 +101,7 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
+    2,
     2,
     2,
     2,
@@ -114,6 +122,7 @@
     0,
     0,
     0,
+    0,
     0
   ],
   "_SgnFuncs": [
@@ -122,7 +131,7 @@
     "2 for DoubleGausSigmaRatioPar",
     "3 for GausSec"
   ],
-  "BoundMean": false,
+  "BoundMean": true,
   "_BoundMean": [
     "false: Do not set limits on mean range",
     "true: the mean is set to be between MassMin[i] and MassMax[i]"
