@@ -1,15 +1,15 @@
 {
   "IsMC": false,
-  "InFileName": "/data8/majak/MLHEP/input-d2h-fitter/projections.root",
+  "InFileName": "/data8/majak/MLHEP/input-d2h-fitter/%infile%",
   "ReflFileName": "input reflection file directory",
-  "OutFileName": "/data8/majak/d2h-fitter/100624/results-probs-bkg/fits.root",
+  "OutFileName": "/data8/majak/d2h-fitter/10062024/%outdir%/fits.root",
   "InputHistoName": [
-    "proj_1.0-2.0",
-    "proj_2.0-4.0",
-    "proj_4.0-6.0",
-    "proj_6.0-8.0",
-    "proj_8.0-12.0",
-    "proj_12.0-24.0"
+    "hmassfPt1_2_0.010.000.00",
+    "hmassfPt2_4_0.010.000.00",
+    "hmassfPt4_6_0.010.000.00",
+    "hmassfPt6_8_0.010.000.00",
+    "hmassfPt8_12_0.010.000.00",
+    "hmassfPt12_24_0.010.000.00"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
