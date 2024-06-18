@@ -17,15 +17,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("infile", type=str, help="Input file")
     parser.add_argument("histpattern", type=str, help="Pattern of path to histograms to project")
-    parser.add_argument("fitter_config_file", type=str, help="Mass fitter JSON config file")
     parser.add_argument("outfile", type=str, help="Output file")
     args = parser.parse_args()
-
-    with open(args.fitter_config_file, "r") as fitter_config_f:
-        fitter_config_text = fitter_config_f.read()
-    fitter_config = json.loads(fitter_config_text)
-    pt_min = fitter_config["PtMin"]
-    pt_max = fitter_config["PtMax"]
 
     fin = TFile(args.infile)
 
