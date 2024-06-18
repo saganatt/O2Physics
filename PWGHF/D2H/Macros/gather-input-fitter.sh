@@ -14,7 +14,6 @@ for dir in ${RESDIR_PATTERN}* ; do
 python gather_input_fitter.py \
   "${dir}/LHC22pp/Results/resultsdatatot/masshisto.root" \
   hmassfPt \
-  config_massfitter.json \
   ${RESPATH}
 
 done
