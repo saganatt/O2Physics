@@ -1,39 +1,49 @@
 {  
   "rawyields": {
-    "inputdir": "/data8/majak/MLHEP/pass6-input-fd_precise_0524_13cuts_005bkg",
+    "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
     "inputfiles": [
-      "yieldsLcpKpiRun3analysis-fd_0.50_0.15_0.10_0.05_0.00.root",
-      "yieldsLcpKpiRun3analysis-fd_0.55_0.20_0.15_0.10_0.05.root",
-      "yieldsLcpKpiRun3analysis-fd_0.60_0.25_0.20_0.15_0.075.root",
-      "yieldsLcpKpiRun3analysis-fd_0.65_0.30_0.25_0.20_0.10.root",
-      "yieldsLcpKpiRun3analysis-fd_0.70_0.35_0.30_0.25_0.15.root",
-      "yieldsLcpKpiRun3analysis-fd_0.75_0.40_0.35_0.30_0.20.root",
-      "yieldsLcpKpiRun3analysis-fd_0.80_0.45_0.40_0.35_0.25.root",
-      "yieldsLcpKpiRun3analysis-fd_0.85_0.50_0.45_0.40_0.30.root",
-      "yieldsLcpKpiRun3analysis-fd_0.90_0.55_0.50_0.45_0.35.root",
-      "yieldsLcpKpiRun3analysis-fd_0.92_0.60_0.55_0.50_0.40.root",
-      "yieldsLcpKpiRun3analysis-fd_0.94_0.65_0.60_0.55_0.45.root",
-      "yieldsLcpKpiRun3analysis-fd_0.96_0.70_0.65_0.60_0.50.root",
-      "yieldsLcpKpiRun3analysis-fd_0.98_0.75_0.70_0.65_0.55.root"
+      "yieldsLcpKpiRun3analysis-fd_0.10.root",
+      "yieldsLcpKpiRun3analysis-fd_0.15.root",
+      "yieldsLcpKpiRun3analysis-fd_0.20.root",
+      "yieldsLcpKpiRun3analysis-fd_0.25.root",
+      "yieldsLcpKpiRun3analysis-fd_0.30.root",
+      "yieldsLcpKpiRun3analysis-fd_0.35.root",
+      "yieldsLcpKpiRun3analysis-fd_0.40.root",
+      "yieldsLcpKpiRun3analysis-fd_0.45.root",
+      "yieldsLcpKpiRun3analysis-fd_0.50.root",
+      "yieldsLcpKpiRun3analysis-fd_0.55.root",
+      "yieldsLcpKpiRun3analysis-fd_0.60.root",
+      "yieldsLcpKpiRun3analysis-fd_0.65.root",
+      "yieldsLcpKpiRun3analysis-fd_0.70.root",
+      "yieldsLcpKpiRun3analysis-fd_0.75.root",
+      "yieldsLcpKpiRun3analysis-fd_0.80.root",
+      "yieldsLcpKpiRun3analysis-fd_0.85.root",
+      "yieldsLcpKpiRun3analysis-fd_0.90.root",
+      "yieldsLcpKpiRun3analysis-fd_0.95.root"
     ],
     "histoname": "hyields0"
   },
   "efficiencies": {
-    "inputdir": "/data8/majak/MLHEP/pass6-input-fd_precise_0524_13cuts_005bkg",
+    "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis-fd_0.50_0.15_0.10_0.05_0.00.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.55_0.20_0.15_0.10_0.05.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.60_0.25_0.20_0.15_0.075.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.65_0.30_0.25_0.20_0.10.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.70_0.35_0.30_0.25_0.15.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.75_0.40_0.35_0.30_0.20.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.80_0.45_0.40_0.35_0.25.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.85_0.50_0.45_0.40_0.30.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.90_0.55_0.50_0.45_0.35.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.92_0.60_0.55_0.50_0.40.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.94_0.65_0.60_0.55_0.45.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.96_0.70_0.65_0.60_0.50.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.98_0.75_0.70_0.65_0.55.root"
+      "efficienciesLcpKpiRun3analysis-fd_0.10.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.15.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.20.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.25.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.30.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.35.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.40.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.45.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.50.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.55.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.60.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.65.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.70.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.75.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.80.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.85.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.90.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.95.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -45,7 +55,7 @@
   },
   "central_efficiency": {
       "computerawfrac": false,
-      "inputdir": "/data8/majak/MLHEP/pass6-input-fd_precise_0524_13cuts_005bkg",
+      "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
       "inputfile": "efficiency.root",
       "histonames": {
           "prompt": "eff",
@@ -53,7 +63,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results-precise_0524_13cuts_005bkg",
+    "directory": "fdd-results-batch-0624",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
