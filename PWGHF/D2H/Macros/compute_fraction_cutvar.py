@@ -194,6 +194,10 @@ def main(config):
             histo_cov.Write()
         else:
             print(f"Minimization for pT {pt_min}, {pt_max} not successful")
+            canv_rawy = ROOT.TCanvas("c_rawy_minimization_error", "Minimization error", 500, 500)
+            canv_eff = ROOT.TCanvas("c_eff_minimization_error", "Minimization error", 500, 500)
+            canv_frac = ROOT.TCanvas("c_frac_minimization_error", "Minimization error", 500, 500)
+            canv_cov = ROOT.TCanvas("c_conv_minimization_error", "Minimization error", 500, 500)
 
         output_name_rawy_pdf = f"Distr_{cfg['output']['file'].replace('.root', '.pdf')}"
         output_name_eff_pdf = f"Eff_{cfg['output']['file'].replace('.root', '.pdf')}"
