@@ -588,8 +588,7 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     if (mHistoTemplateRefl) {
       mReflFrame->Draw("same");
     }
-    mInvMassFrame->GetXaxis()->SetRangeUser(mMinMass, mMaxMass);
-    
+
     float max = mHistoInvMass->GetMaximum();
     float min = mHistoInvMass->GetMinimum();
     std::cout << "Max y: " << max << " min y: " << min << " hist range: " << min - 100.f << ", " << max + 100.f << std::endl;
@@ -602,7 +601,7 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     std::cout << "func bin min: " << minBinFunc << " bin max: " << maxBinFunc << std::endl;
     std::cout << "func x min: " << mHistoInvMass->GetBinContent(minBinFunc) << " x max: " << mHistoInvMass->GetBinContent(maxBinFunc) << std::endl;
     std::cout << "bin for min mass: " << mHistoInvMass->GetXaxis()->FindBin(mMinMass) << " max mass: " << mHistoInvMass->GetXaxis()->FindBin(mMaxMass) << std::endl;
-    
+
     float max2 = mInvMassFrame->GetMaximum();
     float min2 = mInvMassFrame->GetMinimum();
     std::cout << "Frame Max y: " << max2 << " min y: " << min2 << " hist range: " << min2 - 100.f << ", " << max2 + 100.f << std::endl;
@@ -610,9 +609,9 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     minBin = mInvMassFrame->GetXaxis()->FindBin(min2);
     std::cout << "Frame min bin: " << minBin << " max bin: " << maxBin << std::endl;
     std::cout << "Frame x for max: " << mInvMassFrame->GetXaxis()->GetBinCenter(maxBin) << " x for min: " << mInvMassFrame->GetXaxis()->GetBinCenter(minBin) << std::endl;
-    
+
     mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
-    mHistoInvMass->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
+    //mHistoInvMass->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
   }
 }
 
