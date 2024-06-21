@@ -63,7 +63,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results-batch-0624",
+    "directory": "fdd-results-batch-widerange-0624",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
