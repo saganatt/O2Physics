@@ -1,27 +1,27 @@
 {  
   "rawyields": {
-    "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
+    "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624/d2h-fitter",
     "inputfiles": [
-      "yieldsLcpKpiRun3analysis-fd_0.10.root",
-      "yieldsLcpKpiRun3analysis-fd_0.15.root",
-      "yieldsLcpKpiRun3analysis-fd_0.20.root",
-      "yieldsLcpKpiRun3analysis-fd_0.25.root",
-      "yieldsLcpKpiRun3analysis-fd_0.30.root",
-      "yieldsLcpKpiRun3analysis-fd_0.35.root",
-      "yieldsLcpKpiRun3analysis-fd_0.40.root",
-      "yieldsLcpKpiRun3analysis-fd_0.45.root",
-      "yieldsLcpKpiRun3analysis-fd_0.50.root",
-      "yieldsLcpKpiRun3analysis-fd_0.55.root",
-      "yieldsLcpKpiRun3analysis-fd_0.60.root",
-      "yieldsLcpKpiRun3analysis-fd_0.65.root",
-      "yieldsLcpKpiRun3analysis-fd_0.70.root",
-      "yieldsLcpKpiRun3analysis-fd_0.75.root",
-      "yieldsLcpKpiRun3analysis-fd_0.80.root",
-      "yieldsLcpKpiRun3analysis-fd_0.85.root",
-      "yieldsLcpKpiRun3analysis-fd_0.90.root",
-      "yieldsLcpKpiRun3analysis-fd_0.95.root"
+      "yields-fd_0.10.root",
+      "yields-fd_0.15.root",
+      "yields-fd_0.20.root",
+      "yields-fd_0.25.root",
+      "yields-fd_0.30.root",
+      "yields-fd_0.35.root",
+      "yields-fd_0.40.root",
+      "yields-fd_0.45.root",
+      "yields-fd_0.50.root",
+      "yields-fd_0.55.root",
+      "yields-fd_0.60.root",
+      "yields-fd_0.65.root",
+      "yields-fd_0.70.root",
+      "yields-fd_0.75.root",
+      "yields-fd_0.80.root",
+      "yields-fd_0.85.root",
+      "yields-fd_0.90.root",
+      "yields-fd_0.95.root"
     ],
-    "histoname": "hyields0"
+    "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
