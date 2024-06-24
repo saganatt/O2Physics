@@ -4,11 +4,11 @@
   "ReflFileName": "input reflection file directory",
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
-    "hmassfPt1_2_0.020.00%sf%",
-    "hmassfPt2_4_0.020.00%sf%",
-    "hmassfPt4_6_0.050.00%sf%",
-    "hmassfPt6_8_0.050.00%sf%",
-    "hmassfPt8_12_0.100.00%sf%",
+    "hmassfPt1_2_0.050.00%sf%",
+    "hmassfPt2_4_0.050.00%sf%",
+    "hmassfPt4_6_0.100.00%sf%",
+    "hmassfPt6_8_0.100.00%sf%",
+    "hmassfPt8_12_0.150.00%sf%",
     "hmassfPt12_24_0.300.00%sf%"
   ],
   "PromptHistoName": [
@@ -71,27 +71,27 @@
   ],
   "MassMin": [
     2.18,
-    2.18,
+    2.15,
     2.16,
     2.14,
-    2.13,
+    2.12,
     2.10
   ],
   "MassMax": [
     2.40,
-    2.40,
+    2.43,
     2.42,
     2.436,
-    2.446,
+    2.476,
     2.47
   ],
   "Rebin": [
-    5,
+    4,
+    4,
     5,
     6,
-    7,
     8,
-    14
+    16
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
