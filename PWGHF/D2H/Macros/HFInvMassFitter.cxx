@@ -573,9 +573,9 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
       textInfoRight->AddText(Form("mean(free) = %.3f #pm %.3f", mRooMeanSgn->getVal(), mRooMeanSgn->getError()));
     }
     if (mFixedSigma) {
-      textInfoRight->AddText(Form("sigma(fixed) = %.3f #pm %.3f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+      textInfoRight->AddText(Form("sigma(fixed) = %.4f #pm %.4f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
     } else {
-      textInfoRight->AddText(Form("sigma(free) = %.3f #pm %.3f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+      textInfoRight->AddText(Form("sigma(free) = %.4f #pm %.4f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
     }
     mInvMassFrame->addObject(textInfoLeft);
     mInvMassFrame->addObject(textInfoRight);

@@ -16,7 +16,7 @@ for dir in ${INPUT_PATTERN}* ; do
   suffix_no_ext=${suffix%%${ROOT_EXT}}
   echo $suffix_no_ext
 
-  RESDIR="results-probs-bkg_widerange_${suffix_no_ext}"
+  RESDIR="results-probs-bkg_bestconf_fixedsigmabest_${suffix_no_ext}"
   RESPATH="/data8/majak/d2h-fitter/100624/${RESDIR}"
   mkdir "${RESPATH}"
 
