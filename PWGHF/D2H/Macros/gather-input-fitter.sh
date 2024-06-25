@@ -3,7 +3,7 @@
 MLHEP_DIR="/data8/majak/MLHEP"
 OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-fdd-refinedbkg"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-bkg_0624_fd_refinedbkg_"
+RESDIR_PATTERN="${MLHEP_DIR}/results-bkg_0624_fd_refinedbkg2_"
 
 for dir in ${RESDIR_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
