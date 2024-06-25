@@ -1,7 +1,12 @@
-{  
+{
   "rawyields": {
     "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624/d2h-fitter",
     "inputfiles": [
+      "yields-fd_0.05.root",
+      "yields-fd_0.06.root",
+      "yields-fd_0.07.root",
+      "yields-fd_0.08.root",
+      "yields-fd_0.09.root",
       "yields-fd_0.10.root",
       "yields-fd_0.15.root",
       "yields-fd_0.20.root",
@@ -13,15 +18,18 @@
       "yields-fd_0.50.root",
       "yields-fd_0.55.root",
       "yields-fd_0.60.root",
-      "yields-fd_0.65.root",
-      "yields-fd_0.70.root",
-      "yields-fd_0.75.root"
+      "yields-fd_0.65.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
     "inputfiles": [
+      "efficienciesLcpKpiRun3analysis-fd_0.05.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.06.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.07.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.08.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.09.root",
       "efficienciesLcpKpiRun3analysis-fd_0.10.root",
       "efficienciesLcpKpiRun3analysis-fd_0.15.root",
       "efficienciesLcpKpiRun3analysis-fd_0.20.root",
@@ -33,9 +41,7 @@
       "efficienciesLcpKpiRun3analysis-fd_0.50.root",
       "efficienciesLcpKpiRun3analysis-fd_0.55.root",
       "efficienciesLcpKpiRun3analysis-fd_0.60.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.65.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.70.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.75.root"
+      "efficienciesLcpKpiRun3analysis-fd_0.65.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -55,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "results-fdd-refinedbkg_nofixedsigma_10-75",
+    "directory": "fdd-results-refinedbkg2_nofixedsigma_5-65",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
