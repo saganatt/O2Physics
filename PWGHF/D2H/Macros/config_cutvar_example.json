@@ -15,11 +15,7 @@
       "yields-fd_0.60.root",
       "yields-fd_0.65.root",
       "yields-fd_0.70.root",
-      "yields-fd_0.75.root",
-      "yields-fd_0.80.root",
-      "yields-fd_0.85.root",
-      "yields-fd_0.90.root",
-      "yields-fd_0.95.root"
+      "yields-fd_0.75.root"
     ],
     "histoname": "hRawYields"
   },
@@ -39,11 +35,7 @@
       "efficienciesLcpKpiRun3analysis-fd_0.60.root",
       "efficienciesLcpKpiRun3analysis-fd_0.65.root",
       "efficienciesLcpKpiRun3analysis-fd_0.70.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.75.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.80.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.85.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.90.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.95.root"
+      "efficienciesLcpKpiRun3analysis-fd_0.75.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -63,7 +55,7 @@
       }
   },
   "output": {
-    "directory": "results-fdd-refinedbkg_nofixedsigma",
+    "directory": "results-fdd-refinedbkg_nofixedsigma_10-75",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
