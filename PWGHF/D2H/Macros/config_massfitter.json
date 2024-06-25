@@ -4,12 +4,12 @@
   "ReflFileName": "input reflection file directory",
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
-    "hmassfPt1_2_%sf%0.000.00",
-    "hmassfPt2_4_%sf%0.000.00",
-    "hmassfPt4_6_%sf%0.000.00",
-    "hmassfPt6_8_%sf%0.000.00",
-    "hmassfPt8_12_%sf%0.000.00",
-    "hmassfPt12_24_%sf%0.000.00"
+    "hmassfPt1_2_0.020.00%sf%",
+    "hmassfPt2_4_0.020.00%sf%",
+    "hmassfPt4_6_0.060.00%sf%",
+    "hmassfPt6_8_0.100.00%sf%",
+    "hmassfPt8_12_0.150.00%sf%",
+    "hmassfPt12_24_0.400.00%sf%"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
@@ -35,7 +35,7 @@
     "Dstar"
   ],
   "EnableRefl": false,
-  "FixSigma": true,
+  "FixSigma": false,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
