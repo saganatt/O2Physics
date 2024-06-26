@@ -6,12 +6,17 @@
       "yields-fd_0.24.root",
       "yields-fd_0.26.root",
       "yields-fd_0.28.root",
+      "yields-fd_0.29.root",
       "yields-fd_0.30.root",
       "yields-fd_0.32.root",
       "yields-fd_0.36.root",
       "yields-fd_0.38.root",
       "yields-fd_0.40.root",
+      "yields-fd_0.42.root",
+      "yields-fd_0.44.root",
       "yields-fd_0.45.root",
+      "yields-fd_0.46.root",
+      "yields-fd_0.48.root",
       "yields-fd_0.50.root",
       "yields-fd_0.55.root"
     ],
@@ -24,12 +29,17 @@
       "efficienciesLcpKpiRun3analysis-fd_0.24.root",
       "efficienciesLcpKpiRun3analysis-fd_0.26.root",
       "efficienciesLcpKpiRun3analysis-fd_0.28.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.29.root",
       "efficienciesLcpKpiRun3analysis-fd_0.30.root",
       "efficienciesLcpKpiRun3analysis-fd_0.32.root",
       "efficienciesLcpKpiRun3analysis-fd_0.36.root",
       "efficienciesLcpKpiRun3analysis-fd_0.38.root",
       "efficienciesLcpKpiRun3analysis-fd_0.40.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.42.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.44.root",
       "efficienciesLcpKpiRun3analysis-fd_0.45.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.46.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.48.root",
       "efficienciesLcpKpiRun3analysis-fd_0.50.root",
       "efficienciesLcpKpiRun3analysis-fd_0.55.root"
     ],
@@ -51,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results-refinedbkg2_nofixedsigma_22-55",
+    "directory": "fdd-results-refinedbkg2_nofixedsigma_22-55-dense",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
