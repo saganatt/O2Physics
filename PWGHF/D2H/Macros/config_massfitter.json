@@ -35,13 +35,13 @@
     "Dstar"
   ],
   "EnableRefl": false,
-  "FixSigma": false,
+  "FixSigma": true,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
     0.0100,
-    0.0100,
-    0.0130,
+    0.0110,
+    0.0136,
     0.0160,
     0.0190,
     0.0200
