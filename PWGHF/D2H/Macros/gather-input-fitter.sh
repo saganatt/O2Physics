@@ -1,9 +1,9 @@
 #!/bin/bash
 
 MLHEP_DIR="/data8/majak/MLHEP"
-OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-fdd-refinedbkg"
+OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-fdd-precise"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-bkg_0624_fd_refinedbkg2_"
+RESDIR_PATTERN="${MLHEP_DIR}/results-fd_precise_0624_"
 
 for dir in ${RESDIR_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
