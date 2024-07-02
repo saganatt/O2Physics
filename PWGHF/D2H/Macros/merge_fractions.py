@@ -41,7 +41,7 @@ def main():
         reshist.SetBinContent(ind + 1, hist.GetBinContent(ind + 1))
         reshist.SetBinError(ind + 1, hist.GetBinError(ind + 1))
 
-    reshist.SetMaximum(0.15)
+    reshist.SetMaximum(0.25)
     reshist.SetMinimum(0.0)
     reshist.Draw()
     canv.SaveAs(args.outname)
