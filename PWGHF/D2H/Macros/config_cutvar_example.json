@@ -1,47 +1,47 @@
 {
   "rawyields": {
-    "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624/d2h-fitter-sigmas4-rebin16",
+    "inputdir": "/data8/majak/MLHEP/input-fd_precise_0624/d2h-fitter",
     "inputfiles": [
-      "yields-fd_0.12.root",
-      "yields-fd_0.14.root",
-      "yields-fd_0.16.root",
-      "yields-fd_0.18.root",
-      "yields-fd_0.20.root",
-      "yields-fd_0.24.root",
-      "yields-fd_0.26.root",
-      "yields-fd_0.28.root",
-      "yields-fd_0.29.root",
-      "yields-fd_0.31.root",
-      "yields-fd_0.33.root",
-      "yields-fd_0.35.root",
-      "yields-fd_0.39.root",
-      "yields-fd_0.43.root",
-      "yields-fd_0.45.root",
-      "yields-fd_0.48.root",
-      "yields-fd_0.51.root"
+      "yields-fd_0.26_0.26_0.14_0.14_0.06_0.18.root",
+      "yields-fd_0.28_0.28_0.16_0.16_0.09_0.20.root",
+      "yields-fd_0.31_0.31_0.18_0.18_0.12_0.22.root",
+      "yields-fd_0.33_0.33_0.20_0.20_0.14_0.25.root",
+      "yields-fd_0.34_0.34_0.22_0.22_0.15_0.28.root",
+      "yields-fd_0.36_0.36_0.24_0.24_0.18_0.31.root",
+      "yields-fd_0.38_0.38_0.26_0.26_0.20_0.33.root",
+      "yields-fd_0.40_0.40_0.28_0.28_0.22_0.34.root",
+      "yields-fd_0.42_0.42_0.31_0.30_0.25_0.36.root",
+      "yields-fd_0.44_0.44_0.33_0.33_0.28_0.37.root",
+      "yields-fd_0.46_0.46_0.34_0.34_0.30_0.40.root",
+      "yields-fd_0.48_0.48_0.36_0.36_0.32_0.43.root",
+      "yields-fd_0.50_0.50_0.38_0.38_0.34_0.44.root",
+      "yields-fd_0.53_0.55_0.40_0.40_0.38_0.46.root",
+      "yields-fd_0.55_0.60_0.42_0.42_0.43_0.48.root",
+      "yields-fd_0.58_0.65_0.44_0.44_0.50_0.51.root",
+      "yields-fd_0.60_0.70_0.46_0.46_0.56_0.55.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
-    "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
+    "inputdir": "/data8/majak/MLHEP/input-fd_precise_0624",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis-fd_0.12.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.14.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.16.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.18.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.20.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.24.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.26.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.28.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.29.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.31.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.33.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.35.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.39.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.43.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.45.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.48.root",
-      "efficienciesLcpKpiRun3analysis-fd_0.51.root"
+      "efficienciesLcpKpiRun3analysis-fd_0.26_0.26_0.14_0.14_0.06_0.18.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.28_0.28_0.16_0.16_0.09_0.20.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.31_0.31_0.18_0.18_0.12_0.22.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.33_0.33_0.20_0.20_0.14_0.25.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.34_0.34_0.22_0.22_0.15_0.28.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.36_0.36_0.24_0.24_0.18_0.31.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.38_0.38_0.26_0.26_0.20_0.33.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.40_0.40_0.28_0.28_0.22_0.34.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.42_0.42_0.31_0.30_0.25_0.36.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.44_0.44_0.33_0.33_0.28_0.37.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.46_0.46_0.34_0.34_0.30_0.40.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.48_0.48_0.36_0.36_0.32_0.43.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.50_0.50_0.38_0.38_0.34_0.44.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.53_0.55_0.40_0.40_0.38_0.46.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.55_0.60_0.42_0.42_0.43_0.48.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.58_0.65_0.44_0.44_0.50_0.51.root",
+      "efficienciesLcpKpiRun3analysis-fd_0.60_0.70_0.46_0.46_0.56_0.55.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -53,7 +53,7 @@
   },
   "central_efficiency": {
       "computerawfrac": false,
-      "inputdir": "/data8/majak/MLHEP/input-fd_batch_0624",
+      "inputdir": "/data8/majak/MLHEP/input-fd_precise_0624",
       "inputfile": "efficiency.root",
       "histonames": {
           "prompt": "eff",
@@ -61,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results/10062024/fdd-results-refinedbkg2_rebin16_sigmas4_12-51",
+    "directory": "fdd-results/10062024/fdd-results-precise",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
