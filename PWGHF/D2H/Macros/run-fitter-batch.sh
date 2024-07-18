@@ -19,8 +19,8 @@ for dir in ${INPUT_PATTERN}* ; do
   IFS='_' read -ra probs <<< "${suffix_no_ext}"
   echo "${probs[0]} ${probs[1]} ${probs[2]} ${probs[3]} ${probs[4]} ${probs[5]}"
 
-  RESDIR="results-hyp-ml-reapply${suffix_no_ext}"
-  RESPATH="/data8/majak/d2h-fitter/150724/${RESDIR}"
+  RESDIR="results-hyp-ml${suffix_no_ext}"
+  RESPATH="/data8/majak/d2h-fitter/180724/${RESDIR}"
   mkdir "${RESPATH}"
 
   CUR_CFG="${CONFIG}_${suffix_no_ext}_edit.json"
