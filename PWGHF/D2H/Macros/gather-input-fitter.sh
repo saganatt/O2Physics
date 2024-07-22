@@ -3,7 +3,7 @@
 MLHEP_DIR="/data8/majak/MLHEP"
 OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-hyp-ml"
+RESDIR_PATTERN="${MLHEP_DIR}/results-2207-hyp-ml"
 
 for dir in ${RESDIR_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
