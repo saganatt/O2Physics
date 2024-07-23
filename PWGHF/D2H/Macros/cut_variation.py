@@ -175,7 +175,10 @@ class CutVarMinimiser:
             m_eff_tr = self.m_eff.T
 
             self.m_covariance = (m_eff_tr * self.m_weights) * self.m_eff
-            self.m_covariance = np.linalg.inv(np.linalg.cholesky(self.m_covariance))
+            try:
+                self.m_covariance = np.linalg.inv(np.linalg.cholesky(self.m_covariance))
+            except np.linalg.LinAlgError:
+                return False
             self.m_covariance = self.m_covariance.T * self.m_covariance
 
             self.m_corr_yields = self.m_covariance * (m_eff_tr * self.m_weights) * self.m_rawy
