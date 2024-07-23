@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml"
+INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd-precise"
 INPUT_PATTERN="${INPUT_DIR}/projections"
 
 CONFIG="config_massfitter"
