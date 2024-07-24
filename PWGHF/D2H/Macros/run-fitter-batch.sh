@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd"
+INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd-precise"
 INPUT_PATTERN="${INPUT_DIR}/projections"
 
 CONFIG="config_massfitter"
@@ -20,7 +20,7 @@ for dir in ${INPUT_PATTERN}* ; do
   echo "bkg ${probs[0]} ${probs[1]}"
   echo "fd ${probs[3]} ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]}"
 
-  RESDIR="results-hyp-ml${suffix_no_ext}"
+  RESDIR="results-hyp-ml${suffix_no_ext}-fixed-sigma"
   RESPATH="/data8/majak/d2h-fitter/220724/${RESDIR}"
   mkdir "${RESPATH}"
 
