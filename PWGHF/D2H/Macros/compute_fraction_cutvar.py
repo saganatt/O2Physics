@@ -34,13 +34,6 @@ def main(config):
         infile_rawy = ROOT.TFile.Open(os.path.join(cfg["rawyields"]["inputdir"], filename_rawy))
         hist_rawy.append(infile_rawy.Get(cfg["rawyields"]["histoname"]))
 
-        histname = f"{cfg['rawyields']['histoname']}_{filename_rawy.replace('.root', '.png')}"
-        c_debug = ROOT.TCanvas(histname, histname, 500, 500)
-        hist_rawy[-1].SetTitle(histname)
-        hist_rawy[-1].Draw()
-        c_png = f"{cfg['output']['directory']}/{histname}"
-        c_debug.SaveAs(c_png)
-
         hist_rawy[-1].SetDirectory(0)
         infile_rawy.Close()
 
