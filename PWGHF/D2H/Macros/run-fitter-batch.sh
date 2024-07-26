@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd-precise-bin45"
-INPUT_PATTERN="${INPUT_DIR}/projections_bin45"
+INPUT_PATTERN="${INPUT_DIR}/projections_bin45_"
 
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
@@ -29,7 +29,7 @@ for dir in ${INPUT_PATTERN}* ; do
   cp "${CONFIG_EXT}" "${CUR_CFG}"
 
   sed -i "s/%indir%/${INPUT_DIR//\//\\/}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%infile%/projections${suffix}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%infile%/projections_bin45_${suffix}/g" "${CUR_CFG}" || exit 1
   sed -i "s/%outdir%/${RESPATH//\//\\/}/g" "${CUR_CFG}" || exit 1
 
   sed -i "s/%bkg812%/${probs[0]}/g" "${CUR_CFG}" || exit 1
