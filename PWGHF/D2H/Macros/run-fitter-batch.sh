@@ -6,10 +6,12 @@ INPUT_PATTERN="${INPUT_DIR}/projections"
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 
-for dir in ${INPUT_PATTERN}* ; do
+for fd in $(seq 0.01 0.02 0.03; seq 0.07 0.02 0.13; seq 0.17 0.02 0.23; seq 0.27 0.02 0.27; seq 0.31 0.02 0.33; seq 0.37 0.02 0.43; seq 0.47 0.02 0.53; seq 0.57 0.02 0.63; seq 0.67 0.02 0.73; seq 0.77 0.02 0.83) ; do
+#for dir in ${INPUT_PATTERN}* ; do
+dir=( ${INPUT_PATTERN}*${fd}.root )
   echo $dir
 
-  suffix=${dir##${INPUT_PATTERN}}
+  suffix=${dir[@]##${INPUT_PATTERN}}
   echo $suffix
 
   ROOT_EXT=".root"
