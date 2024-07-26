@@ -2,46 +2,46 @@
   "rawyields": {
     "inputdir": "/data8/majak/MLHEP/input-fd_precise_2224/d2h-fitter",
     "inputfiles": [
+      "yields-fd_0.25_0.30_fd_0.05_0.05_0.05_0.05_0.05_0.05-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.07_0.07_0.07_0.07_0.07_0.07-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.10_0.10_0.10_0.10_0.10_0.10-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.12_0.12_0.12_0.12_0.12_0.12-fixed-sigma.root",
       "yields-fd_0.25_0.30_fd_0.14_0.14_0.14_0.14_0.14_0.14-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.16_0.16_0.16_0.16_0.16_0.16-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.18_0.18_0.18_0.18_0.18_0.18-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.20_0.20_0.20_0.20_0.20_0.20-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.19_0.19_0.19_0.19_0.19_0.19-fixed-sigma.root",
       "yields-fd_0.25_0.30_fd_0.22_0.22_0.22_0.22_0.22_0.22-fixed-sigma.root",
       "yields-fd_0.25_0.30_fd_0.24_0.24_0.24_0.24_0.24_0.24-fixed-sigma.root",
       "yields-fd_0.25_0.30_fd_0.26_0.26_0.26_0.26_0.26_0.26-fixed-sigma.root",
       "yields-fd_0.25_0.30_fd_0.28_0.28_0.28_0.28_0.28_0.28-fixed-sigma.root",
       "yields-fd_0.25_0.30_fd_0.30_0.30_0.30_0.30_0.30_0.30-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.32_0.32_0.32_0.32_0.32_0.32-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.34_0.34_0.34_0.34_0.34_0.34-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.36_0.36_0.36_0.36_0.36_0.36-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.40_0.40_0.40_0.40_0.40_0.40-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.44_0.44_0.44_0.44_0.44_0.44-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.46_0.46_0.46_0.46_0.46_0.46-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.50_0.50_0.50_0.50_0.50_0.50-fixed-sigma.root",
-      "yields-fd_0.25_0.30_fd_0.56_0.56_0.56_0.56_0.56_0.56-fixed-sigma.root"
+      "yields-fd_0.25_0.30_fd_0.33_0.33_0.33_0.33_0.33_0.33-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.37_0.37_0.37_0.37_0.37_0.37-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.41_0.41_0.41_0.41_0.41_0.41-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.48_0.48_0.48_0.48_0.48_0.48-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.51_0.51_0.51_0.51_0.51_0.51-fixed-sigma.root",
+      "yields-fd_0.25_0.30_fd_0.58_0.58_0.58_0.58_0.58_0.58-fixed-sigma.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd_precise_2224",
     "inputfiles": [
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.05_0.05_0.05_0.05_0.05_0.05.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.07_0.07_0.07_0.07_0.07_0.07.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.10_0.10_0.10_0.10_0.10_0.10.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.12_0.12_0.12_0.12_0.12_0.12.root",
       "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.14_0.14_0.14_0.14_0.14_0.14.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.16_0.16_0.16_0.16_0.16_0.16.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.18_0.18_0.18_0.18_0.18_0.18.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.20_0.20_0.20_0.20_0.20_0.20.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.19_0.19_0.19_0.19_0.19_0.19.root",
       "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.22_0.22_0.22_0.22_0.22_0.22.root",
       "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.24_0.24_0.24_0.24_0.24_0.24.root",
       "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.26_0.26_0.26_0.26_0.26_0.26.root",
       "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.28_0.28_0.28_0.28_0.28_0.28.root",
       "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.30_0.30_0.30_0.30_0.30_0.30.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.32_0.32_0.32_0.32_0.32_0.32.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.34_0.34_0.34_0.34_0.34_0.34.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.36_0.36_0.36_0.36_0.36_0.36.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.40_0.40_0.40_0.40_0.40_0.40.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.44_0.44_0.44_0.44_0.44_0.44.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.46_0.46_0.46_0.46_0.46_0.46.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.50_0.50_0.50_0.50_0.50_0.50.root",
-      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.56_0.56_0.56_0.56_0.56_0.56.root"
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.33_0.33_0.33_0.33_0.33_0.33.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.37_0.37_0.37_0.37_0.37_0.37.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.41_0.41_0.41_0.41_0.41_0.41.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.48_0.48_0.48_0.48_0.48_0.48.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.51_0.51_0.51_0.51_0.51_0.51.root",
+      "efficienciesLcpKpiRun3analysis-bkg_0.25_0.30_fd_0.58_0.58_0.58_0.58_0.58_0.58.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -61,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results/22072024/fdd-results-4-6-d2hcuts-fixed-sigma-3",
+    "directory": "fdd-results/22072024/fdd-results-8-12-d2hcuts-fixed-sigma-2",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
