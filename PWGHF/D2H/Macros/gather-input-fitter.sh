@@ -1,15 +1,15 @@
 #!/bin/bash
 
 MLHEP_DIR="/data8/majak/MLHEP"
-OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd-precise"
+OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd-precise-bin45"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-2207-hyp-ml_fd_precise_bkg_"
+RESDIR_PATTERN="${MLHEP_DIR}/results-2207-hyp-ml_fd_precise_bin45_bkg_"
 
 for dir in ${RESDIR_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
   echo $suffix
   
-  RESPATH="${OUTPUT_DIR}/projections${suffix}.root"
+  RESPATH="${OUTPUT_DIR}/projections_bin45_${suffix}.root"
 
 python gather_input_fitter.py \
   "${dir}/LHC22pp/Results/resultsdatatot/masshisto.root" \
