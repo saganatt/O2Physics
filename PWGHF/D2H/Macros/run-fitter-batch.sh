@@ -21,7 +21,7 @@ for dir in ${INPUT_PATTERN}* ; do
   echo "bkg ${probs[0]} ${probs[1]}"
   echo "fd ${probs[3]} ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]}"
 
-  RESDIR="results-hyp-ml_${suffix_no_ext}-fixed-sigma-bin45-rebin5-wide56"
+  RESDIR="results-hyp-ml_${suffix_no_ext}-fixed-sigma-bin45-rebin5-narrow56"
   RESPATH="/data8/majak/d2h-fitter/220724/${RESDIR}"
   mkdir "${RESPATH}"
 
