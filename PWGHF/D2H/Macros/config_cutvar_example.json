@@ -2,6 +2,9 @@
   "rawyields": {
     "inputdir": "/data8/majak/MLHEP/input-fd_precise_2224/d2h-fitter",
     "inputfiles": [
+      "yields-fd_bkg_0.25_0.30_fd_0.20-bin23-fixed-sigma.root",
+      "yields-fd_bkg_0.25_0.30_fd_0.22-bin23-fixed-sigma.root",
+      "yields-fd_bkg_0.25_0.30_fd_0.24-bin23-fixed-sigma.root",
       "yields-fd_bkg_0.25_0.30_fd_0.26-bin23-fixed-sigma.root",
       "yields-fd_bkg_0.25_0.30_fd_0.28-bin23-fixed-sigma.root",
       "yields-fd_bkg_0.25_0.30_fd_0.30-bin23-fixed-sigma.root",
@@ -15,16 +18,16 @@
       "yields-fd_bkg_0.25_0.30_fd_0.46-bin23-fixed-sigma.root",
       "yields-fd_bkg_0.25_0.30_fd_0.48-bin23-fixed-sigma.root",
       "yields-fd_bkg_0.25_0.30_fd_0.50-bin23-fixed-sigma.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.52-bin23-fixed-sigma.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.55-bin23-fixed-sigma.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.58-bin23-fixed-sigma.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.60-bin23-fixed-sigma.root"
+      "yields-fd_bkg_0.25_0.30_fd_0.52-bin23-fixed-sigma.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd_precise_2224",
     "inputfiles": [
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.20.root",
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.22.root",
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.24.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.26.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.28.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.30.root",
@@ -38,10 +41,7 @@
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.46.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.48.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.50.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.52.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.55.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.58.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.60.root"
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.52.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -61,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results/22072024/fdd-results-1-2-bin23-fixed-sigma",
+    "directory": "fdd-results/22072024/fdd-results-2-3-bin23-fixed-sigma-3",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
