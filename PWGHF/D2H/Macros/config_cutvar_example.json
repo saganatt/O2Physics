@@ -11,14 +11,14 @@
       "yields-fd_bkg_0.25_0.30_fd_0.28-bin23-68-widerange-sigma155-812-narrow.root",
       "yields-fd_bkg_0.25_0.30_fd_0.30-bin23-68-widerange-sigma155-812-narrow.root",
       "yields-fd_bkg_0.25_0.30_fd_0.32-bin23-68-widerange-sigma155-812-narrow.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.35-bin23-68-widerange-sigma155-812-narrow.root",
+      "yields-fd_bkg_0.25_0.30_fd_0.34-bin23-68-widerange-sigma155-812-narrow.root",
+      "yields-fd_bkg_0.25_0.30_fd_0.36-bin23-68-widerange-sigma155-812-narrow.root",
       "yields-fd_bkg_0.25_0.30_fd_0.38-bin23-68-widerange-sigma155-812-narrow.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.41-bin23-68-widerange-sigma155-812-narrow.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.43-bin23-68-widerange-sigma155-812-narrow.root",
+      "yields-fd_bkg_0.25_0.30_fd_0.40-bin23-68-widerange-sigma155-812-narrow.root",
+      "yields-fd_bkg_0.25_0.30_fd_0.42-bin23-68-widerange-sigma155-812-narrow.root",
       "yields-fd_bkg_0.25_0.30_fd_0.46-bin23-68-widerange-sigma155-812-narrow.root",
       "yields-fd_bkg_0.25_0.30_fd_0.48-bin23-68-widerange-sigma155-812-narrow.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.52-bin23-68-widerange-sigma155-812-narrow.root",
-      "yields-fd_bkg_0.25_0.30_fd_0.55-bin23-68-widerange-sigma155-812-narrow.root"
+      "yields-fd_bkg_0.25_0.30_fd_0.52-bin23-68-widerange-sigma155-812-narrow.root"
     ],
     "histoname": "hRawYields"
   },
@@ -34,14 +34,14 @@
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.28.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.30.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.32.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.35.root",
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.34.root",
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.36.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.38.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.41.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.43.root",
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.40.root",
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.42.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.46.root",
       "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.48.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.52.root",
-      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.55.root"
+      "efficienciesLcpKpiRun3analysis-bin23_bkg_0.25_0.30_fd_0.52.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -61,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results/22072024/fdd-results-6-8-bin23-widerange-sigma155-4",
+    "directory": "fdd-results/22072024/fdd-results-6-8-bin23-widerange-sigma155-nooutlier",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
