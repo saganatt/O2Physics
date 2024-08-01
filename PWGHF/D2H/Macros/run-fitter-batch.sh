@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd"
-INPUT_PATTERN="${INPUT_DIR}/projections_bin23_"
+INPUT_PATTERN="${INPUT_DIR}/projections_bin23_bkg_0.25"
 
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
@@ -18,11 +18,11 @@ for dir in ${INPUT_PATTERN}* ; do
   echo $suffix_no_ext
 
   IFS='_' read -ra probs <<< "${suffix_no_ext}"
-  echo "bkg ${probs[1]} ${probs[2]}"
-  echo "fd ${probs[4]}"
+  echo "bkg ${probs[1]}" # ${probs[2]}"
+  echo "fd ${probs[3]}"
   #echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]}"
 
-  RESDIR="results-hyp-ml_${suffix_no_ext}-bin23-812-widerange-sigma210"
+  RESDIR="results-hyp-ml_bkg_0.25${suffix_no_ext}-bin23-812-sigma200"
   RESPATH="/data8/majak/d2h-fitter/220724/${RESDIR}"
   mkdir "${RESPATH}"
 
@@ -30,18 +30,18 @@ for dir in ${INPUT_PATTERN}* ; do
   cp "${CONFIG_EXT}" "${CUR_CFG}"
 
   sed -i "s/%indir%/${INPUT_DIR//\//\\/}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%infile%/projections_bin23_${suffix}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%infile%/projections_bin23_bkg_0.25${suffix}/g" "${CUR_CFG}" || exit 1
   sed -i "s/%outdir%/${RESPATH//\//\\/}/g" "${CUR_CFG}" || exit 1
 
-  sed -i "s/%bkg812%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%bkg1224%/${probs[2]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%bkg812%/0.25/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%bkg1224%/${probs[1]}/g" "${CUR_CFG}" || exit 1
 
-  sed -i "s/%sf12%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf24%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf46%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf68%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf812%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1224%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf12%/${probs[3]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf24%/${probs[3]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf46%/${probs[3]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf68%/${probs[3]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf812%/${probs[3]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1224%/${probs[3]}/g" "${CUR_CFG}" || exit 1
 
   root -b -l -q -x "HFInvMassFitter.cxx" runMassFitter.C\(\"${CUR_CFG}\"\)
 done
