@@ -22,7 +22,7 @@ for dir in ${INPUT_PATTERN}* ; do
   echo "fd ${probs[4]}"
   #echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]}"
 
-  RESDIR="results-hyp-ml_${suffix_no_ext}-bin23-68-widerange-sigma155-812-narrow"
+  RESDIR="results-hyp-ml_${suffix_no_ext}-bin23-812-widerange-sigma210"
   RESPATH="/data8/majak/d2h-fitter/220724/${RESDIR}"
   mkdir "${RESPATH}"
 
