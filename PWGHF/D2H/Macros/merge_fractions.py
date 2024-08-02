@@ -13,6 +13,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TFile,
     TH1,
     gROOT,
+    kOrange
 )
 
 HISTNAME = "hCorrFracNonPrompt"
@@ -25,6 +26,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="Arguments to pass")
     parser.add_argument("outname", help="output filename")
+    parser.add_argument("oldname", help="old results filename")
     parser.add_argument("files", nargs='+', help="input ROOT files")
     args = parser.parse_args()
 
@@ -34,16 +36,31 @@ def main():
     rfile = TFile(args.files[0])
     hist = rfile.Get(HISTNAME)
     reshist = hist.Clone()
+
     for ind, file in enumerate(args.files):
         rfile2 = TFile(file)
         hist = rfile2.Get(HISTNAME)
         print(f"{ind + 1} bin content {hist.GetBinContent(ind + 1)}")
         reshist.SetBinContent(ind + 1, hist.GetBinContent(ind + 1))
         reshist.SetBinError(ind + 1, hist.GetBinError(ind + 1))
+    for ind in range(2):
+        reshist.SetBinContent(ind + 1 + len(args.files), 0.0)
+        reshist.SetBinError(ind + 1 + len(args.files), 0.0)
 
     reshist.SetMaximum(0.25)
     reshist.SetMinimum(0.0)
     reshist.Draw()
+
+    oldfile = TFile(args.oldname)
+    oldhistt = oldfile.Get(HISTNAME)
+    oldhist = oldhistt.Clone()
+    oldhist.SetMarkerColor(kOrange)
+    oldhist.SetLineColor(kOrange)
+    for ind in range(2):
+        oldhist.SetBinContent(oldhist.GetNbinsX() - ind, 0.0)
+        oldhist.SetBinError(oldhist.GetNbinsX() - ind, 0.0)
+    oldhist.Draw("same")
+
     canv.SaveAs(args.outname)
 
 
