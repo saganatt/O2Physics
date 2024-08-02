@@ -5,10 +5,10 @@
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
     "hmassfPt1_2_0.020.00%sf12%",
-    "hmassfPt2_3_0.020.00%sf24%",
-    "hmassfPt3_4_0.020.00%sf24%",
-    "hmassfPt4_5_0.060.00%sf46%",
-    "hmassfPt5_6_0.060.00%sf46%",
+    "hmassfPt2_3_0.020.00%sf23%",
+    "hmassfPt3_4_0.020.00%sf34%",
+    "hmassfPt4_5_0.060.00%sf45%",
+    "hmassfPt5_6_0.060.00%sf56%",
     "hmassfPt6_8_0.100.00%sf68%",
     "hmassfPt8_12_%bkg812%0.00%sf812%",
     "hmassfPt12_24_%bkg1224%0.00%sf1224%"
