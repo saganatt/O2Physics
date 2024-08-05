@@ -1,5 +1,5 @@
 """
-Merge MLHEP histomass root files for the PWGHF mass fitter. One file per pt bin.
+Merge MLHEP efficiency root files for the PWGHF cut variation macro. One file per pt bin.
 """
 
 import argparse
@@ -25,15 +25,19 @@ def main():
 
     fout = TFile(args.outfile[0], "RECREATE")
 
+    fins = [TFile(filename) for filename in args.infile]
+
+    def get_hist(fin, histname):
+        fin.cd()
+        return fin.Get(histname)
+
     for name in args.histname:
-        hist_list = []
-        for ind, filename in enumerate(args.infile):
-            fin = TFile(filename)
-            list_hists = [key.GetName() for key in fin.GetListOfKeys() \
-                          if name in key.GetName()]
-            hist = fin.Get(list_hists[ind])
-            fout.cd()
-            hist.Write()
+        hist_list = [get_hist(fin, name) for fin in fins]
+        hist = hist_list[0].Clone()
+        for ind, hist_tmp in enumerate(hist_list):
+            hist.SetBinContent(ind+1, hist_tmp.GetBinContent(ind+1))
+        fout.cd()
+        hist.Write()
 
     fout.Close()
 
