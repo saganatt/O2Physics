@@ -36,6 +36,7 @@ def main():
         hist = hist_list[0].Clone()
         for ind, hist_tmp in enumerate(hist_list):
             hist.SetBinContent(ind+1, hist_tmp.GetBinContent(ind+1))
+            hist.SetBinError(ind+1, hist_tmp.GetBinError(ind+1))
         fout.cd()
         hist.Write()
 
