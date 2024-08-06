@@ -6,7 +6,7 @@ INPUT_PATTERN="${INPUT_DIR}/projections_fdd_precise_"
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 
-for dir in ${INPUT_PATTERN}* ; do
+for dir in ${INPUT_PATTERN}bkg_0.20* ; do
   #dir=( ${INPUT_PATTERN}*${fd}.root )
   echo $dir
 
@@ -21,7 +21,7 @@ for dir in ${INPUT_PATTERN}* ; do
   echo "bkg ${probs[1]} ${probs[2]}"
   echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]} ${probs[10]} ${probs[11]}"
 
-  RESDIR="results-hyp-ml_fdd_precise_${suffix_no_ext}"
+  RESDIR="results-hyp-ml_fdd_precise_${suffix_no_ext}-fixed-sigma"
   RESPATH="/data8/majak/d2h-fitter/220724/${RESDIR}"
   mkdir "${RESPATH}"
 
