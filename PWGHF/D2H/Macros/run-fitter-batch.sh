@@ -6,7 +6,7 @@ INPUT_PATTERN="${INPUT_DIR}/projections_"
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 
-for dir in ${INPUT_PATTERN}* ; do
+for dir in ${INPUT_PATTERN}bkg_0.30* ; do
   #dir=( ${INPUT_PATTERN}*${fd}.root )
   echo $dir
 
