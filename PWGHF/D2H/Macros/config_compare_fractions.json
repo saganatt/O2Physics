@@ -1,0 +1,25 @@
+{
+  "inputdir": "/data8/majak/significance/220724/selected-trial",
+  "histoname": "hCorrFracNonPrompt",
+  "default": "Narrower right",
+  "hists": {
+    "Narrower right": [
+      "CutVarLc_pp13TeV_all-right-2.root"
+    ],
+    "Narrower left": [
+      "CutVarLc_pp13TeV_all-left-2.root"
+    ],
+    "Larger steps": [
+      "CutVarLc_pp13TeV_1-2-wider-steps.root",
+      "CutVarLc_pp13TeV_2-3-wider-steps.root",
+      "CutVarLc_pp13TeV_3-4-wider-steps.root",
+      "CutVarLc_pp13TeV_4-5-wider-steps.root",
+      "CutVarLc_pp13TeV_5-6-wider-steps.root",
+      "CutVarLc_pp13TeV_6-8-wider-steps.root"
+    ]
+  },
+  "output": {
+    "outdir": "/data8/majak/significance/220724/selected-trial",
+    "file": "NP_Frac_pp13TeV_BDT_cuts"
+  }
+}
