@@ -1,12 +1,12 @@
 #!/bin/bash
 
-INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd"
+INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-140824"
 INPUT_PATTERN="${INPUT_DIR}/projections_"
 
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 
-for dir in ${INPUT_PATTERN}*fd_0.6* ; do
+for dir in ${INPUT_PATTERN}* ; do
   #dir=( ${INPUT_PATTERN}*${fd}.root )
   echo $dir
 
@@ -21,8 +21,8 @@ for dir in ${INPUT_PATTERN}*fd_0.6* ; do
   echo "bkg ${probs[1]} ${probs[2]}"
   echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]} ${probs[10]} ${probs[11]}"
 
-  RESDIR="results-hyp-ml_${suffix_no_ext}-bin23-68-widerange-sigma155-812-narrow"
-  RESPATH="/data8/majak/d2h-fitter/220724/${RESDIR}"
+  RESDIR="results-hyp-ml_${suffix_no_ext}-free-sigma"
+  RESPATH="/data8/majak/d2h-fitter/140824/${RESDIR}"
   mkdir "${RESPATH}"
 
   CUR_CFG="${CONFIG}_${suffix_no_ext}_edit.json"

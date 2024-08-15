@@ -1,11 +1,11 @@
 #!/bin/bash
 
 MLHEP_DIR="/data8/majak/MLHEP"
-OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-hyp-ml-fdd"
+OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-140824"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-2207-hyp-ml_fd_precise_bin23_"
+RESDIR_PATTERN="${MLHEP_DIR}/results-1408-hyp-ml_fd_batch_"
 
-for dir in ${RESDIR_PATTERN}*fd_0.70* ; do
+for dir in ${RESDIR_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
   echo $suffix
   
