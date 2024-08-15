@@ -18,6 +18,8 @@
       "CutVarLc_pp13TeV_6-8-wider-steps.root"
     ]
   },
+  "bin_min": [1,2,3,4,5,6,8,12],
+  "bin_max": [2,3,4,5,6,8,12,24],
   "output": {
     "outdir": "/data8/majak/significance/220724/selected-trial",
     "file": "NP_Frac_pp13TeV_BDT_cuts"

@@ -13,6 +13,7 @@ import os
 from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TCanvas,
     TFile,
+    TH1F,
     TLegend,
     gPad,
     gROOT,
@@ -130,6 +131,33 @@ def plot_ratio(cfg, hists):
     return canvr, legr, histsr
 
 
+def plot_diffs(cfg, hists):
+    histsd = []
+    canvs = []
+
+    nbins = hists[cfg["default"]].GetNbinsX()
+    if len(cfg["bin_min"]) != nbins or len(cfg["bin_max"]) != nbins:
+        print("Incorrect number of bins in the configuration")
+        return histsd, canvs
+
+    for binn, (binmin, binmax) in enumerate(zip(cfg["bin_min"], cfg["bin_max"])):
+        canvr, _ = prepare_canvas(f'c_rmse_{binmin}_{binmax}', nbins)
+        histd = hists[cfg["default"]].Clone()
+        histd = TH1F(f"h_rmse_{binmin}_{binmax}", f"Error for #it{{p}}_{{T}} [{binmin}, {binmax})",
+                     100, -0.02, 0.02)
+        for label in hists:
+            if label != cfg["default"]:
+                diff = hists[label].GetBinContent(binn + 1) -\
+                        hists[cfg["default"]].GetBinContent(binn + 1)
+                histd.Fill(diff)
+        histd.Draw()
+
+        histsd.append(histd)
+        canvs.append(canvr)
+
+    return canvs, histsd
+
+
 def main():
     """
     Main function.
@@ -160,13 +188,20 @@ def main():
         output.cd()
         canv.Write()
         save_canvas(canv, cfg, cfg["output"]["file"])
-        for histname in hists:
-            hists[histname].Write()
+        for _, hist in hists.items():
+            hist.Write()
 
         canvr, _, histr = plot_ratio(cfg, hists)
         canvr.Write()
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
         for hist in histr:
+            hist.Write()
+
+        canvds, histds = plot_diffs(cfg, hists)
+        for canv, binmin, binmax in zip(canvds, cfg["bin_min"], cfg["bin_max"]):
+            canv.Write()
+            save_canvas(canv, cfg, f'{cfg["output"]["file"]}_diff_{binmin}_{binmax}')
+        for hist in histds:
             hist.Write()
 
 
