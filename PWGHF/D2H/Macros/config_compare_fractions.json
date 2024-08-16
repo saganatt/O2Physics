@@ -1,27 +1,25 @@
 {
-  "inputdir": "/data8/majak/significance/220724/selected-trial",
+  "inputdir": "/data8/majak/systematics/140824/track-tuner",
   "histoname": "hCorrFracNonPrompt",
-  "default": "Narrower right",
+  "default": "Default",
   "hists": {
-    "Narrower right": [
-      "CutVarLc_pp13TeV_all-right-2.root"
+    "Default": [
+      "CutVarLc_pp13TeV_LHC24d3_default_old.root"
     ],
-    "Narrower left": [
-      "CutVarLc_pp13TeV_all-left-2.root"
+    "No #it{p}_{T} smearing": [
+      "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing.root"
     ],
-    "Larger steps": [
-      "CutVarLc_pp13TeV_1-2-wider-steps.root",
-      "CutVarLc_pp13TeV_2-3-wider-steps.root",
-      "CutVarLc_pp13TeV_3-4-wider-steps.root",
-      "CutVarLc_pp13TeV_4-5-wider-steps.root",
-      "CutVarLc_pp13TeV_5-6-wider-steps.root",
-      "CutVarLc_pp13TeV_6-8-wider-steps.root"
+    "Reso p1": [
+      "CutVarLc_pp13TeV_LHC24d3_resop1.root"
+    ],
+    "Reso p5": [
+      "CutVarLc_pp13TeV_LHC24d3_resop5.root"
     ]
   },
   "bin_min": [1,2,3,4,5,6,8,12],
   "bin_max": [2,3,4,5,6,8,12,24],
   "output": {
-    "outdir": "/data8/majak/significance/220724/selected-trial",
-    "file": "NP_Frac_pp13TeV_BDT_cuts"
+    "outdir": "/data8/majak/systematics/140824/track-tuner",
+    "file": "NP_Frac_pp13TeV_track_tuner"
   }
 }
