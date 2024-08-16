@@ -37,17 +37,17 @@
     "Dstar"
   ],
   "EnableRefl": false,
-  "FixSigma": false,
+  "FixSigma": true,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
     0.0094,
     0.0098,
     0.0102,
-    0.0118,
+    0.0119,
     0.0138,
-    0.0161,
-    0.0206,
+    0.0155,
+    0.0191,
     0.0220
   ],
   "_FixSigmaManual": "fix sigma mannually",
@@ -85,7 +85,7 @@
     2.16,
     2.11,
     2.10,
-    2.07
+    2.10
   ],
   "MassMax": [
     2.40,
