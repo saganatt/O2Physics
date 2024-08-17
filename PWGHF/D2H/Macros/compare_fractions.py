@@ -8,6 +8,7 @@ author: Maja Karwowska <mkarwowska@cern.ch>, Warsaw University of Technology
 
 import argparse
 import json
+import math
 import os
 
 from ROOT import (  # pylint: disable=import-error,no-name-in-module
@@ -37,7 +38,7 @@ COLORS=[kBlack, kAzure-7, kRed+2, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+
 def prepare_canvas(cname, num_hists):
     canv = TCanvas(cname, "")
     canv.SetCanvasSize(800, 600)
-    leg = TLegend(0.65, 0.15, 0.85, 0.25)
+    leg = TLegend(0.63, 0.12, 0.83, 0.28)
     if num_hists > 5:
         leg.SetNColumns(2)
     leg.SetTextSize(0.03)
@@ -52,9 +53,17 @@ def save_canvas(canv, cfg, filename):
 
 
 def remove_high_pt(hist):
-    for ind in range(2):
-        hist.SetBinContent(hist.GetNbinsX() - ind, 0.0)
-        hist.SetBinError(hist.GetNbinsX() - ind, 0.0)
+    ind = hist.GetXaxis().FindBin(8.0)
+    for binn in range(ind, hist.GetNbinsX() + 1):
+        hist.SetBinContent(binn, 0.0)
+        hist.SetBinError(binn, 0.0)
+
+
+def combine_syst_errors(syst_errors, value):
+    err = 0.0
+    for syst in syst_errors:
+        err += syst * syst
+    return math.sqrt(err) * value
 
 
 def merge_fractions(inputdir, histname, filenames):
@@ -83,29 +92,62 @@ def plot_compare(cfg):
     canv, leg = prepare_canvas(f'c_{cfg["histoname"]}', len(cfg["hists"]))
 
     hists = {}
+    hists_syst = []
+    miny = maxy = 0.
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
-        if len(cfg["hists"][label]) == 1:
-            with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label][0])) as fin:
+        if len(cfg["hists"][label]["file"]) == 1:
+            with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
                 hist = fin.Get(cfg["histoname"])
                 hist.SetDirectory(0)
         else:
             print(f"Merging histograms for {label}")
-            hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label])
-        remove_high_pt(hist)
+            hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
 
-        draw_opt = "same" if ind != 0 else ""
+        if not "Run 2" in label and not "D^{0}" in label:
+            print(f"Removing high pts for {label}")
+            remove_high_pt(hist)
+
         hist.SetMarkerColor(color)
         hist.SetLineColor(color)
-        hist.GetYaxis().SetTitle("Non-prompt #Lambda_{c} fraction")
+        hist.GetYaxis().SetTitle("Non-prompt fraction")
+        #hist.GetYaxis().SetTitle("Non-prompt #Lambda_{c} fraction")
+
+        # FIXME: Take bin error into account. Any better method?
+        if ind == 0:
+            maxy = hist.GetMaximum()
+            miny = hist.GetMinimum()
+        else:
+            maxy = max(hist.GetMaximum(), maxy)
+            miny = min(hist.GetMinimum(), miny)
 
         canv.cd()
+        draw_opt = "same" if ind != 0 else ""
         hist.Draw(draw_opt)
         leg.AddEntry(hist, label, "pl")
 
         hists[label] = hist
+
+        if cfg["hists"][label].get("systematics", None):
+            hist_syst = hist.Clone()
+            for binn in range(hist_syst.GetNbinsX()):
+                syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
+                                               hist_syst.GetBinContent(binn + 1))
+                print(f"Syst error {label} bin {binn + 1} {syst_err}")
+                hist_syst.SetBinError(binn, syst_err)
+                hist_syst.SetMarkerColor(color)
+                hist_syst.SetLineColor(color)
+                hist_syst.Draw("E2 same")
+                hists_syst.append(hist_syst)
+
     leg.Draw()
 
-    return canv, leg, hists
+    maxy = 0.21
+    miny = 0.0
+    for _, hist in hists.items():
+        hist.SetMaximum(maxy)
+        hist.SetMinimum(miny)
+
+    return canv, leg, hists, hists_syst
 
 
 def plot_ratio(cfg, hists):
@@ -184,7 +226,7 @@ def main():
     with TFile(os.path.join(cfg["output"]["outdir"],
                f'{cfg["output"]["file"]}.root'), "recreate") as output:
 
-        canv, _, hists = plot_compare(cfg)
+        canv, leg, hists, _ = plot_compare(cfg) # pylint: disable=unused-variable
         output.cd()
         canv.Write()
         save_canvas(canv, cfg, cfg["output"]["file"])
