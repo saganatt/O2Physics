@@ -1,12 +1,13 @@
 #!/bin/bash
 
-INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-140824-fdd"
+INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-140824-fdd-precise"
 INPUT_PATTERN="${INPUT_DIR}/projections_"
 
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
+PERM_PATTERN="fd_precise_finer_bins_"
 
-for dir in ${INPUT_PATTERN}bkg_0.10_0.70_fd_0.00* ; do
+for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   #dir=( ${INPUT_PATTERN}*${fd}.root )
   echo $dir
 
@@ -17,7 +18,10 @@ for dir in ${INPUT_PATTERN}bkg_0.10_0.70_fd_0.00* ; do
   suffix_no_ext=${suffix%%${ROOT_EXT}}
   echo $suffix_no_ext
 
-  IFS='_' read -ra probs <<< "${suffix_no_ext}"
+  suffix_no_ext_ext=${suffix_no_ext##${PERM_PATTERN}}
+  echo "sufix no ext ext ${suffix_no_ext_ext}"
+
+  IFS='_' read -ra probs <<< "${suffix_no_ext_ext}"
   echo "bkg ${probs[1]} ${probs[2]}"
   echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]} ${probs[10]} ${probs[11]}"
 
@@ -36,13 +40,13 @@ for dir in ${INPUT_PATTERN}bkg_0.10_0.70_fd_0.00* ; do
   sed -i "s/%bkg1224%/${probs[2]}/g" "${CUR_CFG}" || exit 1
 
   sed -i "s/%sf12%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf23%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf34%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf45%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf56%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf68%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf812%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1224%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf23%/${probs[5]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf34%/${probs[6]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf45%/${probs[7]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf56%/${probs[8]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf68%/${probs[9]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf812%/${probs[10]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1224%/${probs[11]}/g" "${CUR_CFG}" || exit 1
 
   root -b -l -q -x "HFInvMassFitter.cxx" runMassFitter.C\(\"${CUR_CFG}\"\)
 done
