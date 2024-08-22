@@ -1,13 +1,13 @@
 #!/bin/bash
 
 MLHEP_DIR="/data8/majak/MLHEP"
-OUTPUT_DIR="${MLHEP_DIR}/input-fd_batch_0824_debug/d2h-fitter"
+OUTPUT_DIR="${MLHEP_DIR}/input-fd-precise-22082024"
 
-RESDIR_PATTERN="/data8/majak/d2h-fitter/220724/results-hyp-ml_"
+RESDIR_PATTERN="/data8/majak/d2h-fitter/220824/results-hyp-ml_"
 
-for dir in ${RESDIR_PATTERN}0.25_0.30_fd_*-fixed-sigma-812-fit ; do
+for dir in ${RESDIR_PATTERN}*-poly3 ; do
   suffix=${dir##${RESDIR_PATTERN}}
   echo $suffix
 
-  cp "${dir}/fits.root" "${OUTPUT_DIR}/yields-fd_${suffix}.root"
+  cp "${dir}/fits.root" "${OUTPUT_DIR}/yields-${suffix}.root"
 done
