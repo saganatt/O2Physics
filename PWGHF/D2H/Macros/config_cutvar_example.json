@@ -1,73 +1,67 @@
 {
-    "rawyields": {
-        "inputdir": "path/to/RawYields/files",
-        "inputfiles": [
-            "RawYieldsDplus_outFD_pos10.root",
-            "RawYieldsDplus_outFD_pos11.root",
-            "RawYieldsDplus_outFD_pos12.root",
-            "RawYieldsDplus_outFD_pos13.root",
-            "RawYieldsDplus_outFD_pos14.root",
-            "RawYieldsDplus_outFD_pos15.root",
-            "RawYieldsDplus_outFD_pos16.root",
-            "RawYieldsDplus_outFD_pos17.root",
-            "RawYieldsDplus_outFD_pos18.root",
-            "RawYieldsDplus_outFD_pos19.root",
-            "RawYieldsDplus_outFD_pos20.root",
-            "RawYieldsDplus_outFD_pos21.root",
-            "RawYieldsDplus_outFD_pos22.root",
-            "RawYieldsDplus_outFD_pos23.root",
-            "RawYieldsDplus_outFD_pos24.root",
-            "RawYieldsDplus_outFD_pos25.root",
-            "RawYieldsDplus_outFD_pos26.root",
-            "RawYieldsDplus_outFD_pos27.root",
-            "RawYieldsDplus_outFD_pos28.root",
-            "RawYieldsDplus_outFD_pos29.root"
-        ],
-        "histoname": "hRawYields"
-    },
-    "efficiencies": {
-        "inputdir": "path/to/efficiencies/files",
-        "inputfiles": [
-            "Eff_times_Acc_Dplus_outFD_pos10.root",
-            "Eff_times_Acc_Dplus_outFD_pos11.root",
-            "Eff_times_Acc_Dplus_outFD_pos12.root",
-            "Eff_times_Acc_Dplus_outFD_pos13.root",
-            "Eff_times_Acc_Dplus_outFD_pos14.root",
-            "Eff_times_Acc_Dplus_outFD_pos15.root",
-            "Eff_times_Acc_Dplus_outFD_pos16.root",
-            "Eff_times_Acc_Dplus_outFD_pos17.root",
-            "Eff_times_Acc_Dplus_outFD_pos18.root",
-            "Eff_times_Acc_Dplus_outFD_pos19.root",
-            "Eff_times_Acc_Dplus_outFD_pos20.root",
-            "Eff_times_Acc_Dplus_outFD_pos21.root",
-            "Eff_times_Acc_Dplus_outFD_pos22.root",
-            "Eff_times_Acc_Dplus_outFD_pos23.root",
-            "Eff_times_Acc_Dplus_outFD_pos24.root",
-            "Eff_times_Acc_Dplus_outFD_pos25.root",
-            "Eff_times_Acc_Dplus_outFD_pos26.root",
-            "Eff_times_Acc_Dplus_outFD_pos27.root",
-            "Eff_times_Acc_Dplus_outFD_pos28.root",
-            "Eff_times_Acc_Dplus_outFD_pos29.root"
-        ],
-        "histonames": {
-            "prompt": "hAccEffPrompt",
-            "nonprompt": "hAccEffFD"
-        }
-    },
-    "minimisation": {
-        "correlated": true
-    },
-    "central_efficiency": {
-        "computerawfrac": true,
-        "inputdir": "path/to/central/efficiency",
-        "inputfile": "efficiency.root",
-        "histonames": {
-            "prompt": "hAccEffPrompt",
-            "nonprompt": "hAccEffFD"
-        }
-    },
-    "output": {
-        "directory": ".",
-        "file": "CutVarDplus_pp13TeV_MB.root"
+  "rawyields": {
+    "inputdir": "/data8/majak/MLHEP/input-fd_precise_0824/d2h-fitter",
+    "inputfiles": [
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.26_0.20_0.26_0.17_0.12_0.16_0.07_0.07-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.28_0.22_0.28_0.19_0.14_0.18_0.11_0.11-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.30_0.24_0.30_0.21_0.16_0.20_0.13_0.13-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.32_0.26_0.32_0.23_0.18_0.22_0.15_0.15-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.34_0.28_0.34_0.25_0.20_0.24_0.17_0.17-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.36_0.30_0.36_0.27_0.22_0.26_0.18_0.18-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.38_0.32_0.38_0.29_0.24_0.28_0.21_0.21-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.40_0.34_0.40_0.31_0.26_0.30_0.22_0.22-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.42_0.36_0.42_0.33_0.27_0.32_0.25_0.25-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.44_0.38_0.44_0.35_0.30_0.34_0.27_0.27-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.46_0.40_0.46_0.38_0.32_0.36_0.28_0.28-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.48_0.42_0.48_0.40_0.34_0.38_0.30_0.30-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.50_0.44_0.50_0.43_0.36_0.40_0.34_0.34-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.52_0.46_0.52_0.47_0.38_0.42_0.37_0.37-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.55_0.48_0.55_0.50_0.41_0.46_0.41_0.41-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.58_0.50_0.58_0.54_0.45_0.48_0.45_0.45-old-mlhep-range-sigma155.root",
+      "yields-fd_fdd_precise_resop5_bkg_0.10_0.70_fd_0.60_0.52_0.60_0.58_0.49_0.52_0.48_0.48-old-mlhep-range-sigma155.root"
+    ],
+    "histoname": "hRawYields"
+  },
+  "efficiencies": {
+    "inputdir": "/data8/majak/MLHEP/input-fd_precise_0824",
+    "inputfiles": [
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.26_0.20_0.26_0.17_0.12_0.16_0.07_0.07.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.28_0.22_0.28_0.19_0.14_0.18_0.11_0.11.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.30_0.24_0.30_0.21_0.16_0.20_0.13_0.13.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.32_0.26_0.32_0.23_0.18_0.22_0.15_0.15.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.34_0.28_0.34_0.25_0.20_0.24_0.17_0.17.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.36_0.30_0.36_0.27_0.22_0.26_0.18_0.18.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.38_0.32_0.38_0.29_0.24_0.28_0.21_0.21.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.40_0.34_0.40_0.31_0.26_0.30_0.22_0.22.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.42_0.36_0.42_0.33_0.27_0.32_0.25_0.25.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.44_0.38_0.44_0.35_0.30_0.34_0.27_0.27.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.46_0.40_0.46_0.38_0.32_0.36_0.28_0.28.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.48_0.42_0.48_0.40_0.34_0.38_0.30_0.30.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.50_0.44_0.50_0.43_0.36_0.40_0.34_0.34.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.52_0.46_0.52_0.47_0.38_0.42_0.37_0.37.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.55_0.48_0.55_0.50_0.41_0.46_0.41_0.41.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.58_0.50_0.58_0.54_0.45_0.48_0.45_0.45.root",
+      "efficienciesLcpKpiRun3analysis_resop5_bkg_0.10_0.70_fd_0.60_0.52_0.60_0.58_0.49_0.52_0.48_0.48.root"
+    ],
+    "histonames": {
+      "prompt": "eff",
+      "nonprompt": "eff_fd"
     }
+  },
+  "minimisation": {
+    "correlated": "true"
+  },
+  "central_efficiency": {
+      "computerawfrac": false,
+    "inputdir": "/data8/majak/MLHEP/input-fd_precise_0824",
+      "inputfile": "efficiency.root",
+      "histonames": {
+          "prompt": "eff",
+          "nonprompt": "eff_fd"
+      }
+  },
+  "output": {
+    "directory": "fdd-results/14082024/systematics/track-tuner/fdd-results-precise-resop5",
+    "file": "CutVarLc_pp13TeV_LHC24d3.root"
+  }
 }

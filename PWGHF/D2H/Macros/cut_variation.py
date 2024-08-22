@@ -168,12 +168,18 @@ class CutVarMinimiser:
                     self.m_cov_sets[i_row, i_col] = cov_row_col
 
             self.m_cov_sets = np.matrix(self.m_cov_sets)
-            self.m_weights = np.linalg.inv(np.linalg.cholesky(self.m_cov_sets))
+            try:
+                self.m_weights = np.linalg.inv(np.linalg.cholesky(self.m_cov_sets))
+            except np.linalg.LinAlgError:
+                return False
             self.m_weights = self.m_weights.T * self.m_weights
             m_eff_tr = self.m_eff.T
 
             self.m_covariance = (m_eff_tr * self.m_weights) * self.m_eff
-            self.m_covariance = np.linalg.inv(np.linalg.cholesky(self.m_covariance))
+            try:
+                self.m_covariance = np.linalg.inv(np.linalg.cholesky(self.m_covariance))
+            except np.linalg.LinAlgError:
+                return False
             self.m_covariance = self.m_covariance.T * self.m_covariance
 
             self.m_corr_yields = self.m_covariance * (m_eff_tr * self.m_weights) * self.m_rawy
@@ -215,6 +221,8 @@ class CutVarMinimiser:
             self.frac_nonprompt[i_set] = rawynp / (rawyp + rawynp)
             self.unc_frac_prompt[i_set] = unc_fp
             self.unc_frac_nonprompt[i_set] = unc_fnp
+
+        return True
 
     def get_red_chi2(self):
         """
@@ -506,7 +514,7 @@ class CutVarMinimiser:
         set_object_style(hist_raw_yield_nonprompt, color=ROOT.kAzure + 4, fillstyle=3154)
         set_object_style(hist_raw_yield_sum, color=ROOT.kGreen + 2, fillstyle=0)
 
-        canvas = ROOT.TCanvas(f"cRawYieldVsCut{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cRawYieldVsCut{suffix}", suffix, 500, 500)
         canvas.DrawFrame(
             -0.5,
             0.0,
@@ -594,7 +602,7 @@ class CutVarMinimiser:
                         rho = 0.0
                 hist_corr_matrix.SetBinContent(i_row + 1, i_col + 1, rho)
 
-        canvas = ROOT.TCanvas(f"cCorrMatrixCutSets{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cCorrMatrixCutSets{suffix}", suffix, 500, 500)
         hist_corr_matrix.Draw("colz")
         tex = ROOT.TLatex()
         tex.SetTextSize(0.04)
@@ -666,7 +674,7 @@ class CutVarMinimiser:
             markerstyle=ROOT.kFullSquare,
         )
 
-        canvas = ROOT.TCanvas(f"cEffVsCut{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cEffVsCut{suffix}", suffix, 500, 500)
         canvas.DrawFrame(
             -0.5,
             1.0e-5,
@@ -755,7 +763,7 @@ class CutVarMinimiser:
             markerstyle=ROOT.kFullSquare,
         )
 
-        canvas = ROOT.TCanvas(f"cFracVsCut{suffix}", "", 500, 500)
+        canvas = ROOT.TCanvas(f"cFracVsCut{suffix}", suffix, 500, 500)
         canvas.DrawFrame(-0.5, 0.0, self.n_sets - 0.5, 1.0, ";cut set;fraction")
         hist_f_prompt.Draw("esame")
         hist_f_nonprompt.Draw("esame")
