@@ -41,14 +41,14 @@
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
-    0.0094,
-    0.0098,
-    0.0102,
-    0.0119,
+    0.0092,
+    0.0097,
+    0.0101,
+    0.0116,
     0.0138,
-    0.0155,
-    0.0191,
-    0.0220
+    0.0151,
+    0.0201,
+    0.0219
   ],
   "_FixSigmaManual": "fix sigma mannually",
   "FixMean": false,
@@ -114,14 +114,14 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
   ],
   "_BkgFuncs": [
     "0 for Expo",
