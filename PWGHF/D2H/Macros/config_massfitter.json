@@ -41,14 +41,14 @@
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
-    0.0092,
-    0.0097,
-    0.0101,
-    0.0116,
-    0.0138,
-    0.0151,
-    0.0201,
-    0.0219
+    0.0115,
+    0.0021,
+    0.0099,
+    0.0100,
+    0.0174,
+    0.0093,
+    0.0193,
+    0.0176
   ],
   "_FixSigmaManual": "fix sigma mannually",
   "FixMean": false,
@@ -114,14 +114,14 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
   ],
   "_BkgFuncs": [
     "0 for Expo",
@@ -133,14 +133,14 @@
     "6 for NoBkg"
   ],
   "SgnFunc": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
   ],
   "_SgnFuncs": [
     "0 for SingleGaus",
