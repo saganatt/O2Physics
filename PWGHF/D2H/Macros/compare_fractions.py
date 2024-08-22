@@ -38,7 +38,7 @@ COLORS=[kBlack, kAzure-7, kRed+2, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+
 def prepare_canvas(cname, num_hists):
     canv = TCanvas(cname, "")
     canv.SetCanvasSize(800, 600)
-    leg = TLegend(0.63, 0.12, 0.83, 0.28)
+    leg = TLegend(0.55, 0.12, 0.83, 0.28)
     if num_hists > 5:
         leg.SetNColumns(2)
     leg.SetTextSize(0.03)
@@ -93,7 +93,10 @@ def plot_compare(cfg):
 
     hists = {}
     hists_syst = []
-    miny = maxy = 0.
+    maxy = 0.
+    miny = 1.0
+    margin = 0.05
+    k = 1.0 - 2 * margin
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
         if len(cfg["hists"][label]["file"]) == 1:
             with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
@@ -112,13 +115,8 @@ def plot_compare(cfg):
         hist.GetYaxis().SetTitle("Non-prompt fraction")
         #hist.GetYaxis().SetTitle("Non-prompt #Lambda_{c} fraction")
 
-        # FIXME: Take bin error into account. Any better method?
-        if ind == 0:
-            maxy = hist.GetMaximum()
-            miny = hist.GetMinimum()
-        else:
-            maxy = max(hist.GetMaximum(), maxy)
-            miny = min(hist.GetMinimum(), miny)
+        maxy = max(hist.GetMaximum(), maxy)
+        miny = min(hist.GetMinimum(), miny)
 
         canv.cd()
         draw_opt = "same" if ind != 0 else ""
@@ -141,11 +139,10 @@ def plot_compare(cfg):
 
     leg.Draw()
 
-    maxy = 0.21
-    miny = 0.0
     for _, hist in hists.items():
-        hist.SetMaximum(maxy)
-        hist.SetMinimum(miny)
+        rangey = maxy - miny
+        miny = max(miny - margin / k * rangey, miny)
+        hist.GetYaxis().SetRangeUser(miny, maxy + margin / k * rangey);
 
     return canv, leg, hists, hists_syst
 
