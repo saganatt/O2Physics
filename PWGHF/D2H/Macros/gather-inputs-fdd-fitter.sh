@@ -5,7 +5,7 @@ OUTPUT_DIR="${MLHEP_DIR}/input-fd-precise-22082024"
 
 RESDIR_PATTERN="/data8/majak/d2h-fitter/220824/results-hyp-ml_"
 
-for dir in ${RESDIR_PATTERN}*-poly3 ; do
+for dir in ${RESDIR_PATTERN}*-rebin+1 ; do
   suffix=${dir##${RESDIR_PATTERN}}
   echo $suffix
 

@@ -7,7 +7,7 @@ CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 PERM_PATTERN="fd_precise_"
 
-RES_SUFFIX="-double-gauss"
+RES_SUFFIX="-rebin+1"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   #dir=( ${INPUT_PATTERN}*${fd}.root )
