@@ -31,7 +31,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kAzure-7, kRed+2, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kGreen+2, kAzure-7, kRed+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 
 
@@ -96,7 +96,6 @@ def plot_compare(cfg):
     maxy = 0.
     miny = 1.0
     margin = 0.05
-    k = 1.0 - 2 * margin
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
         if len(cfg["hists"][label]["file"]) == 1:
             with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
@@ -131,18 +130,23 @@ def plot_compare(cfg):
                 syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
                                                hist_syst.GetBinContent(binn + 1))
                 print(f"Syst error {label} bin {binn + 1} {syst_err}")
-                hist_syst.SetBinError(binn, syst_err)
+                hist_syst.SetBinError(binn + 1, syst_err)
                 hist_syst.SetMarkerColor(color)
                 hist_syst.SetLineColor(color)
-                hist_syst.Draw("E2 same")
-                hists_syst.append(hist_syst)
+            maxy = max(hist_syst.GetMaximum(), maxy)
+            miny = min(hist_syst.GetMinimum(), miny)
+            hist_syst.Draw("E2 same")
+            hists_syst.append(hist_syst)
 
     leg.Draw()
 
+    #k = 1.0 - 2 * margin
+    #rangey = maxy - miny
+    #miny = max(miny - margin / k * rangey, miny)
     for _, hist in hists.items():
-        rangey = maxy - miny
-        miny = max(miny - margin / k * rangey, miny)
-        hist.GetYaxis().SetRangeUser(miny, maxy + margin / k * rangey);
+        hist.GetYaxis().SetRangeUser(miny - margin, maxy + margin);
+    for hist_syst in hists_syst:
+        hist_syst.GetYaxis().SetRangeUser(miny - margin, maxy + margin);
 
     return canv, leg, hists, hists_syst
 
