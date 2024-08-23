@@ -31,7 +31,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kGreen+2, kAzure-7, kRed+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kBlack, kAzure-7, kRed+2, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 
 
@@ -52,6 +52,7 @@ def save_canvas(canv, cfg, filename):
         canv.SaveAs(os.path.join(cfg["output"]["outdir"], f"{filename}.{ext}"))
 
 
+# FIXME: move to a separate script. This should create a new histogram with corrected binning.
 def remove_high_pt(hist):
     ind = hist.GetXaxis().FindBin(8.0)
     for binn in range(ind, hist.GetNbinsX() + 1):
@@ -140,9 +141,10 @@ def plot_compare(cfg):
 
     leg.Draw()
 
-    #k = 1.0 - 2 * margin
-    #rangey = maxy - miny
-    #miny = max(miny - margin / k * rangey, miny)
+    k = 1.0 - 2 * margin
+    rangey = maxy - miny
+    #miny = miny - margin / k * rangey
+    #maxy = maxy + margin / k * rangey
     for _, hist in hists.items():
         hist.GetYaxis().SetRangeUser(miny - margin, maxy + margin);
     for hist_syst in hists_syst:
