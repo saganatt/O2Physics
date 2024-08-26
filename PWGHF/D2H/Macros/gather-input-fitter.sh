@@ -1,10 +1,10 @@
 #!/bin/bash
 
 MLHEP_DIR="/data8/majak/MLHEP"
-OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-22082024"
+OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-23082024"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-2208-hyp-ml_"
-PERM_PATTERN="fd_precise_"
+RESDIR_PATTERN="${MLHEP_DIR}/results-2308-hyp-ml_"
+PERM_PATTERN="bkg_"
 
 for dir in ${RESDIR_PATTERN}${PERM_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
