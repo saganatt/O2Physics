@@ -7,7 +7,7 @@ CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 PERM_PATTERN="bkg_"
 
-RES_SUFFIX="-fixed-sigma-191-68-155"
+RES_SUFFIX="-fixed-sigma-centered-range"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   #dir=( ${INPUT_PATTERN}*${fd}.root )
