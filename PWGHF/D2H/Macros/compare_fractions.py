@@ -54,7 +54,7 @@ def save_canvas(canv, cfg, filename):
 
 # FIXME: move to a separate script. This should create a new histogram with corrected binning.
 def remove_high_pt(hist):
-    ind = hist.GetXaxis().FindBin(8.0)
+    ind = hist.GetXaxis().FindBin(12.0)
     for binn in range(ind, hist.GetNbinsX() + 1):
         hist.SetBinContent(binn, 0.0)
         hist.SetBinError(binn, 0.0)
