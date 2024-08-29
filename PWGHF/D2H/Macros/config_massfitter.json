@@ -41,13 +41,13 @@
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
-    0.0089,
+    0.0091,
     0.0099,
     0.0103,
     0.0117,
     0.0138,
-    0.0157,
-    0.0193,
+    0.0155,
+    0.0191,
     0.0220
   ],
   "_FixSigmaManual": "fix sigma mannually",
@@ -98,7 +98,7 @@
     2.476
   ],
   "Rebin": [
-    4,
+    5,
     4,
     4,
     5,
