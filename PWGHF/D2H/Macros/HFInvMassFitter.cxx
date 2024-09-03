@@ -527,7 +527,17 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     } else {
       textInfoRight->AddText(Form("mean(free) = %.3f #pm %.3f", mRooMeanSgn->getVal(), mRooMeanSgn->getError()));
     }
-    if (mFixedSigma) {
+    if (mTypeOfSgnPdf == 1) {
+      auto baseSigmaSgn = mWorkspace->var("sigma");
+      if (mFixedSigmaDoubleGaus) {
+        textInfoRight->AddText(Form("sigma(fixed) = %.4f #pm %.4f", baseSigmaSgn->getVal(), baseSigmaSgn->getError()));
+        textInfoRight->AddText(Form("sigma 2(fixed) = %.4f #pm %.4f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+      } else {
+        textInfoRight->AddText(Form("sigma(free) = %.4f #pm %.4f", baseSigmaSgn->getVal(), baseSigmaSgn->getError()));
+        textInfoRight->AddText(Form("sigma 2(free) = %.4f #pm %.4f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+      }
+    }
+    else if (mFixedSigma) {
       textInfoRight->AddText(Form("sigma(fixed) = %.4f #pm %.4f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
     } else {
       textInfoRight->AddText(Form("sigma(free) = %.4f #pm %.4f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
@@ -580,7 +590,13 @@ void HFInvMassFitter::drawResidual(TVirtualPad* pad)
   textInfo->SetTextColor(kBlue);
   textInfo->AddText(Form("S = %.0f #pm %.0f ", mRawYield, mRawYieldErr));
   textInfo->AddText(Form("mean = %.3f #pm %.3f", mRooMeanSgn->getVal(), mRooMeanSgn->getError()));
-  textInfo->AddText(Form("sigma = %.3f #pm %.3f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+  if (mTypeOfSgnPdf == 1) {
+    auto baseSigmaSgn = mWorkspace->var("sigma");
+    textInfo->AddText(Form("sigma = %.3f #pm %.3f", baseSigmaSgn->getVal(), baseSigmaSgn->getError()));
+    textInfo->AddText(Form("sigma 2 = %.3f #pm %.3f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+  } else {
+    textInfo->AddText(Form("sigma = %.3f #pm %.3f", mRooSigmaSgn->getVal(), mRooSigmaSgn->getError()));
+  }
   mResidualFrame->addObject(textInfo);
   mResidualFrame->Draw();
 }
