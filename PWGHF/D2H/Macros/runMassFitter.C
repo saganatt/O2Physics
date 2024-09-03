@@ -93,6 +93,7 @@ int runMassFitter(TString configFileName)
   vector<double> massMin;
   vector<double> massMax;
   vector<double> fixSigmaManual;
+  vector<double> fixSecondSigmaManual;
   vector<int> nRebin;
   vector<int> bkgFuncConfig;
   vector<int> sgnFuncConfig;
@@ -124,6 +125,12 @@ int runMassFitter(TString configFileName)
 
   const Value& fixSigmaManualValue = config["FixSigmaManual"];
   readArray(fixSigmaManualValue, fixSigmaManual);
+
+  bool fixSecondSigma = config["FixSecondSigma"].GetBool();
+  string secondSigmaFile = config["SecondSigmaFile"].GetString();
+
+  const Value& fixSecondSigmaManualValue = config["FixSecondSigmaManual"];
+  readArray(fixSecondSigmaManualValue, fixSecondSigmaManual);
 
   const Value& ptMinValue = config["PtMin"];
   readArray(ptMinValue, ptMin);
@@ -399,6 +406,22 @@ int runMassFitter(TString configFileName)
     inputFileMean->Close();
   }
 
+  TH1D* hSecondSigmaToFix = NULL;
+  if (fixSecondSigma) {
+    if (fixSecondSigmaManual.empty()) {
+      auto inputFileSecondSigma = TFile::Open(secondSigmaFile.data());
+      if (!inputFileSecondSigma) {
+        return -2;
+      }
+      hSecondSigmaToFix = static_cast<TH1D*>(inputFileSecondSigma->Get("hRawYieldsSigma"));
+      hSecondSigmaToFix->SetDirectory(0);
+      if (static_cast<unsigned int>(hSecondSigmaToFix->GetNbinsX()) != nPtBins) {
+        cout << "WARNING: Different number of bins for this analysis and histo for fix sigma!" << endl;
+      }
+      inputFileSecondSigma->Close();
+    }
+  }
+
   // fit histograms
 
   TH1F* hMassForFit[nPtBins];
@@ -505,6 +528,23 @@ int runMassFitter(TString configFileName)
           cout << "*****************************"
                << "\n"
                << "FIXED SIGMA: " << fixSigmaManual[iPt] << "\n"
+               << "*****************************" << endl;
+        } else {
+          cout << "WARNING: impossible to fix sigma! Wrong fix sigma file or value!" << endl;
+        }
+      }
+      if (fixSecondSigma) {
+        if (fixSecondSigmaManual.empty()) {
+          massFitter->setFixSecondGaussianSigma(hSecondSigmaToFix->GetBinContent(iPt + 1));
+          cout << "*****************************"
+               << "\n"
+               << "FIXED SIGMA: " << hSecondSigmaToFix->GetBinContent(iPt + 1) << "\n"
+               << "*****************************" << endl;
+        } else if (!fixSecondSigmaManual.empty()) {
+          massFitter->setFixSecondGaussianSigma(fixSecondSigmaManual[iPt]);
+          cout << "*****************************"
+               << "\n"
+               << "FIXED SIGMA: " << fixSecondSigmaManual[iPt] << "\n"
                << "*****************************" << endl;
         } else {
           cout << "WARNING: impossible to fix sigma! Wrong fix sigma file or value!" << endl;
