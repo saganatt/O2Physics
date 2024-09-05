@@ -2,44 +2,46 @@
   "rawyields": {
     "inputdir": "/data8/majak/MLHEP/input-fd-23082024",
     "inputfiles": [
-      "yields-bkg_0.20_0.60_fd_0.09-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.12-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.14-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.16-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.18-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.20-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.24-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.19-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.21-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.23-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.25-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.26-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.27-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.32-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.30-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.31-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.34-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.38-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.42-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.44-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.41-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.43-rebin-1-fixed-sigma.root",
+      "yields-bkg_0.20_0.60_fd_0.45-rebin-1-fixed-sigma.root",
       "yields-bkg_0.20_0.60_fd_0.48-rebin-1-fixed-sigma.root",
-      "yields-bkg_0.20_0.60_fd_0.51-rebin-1-fixed-sigma.root"
+      "yields-bkg_0.20_0.60_fd_0.52-rebin-1-fixed-sigma.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd-23082024",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.09.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.12.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.14.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.16.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.18.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.20.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.24.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.19.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.21.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.23.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.25.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.26.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.27.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.32.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.30.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.31.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.34.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.38.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.42.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.44.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.41.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.43.root",
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.45.root",
       "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.48.root",
-      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.51.root"
+      "efficienciesLcpKpiRun3analysis_pt-weight_bkg_0.20_0.60_fd_0.52.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -59,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results/23082024/fdd-results-8-12-rebin-1",
+    "directory": "fdd-results/23082024/fdd-results-6-8-rebin-1",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
