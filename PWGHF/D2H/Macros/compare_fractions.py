@@ -82,7 +82,6 @@ def remove_high_pt(hist):
     bins = []
     for binn in range(ind):
         bins.append(hist.GetBinLowEdge(binn + 1))
-    print(f"Bins {bins}")
     hist2 = TH1F(hist.GetName(), hist.GetTitle(), len(bins) - 1, array('d', bins))
     for binn in range(ind):
         hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1))
@@ -280,6 +279,24 @@ def plot_ratio(cfg, hists):
     return canvr, histsr, legr
 
 
+def calc_systematics(cfg, hists):
+    syst_errors = []
+    central_hist = hists[cfg["default"]]
+    for binn in range(central_hist.GetNbinsX()):
+        syst_err_bin = 0.00
+        for label in hists:
+            if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
+                syst_err = abs(hists[label].GetBinContent(binn + 1) -
+                               central_hist.GetBinContent(binn + 1))
+                syst_err_bin += syst_err * syst_err
+        syst_err_bin = 100 * (math.sqrt(syst_err_bin) / central_hist.GetBinContent(binn + 1))
+        syst_errors.append(syst_err_bin)
+    str_err = "Systematic errors:"
+    for err in syst_errors:
+        str_err = f"{str_err} {err:0.0f}"
+    print(str_err)
+
+
 def main():
     """
     Main function.
@@ -320,6 +337,8 @@ def main():
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
         for hist in histr:
             hist.Write()
+
+        calc_systematics(cfg, hists)
 
 
 if __name__ == "__main__":
