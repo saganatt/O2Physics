@@ -6,12 +6,12 @@ INPUT_PATTERN="${INPUT_DIR}/projections_"
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 PERM_PATTERN="bkg_0.20_0.60_"
-#PERM_PATTERN="fd_precise_pt-weight_"
+#PERM_PATTERN="widerange_"
+#PERM_PATTERN="fd_precise_rebin4_bkg"
 
-RES_SUFFIX="-double-gauss-fixed-sigma"
+RES_SUFFIX="-rebin4-double-gauss-fixed-sigma"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
-  #dir=( ${INPUT_PATTERN}*${fd}.root )
   echo $dir
 
   suffix=${dir##${INPUT_PATTERN}}
