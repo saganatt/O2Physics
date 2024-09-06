@@ -14,15 +14,15 @@ import os
 from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TCanvas,
     TFile,
-    TH1F,
     TLegend,
-    gPad,
+    TPaveText,
     gROOT,
     gStyle,
     kAzure,
     kBlack,
     kBlue,
     kCyan,
+    kGray,
     kGreen,
     kMagenta,
     kOrange,
@@ -31,20 +31,41 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kAzure-7, kRed+2, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
+MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
+MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
 
 
-def prepare_canvas(cname, num_hists):
+def get_alice_text():
+    alice_text = TPaveText(0.15, 0.72, 0.4, 0.85, "brNDC")
+    alice_text.SetTextFont(42)
+    alice_text.SetTextSize(0.04)
+    alice_text.SetBorderSize(0)
+    alice_text.SetFillStyle(0)
+    alice_text.SetTextAlign(11)
+
+    alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
+    #alice_text.AddText("#scale[1.05]{pp #sqrt{s} = 13.6 TeV}")
+    alice_text.AddText("#scale[1.15]{#Lambda_{c} baryon, |#it{y}| < 0.5}")
+
+    return alice_text
+
+
+def get_legend(x_1, y_1, x_2, y_2, num_hists):
+    leg = TLegend(x_1, y_1, x_2, y_2)
+    if num_hists > 4:
+        leg.SetNColumns(2)
+    leg.SetTextSize(0.04)
+    leg.SetBorderSize(0)
+    return leg
+
+def prepare_canvas(cname):
     canv = TCanvas(cname, "")
     canv.SetCanvasSize(800, 600)
-    leg = TLegend(0.55, 0.12, 0.83, 0.28)
-    if num_hists > 5:
-        leg.SetNColumns(2)
-    leg.SetTextSize(0.03)
-    leg.SetBorderSize(0)
-    gPad.SetTicks(1, 1)
-    return canv, leg
+    canv.SetTickx()
+    canv.SetTicky()
+    return canv
 
 
 def save_canvas(canv, cfg, filename):
@@ -89,72 +110,136 @@ def merge_fractions(inputdir, histname, filenames):
     return reshist
 
 
+def get_hist_for_label(label, color, cfg):
+    if len(cfg["hists"][label]["file"]) == 1:
+        with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
+            hist = fin.Get(cfg["histoname"])
+            hist.SetDirectory(0)
+    else:
+        print(f"Merging histograms for {label}")
+        hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
+
+    if not "Run 2" in label and not "D^{0}" in label:
+        print(f"Removing high pts for {label}")
+        remove_high_pt(hist)
+
+    hist.SetMarkerColor(color)
+    hist.SetLineColor(color)
+    hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
+    hist.GetYaxis().SetTitle(cfg["y_axis"])
+    hist.GetXaxis().SetRangeUser(0, 24.5)
+    #hist.GetYaxis().SetNdivisions(505)
+
+    return hist
+
+
+def get_hist_systematics(hist_syst, label, color, cfg):
+    for binn in range(hist_syst.GetNbinsX()):
+        syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
+                                           hist_syst.GetBinContent(binn + 1))
+        print(f"Syst error {label} bin {binn + 1} {syst_err}")
+        hist_syst.SetBinError(binn + 1, syst_err)
+    hist_syst.SetMarkerColor(color)
+    hist_syst.SetLineColor(color)
+    hist_syst.GetXaxis().SetRangeUser(0, 24.5)
+    hist_syst.GetYaxis().SetNdivisions(505)
+    return hist_syst
+
+
+def get_hist_model(label, color, style, cfg):
+    with TFile.Open(os.path.join(cfg["inputdir"], cfg["models"][label]["file"])) as fin:
+        hist = fin.Get(cfg["models"][label]["histoname"])
+        hist.SetDirectory(0)
+
+    hist.SetMarkerColor(color)
+    hist.SetFillColor(color)
+    hist.SetLineColor(color)
+    hist.SetFillStyle(style)
+    hist.SetTitle("")
+    hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
+    hist.GetYaxis().SetTitle(cfg["y_axis"])
+    hist.GetXaxis().SetRangeUser(0, 24.5)
+    hist.GetYaxis().SetNdivisions(505)
+
+    return hist
+
+
 def plot_compare(cfg):
-    canv, leg = prepare_canvas(f'c_{cfg["histoname"]}', len(cfg["hists"]))
+    canv = prepare_canvas(f'c_{cfg["histoname"]}')
+
+    maxy = 0.
+    miny = 1.0
+
+    hists_models = []
+    if cfg.get("models", None):
+        leg_models = get_legend(0.45, 0.12, 0.87, 0.32, len(cfg["models"]))
+        leg = get_legend(0.12, 0.60, 0.50, 0.70, len(cfg["hists"]))
+        for ind, (label, color, style) in \
+                enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
+            hist = get_hist_model(label, color, style, cfg)
+            maxy = max(hist.GetMaximum(), maxy)
+            miny = min(hist.GetMinimum(), miny)
+
+            canv.cd()
+            draw_opt = "sameE3" if ind != 0 else "E3"
+            hist.Draw(draw_opt)
+            leg_models.AddEntry(hist, label, "f")
+
+            hists_models.append(hist)
+    else:
+        leg = get_legend(0.55, 0.12, 0.83, 0.28, len(cfg["hists"]))
 
     hists = {}
     hists_syst = []
-    maxy = 0.
-    miny = 1.0
-    margin = 0.05
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
-        if len(cfg["hists"][label]["file"]) == 1:
-            with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
-                hist = fin.Get(cfg["histoname"])
-                hist.SetDirectory(0)
-        else:
-            print(f"Merging histograms for {label}")
-            hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
-
-        if not "Run 2" in label and not "D^{0}" in label:
-            print(f"Removing high pts for {label}")
-            remove_high_pt(hist)
-
-        hist.SetMarkerColor(color)
-        hist.SetLineColor(color)
-        hist.GetYaxis().SetTitle("Non-prompt fraction")
-        #hist.GetYaxis().SetTitle("Non-prompt #Lambda_{c} fraction")
+        hist = get_hist_for_label(label, color, cfg)
 
         maxy = max(hist.GetMaximum(), maxy)
         miny = min(hist.GetMinimum(), miny)
 
         canv.cd()
-        draw_opt = "same" if ind != 0 else ""
+        draw_opt = "same" if ind != 0 or len(hists_models) > 0 else ""
         hist.Draw(draw_opt)
-        leg.AddEntry(hist, label, "pl")
+        leg.AddEntry(hist, label, "p")
 
         hists[label] = hist
 
         if cfg["hists"][label].get("systematics", None):
             hist_syst = hist.Clone()
-            for binn in range(hist_syst.GetNbinsX()):
-                syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
-                                               hist_syst.GetBinContent(binn + 1))
-                print(f"Syst error {label} bin {binn + 1} {syst_err}")
-                hist_syst.SetBinError(binn + 1, syst_err)
-                hist_syst.SetMarkerColor(color)
-                hist_syst.SetLineColor(color)
+            hist_syst = get_hist_systematics(hist_syst, label, color, cfg)
             maxy = max(hist_syst.GetMaximum(), maxy)
             miny = min(hist_syst.GetMinimum(), miny)
             hist_syst.Draw("E2 same")
             hists_syst.append(hist_syst)
 
-    leg.Draw()
-
-    k = 1.0 - 2 * margin
-    rangey = maxy - miny
+    margin = 0.05
+    #k = 1.0 - 2 * margin
+    #rangey = maxy - miny
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
+    miny = max(miny - margin, 0)
+    print(f"Hist maxy: {maxy}")
+    for hist_models in hists_models:
+        hist_models.GetYaxis().SetRangeUser(miny, maxy + margin)
     for _, hist in hists.items():
-        hist.GetYaxis().SetRangeUser(miny - margin, maxy + margin);
+        hist.GetYaxis().SetRangeUser(miny, maxy + margin)
     for hist_syst in hists_syst:
-        hist_syst.GetYaxis().SetRangeUser(miny - margin, maxy + margin);
+        hist_syst.GetYaxis().SetRangeUser(miny, maxy + margin)
 
-    return canv, leg, hists, hists_syst
+    leg.Draw()
+    if len(hists_models) > 0:
+        leg_models.Draw()
+
+    if cfg.get("alice_text", None) and cfg["alice_text"]:
+        alice_text = get_alice_text()
+        alice_text.Draw("same")
+
+    return canv, hists, leg, hists_syst, alice_text, leg_models
 
 
 def plot_ratio(cfg, hists):
-    canvr, legr = prepare_canvas(f'c_ratio_{cfg["histoname"]}', len(cfg["hists"]))
+    canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
+    legr = get_legend(0.55, 0.12, 0.83, 0.28, len(cfg["hists"]))
 
     histsr = []
     maxy = 2.0
@@ -173,34 +258,7 @@ def plot_ratio(cfg, hists):
             histsr.append(histr)
     legr.Draw()
 
-    return canvr, legr, histsr
-
-
-def plot_diffs(cfg, hists):
-    histsd = []
-    canvs = []
-
-    nbins = hists[cfg["default"]].GetNbinsX()
-    if len(cfg["bin_min"]) != nbins or len(cfg["bin_max"]) != nbins:
-        print("Incorrect number of bins in the configuration")
-        return histsd, canvs
-
-    for binn, (binmin, binmax) in enumerate(zip(cfg["bin_min"], cfg["bin_max"])):
-        canvr, _ = prepare_canvas(f'c_rmse_{binmin}_{binmax}', nbins)
-        histd = hists[cfg["default"]].Clone()
-        histd = TH1F(f"h_rmse_{binmin}_{binmax}", f"Error for #it{{p}}_{{T}} [{binmin}, {binmax})",
-                     100, -0.02, 0.02)
-        for label in hists:
-            if label != cfg["default"]:
-                diff = hists[label].GetBinContent(binn + 1) -\
-                        hists[cfg["default"]].GetBinContent(binn + 1)
-                histd.Fill(diff)
-        histd.Draw()
-
-        histsd.append(histd)
-        canvs.append(canvr)
-
-    return canvs, histsd
+    return canvr, histsr, legr
 
 
 def main():
@@ -229,24 +287,19 @@ def main():
     with TFile(os.path.join(cfg["output"]["outdir"],
                f'{cfg["output"]["file"]}.root'), "recreate") as output:
 
-        canv, leg, hists, _ = plot_compare(cfg) # pylint: disable=unused-variable
+        results = plot_compare(cfg) # pylint: disable=unused-variable
+        canv = results[0]
+        hists = results [1]
         output.cd()
         canv.Write()
         save_canvas(canv, cfg, cfg["output"]["file"])
         for _, hist in hists.items():
             hist.Write()
 
-        canvr, _, histr = plot_ratio(cfg, hists)
+        canvr, histr, _ = plot_ratio(cfg, hists)
         canvr.Write()
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
         for hist in histr:
-            hist.Write()
-
-        canvds, histds = plot_diffs(cfg, hists)
-        for canv, binmin, binmax in zip(canvds, cfg["bin_min"], cfg["bin_max"]):
-            canv.Write()
-            save_canvas(canv, cfg, f'{cfg["output"]["file"]}_diff_{binmin}_{binmax}')
-        for hist in histds:
             hist.Write()
 
 
