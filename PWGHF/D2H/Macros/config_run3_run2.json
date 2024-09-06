@@ -1,5 +1,5 @@
 {
-  "inputdir": "/data8/majak/systematics/230824/run2-models",
+  "inputdir": "/data8/majak/systematics/230824/run3-run2",
   "histoname": "hCorrFracNonPrompt",
   "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
@@ -22,10 +22,10 @@
   },
   "bin_min": [1,2,3,4,5,6,8,12],
   "bin_max": [2,3,4,5,6,8,12,24],
-  "y_axis": "Non-prompt #Lambda_{c} fraction",
-  "alice_text": true,
+  "y_axis": "Non-prompt #Lambda_{c}^{#plus} fraction",
+  "alice_text": "#Lambda_{c}^{#plus} baryon, |#it{y}| < 0.5",
   "output": {
-    "outdir": "/data8/majak/systematics/230824/run2-models",
-    "file": "NP_Frac_pp13TeV_run2_models"
+    "outdir": "/data8/majak/systematics/230824/run3-run2",
+    "file": "NP_Frac_pp13TeV_run3_run2"
   }
 }
