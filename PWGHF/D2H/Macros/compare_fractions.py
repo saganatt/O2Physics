@@ -33,13 +33,13 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kBlack, kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
 
 
-def get_alice_text():
+def get_alice_text(alice_text_config):
     alice_text = TPaveText(0.15, 0.72, 0.4, 0.85, "brNDC")
     alice_text.SetTextFont(42)
     alice_text.SetTextSize(0.04)
@@ -49,7 +49,7 @@ def get_alice_text():
 
     alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
     #alice_text.AddText("#scale[1.05]{pp #sqrt{s} = 13.6 TeV}")
-    alice_text.AddText("#scale[1.15]{#Lambda_{c} baryon, |#it{y}| < 0.5}")
+    alice_text.AddText(f"#scale[1.15]{{{alice_text_config}}}")
 
     return alice_text
 
@@ -188,7 +188,7 @@ def plot_compare(cfg):
 
     hists_models = []
     if cfg.get("models", None):
-        leg_models = get_legend(0.60, 0.77, 0.87, 0.87, len(cfg["models"]))
+        leg_models = get_legend(0.45, 0.16, 0.87, 0.24, len(cfg["models"]))
         leg = get_legend(0.14, 0.60, 0.50, 0.70, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
@@ -203,7 +203,7 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.45, 0.14, 0.83, 0.28, len(cfg["hists"]))
+        leg = get_legend(0.40, 0.16, 0.73, 0.28, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -248,8 +248,8 @@ def plot_compare(cfg):
         leg_models.Draw()
 
     alice_text = None
-    if cfg.get("alice_text", None) and cfg["alice_text"]:
-        alice_text = get_alice_text()
+    if cfg.get("alice_text", None):
+        alice_text = get_alice_text(cfg["alice_text"])
         alice_text.Draw("same")
 
     return canv, hists, leg, hists_syst, hists_models, alice_text, leg_models
