@@ -1,0 +1,40 @@
+{
+  "inputdir": "/data8/majak/systematics/230824/run3d0",
+  "histoname": "hCorrFracNonPrompt",
+  "default": "Run 3 #Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}",
+  "hists": {
+    "Run 3 D^{0} #rightarrow K^{#minus} #pi^{#plus}": {
+      "file": [
+        "CutVarD0_pp136TeV_final.root"
+      ],
+      "systematics": [
+        [0.10, 0.04, 0.08, 0.08],
+        [0.08, 0.04, 0.03, 0.09],
+        [0.03, 0.04, 0.03, 0.08],
+        [0.04, 0.04, 0.03, 0.07],
+        [0.05, 0.03, 0.04, 0.06],
+        [0.07, 0.02, 0.06, 0.04],
+        [0.04, 0.01, 0.08, 0.05],
+        [0.05, 0.01, 0.09, 0.04],
+        [0.08, 0.01, 0.15, 0.08],
+        [0.08, 0.01, 0.15, 0.08],
+        [0.08, 0.01, 0.15, 0.08],
+        [0.08, 0.01, 0.15, 0.08],
+        [0.03, 0.01, 0.15, 0.08],
+        [0.03, 0.01, 0.15, 0.08]
+      ]
+    },
+    "Run 3 #Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}": {
+      "file": [
+        "CutVarLc_pp13TeV_LHC24d3_default.root"
+      ]
+    }
+  },
+  "bin_min": [1,2,3,4,5,6,8,12],
+  "bin_max": [2,3,4,5,6,8,12,24],
+  "y_axis": "Non-prompt fraction",
+  "output": {
+    "outdir": "/data8/majak/systematics/230824/run3d0",
+    "file": "NP_Frac_pp13TeV_run3d0"
+  }
+}
