@@ -3,11 +3,6 @@
   "histoname": "hCorrFracNonPrompt",
   "default": "Default (with #it{p}_{T} smearing)",
   "hists": {
-    "Default (with #it{p}_{T} smearing)": {
-      "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
-      ]
-    },
     "No #it{p}_{T} smearing": {
       "file": [
         "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing.root"
@@ -16,6 +11,11 @@
     "Reso p1": {
       "file": [
         "CutVarLc_pp13TeV_LHC24d3_resop1.root"
+      ]
+    },
+    "Default (with #it{p}_{T} smearing)": {
+      "file": [
+        "CutVarLc_pp13TeV_LHC24d3_default.root"
       ]
     }
   },
