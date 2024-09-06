@@ -136,31 +136,32 @@ def get_hist_for_label(label, color, cfg):
         print(f"Merging histograms for {label}")
         hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
 
-    if not "Run 2" in label and not "D^{0}" in label and not "13 TeV" in label:
-        print(f"Removing high pts for {label}")
-        hist = remove_high_pt(hist)
+    #if not "Run 2" in label and not "D^{0}" in label and not "13 TeV" in label:
+        #print(f"Removing high pts for {label}")
+        #hist = remove_high_pt(hist)
 
     hist.SetMarkerColor(color)
     hist.SetLineColor(color)
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    #hist.GetXaxis().SetRangeUser(0, 24.5)
-    #hist.GetXaxis().SetNdivisions(12)
+    hist.GetXaxis().SetRangeUser(0, 12)
 
     return hist
 
 
-def get_hist_systematics(hist, label, color, cfg):
-    hist_syst = create_hist_from_existing(hist, "syst", hist.GetNbinsX() + 1)
-    for binn in range(hist_syst.GetNbinsX()):
+def get_hist_systematics(hist_syst, label, color, cfg):
+    nbins = hist_syst.GetNbinsX()
+    if not "Run 2" in label and not "D^{0}" in label and not "13 TeV" in label:
+        nbins -= 1
+        print(f"Less bins for {label}: {nbins}")
+    for binn in range(nbins):
         syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
                                            hist_syst.GetBinContent(binn + 1))
         print(f"Syst error {label} bin {binn + 1} {syst_err}")
         hist_syst.SetBinError(binn + 1, syst_err)
     hist_syst.SetMarkerColor(color)
     hist_syst.SetLineColor(color)
-    #hist_syst.GetXaxis().SetRangeUser(0, 24.5)
-    #hist_syst.GetXaxis().SetNdivisions(12)
+    hist_syst.GetXaxis().SetRangeUser(0, 12)
     return hist_syst
 
 
@@ -169,8 +170,8 @@ def get_hist_model(label, color, style, cfg):
         hist = fin.Get(cfg["models"][label]["histoname"])
         hist.SetDirectory(0)
 
-    print(f"Removing high pts for model {label}")
-    hist = remove_high_pt(hist)
+    #print(f"Removing high pts for model {label}")
+    #hist = remove_high_pt(hist)
 
     hist.SetMarkerColor(color)
     hist.SetFillColor(color)
@@ -179,8 +180,7 @@ def get_hist_model(label, color, style, cfg):
     hist.SetTitle("")
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    #hist.GetXaxis().SetRangeUser(0, 24.5)
-    #hist.GetXaxis().SetNdivisions(12)
+    hist.GetXaxis().SetRangeUser(0, 12)
 
     return hist
 
@@ -227,7 +227,8 @@ def plot_compare(cfg):
         hists[label] = hist
 
         if cfg["hists"][label].get("systematics", None):
-            hist_syst = get_hist_systematics(hist, label, color, cfg)
+            hist_syst = hist.Clone()
+            hist_syst = get_hist_systematics(hist_syst, label, color, cfg)
             maxy = max(hist_syst.GetMaximum(), maxy)
             miny = min(hist_syst.GetMinimum(), miny)
             canv.cd()
@@ -287,15 +288,19 @@ def plot_ratio(cfg, hists):
 def calc_systematics(cfg, hists):
     syst_errors = []
     central_hist = hists[cfg["default"]]
+
     for binn in range(central_hist.GetNbinsX()):
         syst_err_bin = 0.00
+        count = 0
         for label in hists:
             if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
-                syst_err = abs(hists[label].GetBinContent(binn + 1) -
-                               central_hist.GetBinContent(binn + 1))
+                syst_err = hists[label].GetBinContent(binn + 1) -
+                             central_hist.GetBinContent(binn + 1)
                 syst_err_bin += syst_err * syst_err
-        syst_err_bin = 100 * (math.sqrt(syst_err_bin) / central_hist.GetBinContent(binn + 1))
+                count += 1
+        syst_err_bin = 100 * (math.sqrt(syst_err_bin) / count)
         syst_errors.append(syst_err_bin)
+
     str_err = "Systematic errors:"
     for err in syst_errors:
         str_err = f"{str_err} {err:0.0f}"
