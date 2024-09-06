@@ -33,7 +33,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -194,7 +194,7 @@ def plot_compare(cfg):
     hists_models = []
     if cfg.get("models", None):
         leg_models = get_legend(0.45, 0.16, 0.87, 0.24, len(cfg["models"]))
-        leg = get_legend(0.14, 0.60, 0.50, 0.70, len(cfg["hists"]))
+        leg = get_legend(0.14, 0.68, 0.58, 0.87, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
@@ -294,16 +294,16 @@ def calc_systematics(cfg, hists):
         count = 0
         for label in hists:
             if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
-                syst_err = hists[label].GetBinContent(binn + 1) -
+                syst_err = hists[label].GetBinContent(binn + 1) - \
                              central_hist.GetBinContent(binn + 1)
                 syst_err_bin += syst_err * syst_err
                 count += 1
-        syst_err_bin = 100 * (math.sqrt(syst_err_bin) / count)
+        syst_err_bin = 100 * (math.sqrt(syst_err_bin / count))
         syst_errors.append(syst_err_bin)
 
     str_err = "Systematic errors:"
     for err in syst_errors:
-        str_err = f"{str_err} {err:0.0f}"
+        str_err = f"{str_err} {err:0.2f}"
     print(str_err)
 
 
