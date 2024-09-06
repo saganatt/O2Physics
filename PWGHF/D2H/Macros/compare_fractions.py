@@ -127,8 +127,8 @@ def get_hist_for_label(label, color, cfg):
     hist.SetLineColor(color)
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    hist.GetXaxis().SetRangeUser(0, 24.5)
-    #hist.GetYaxis().SetNdivisions(505)
+    #hist.GetXaxis().SetRangeUser(0, 24.5)
+    #hist.GetXaxis().SetNdivisions(12)
 
     return hist
 
@@ -141,8 +141,8 @@ def get_hist_systematics(hist_syst, label, color, cfg):
         hist_syst.SetBinError(binn + 1, syst_err)
     hist_syst.SetMarkerColor(color)
     hist_syst.SetLineColor(color)
-    hist_syst.GetXaxis().SetRangeUser(0, 24.5)
-    hist_syst.GetYaxis().SetNdivisions(505)
+    #hist_syst.GetXaxis().SetRangeUser(0, 24.5)
+    #hist_syst.GetXaxis().SetNdivisions(12)
     return hist_syst
 
 
@@ -158,8 +158,8 @@ def get_hist_model(label, color, style, cfg):
     hist.SetTitle("")
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    hist.GetXaxis().SetRangeUser(0, 24.5)
-    hist.GetYaxis().SetNdivisions(505)
+    #hist.GetXaxis().SetRangeUser(0, 24.5)
+    #hist.GetXaxis().SetNdivisions(12)
 
     return hist
 
@@ -172,7 +172,7 @@ def plot_compare(cfg):
 
     hists_models = []
     if cfg.get("models", None):
-        leg_models = get_legend(0.45, 0.12, 0.87, 0.32, len(cfg["models"]))
+        leg_models = get_legend(0.60, 0.77, 0.87, 0.87, len(cfg["models"]))
         leg = get_legend(0.12, 0.60, 0.50, 0.70, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
@@ -187,7 +187,8 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.55, 0.12, 0.83, 0.28, len(cfg["hists"]))
+        leg = get_legend(0.45, 0.12, 0.83, 0.28, len(cfg["hists"]))
+        leg_models = None
 
     hists = {}
     hists_syst = []
@@ -219,6 +220,7 @@ def plot_compare(cfg):
     #maxy = maxy + margin / k * rangey
     miny = max(miny - margin, 0)
     print(f"Hist maxy: {maxy}")
+    maxy = 0.3
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin)
     for _, hist in hists.items():
@@ -230,6 +232,7 @@ def plot_compare(cfg):
     if len(hists_models) > 0:
         leg_models.Draw()
 
+    alice_text = None
     if cfg.get("alice_text", None) and cfg["alice_text"]:
         alice_text = get_alice_text()
         alice_text.Draw("same")
@@ -239,7 +242,7 @@ def plot_compare(cfg):
 
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
-    legr = get_legend(0.55, 0.12, 0.83, 0.28, len(cfg["hists"]))
+    legr = get_legend(0.45, 0.12, 0.85, 0.28, len(cfg["hists"]))
 
     histsr = []
     maxy = 2.0
