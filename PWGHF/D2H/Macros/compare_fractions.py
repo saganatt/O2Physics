@@ -10,10 +10,12 @@ import argparse
 import json
 import math
 import os
+from array import array
 
 from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TCanvas,
     TFile,
+    TH1F,
     TLegend,
     TPaveText,
     gROOT,
@@ -65,6 +67,8 @@ def prepare_canvas(cname):
     canv.SetCanvasSize(800, 600)
     canv.SetTickx()
     canv.SetTicky()
+    canv.SetLeftMargin(0.13)
+    canv.SetBottomMargin(0.13)
     return canv
 
 
@@ -73,12 +77,22 @@ def save_canvas(canv, cfg, filename):
         canv.SaveAs(os.path.join(cfg["output"]["outdir"], f"{filename}.{ext}"))
 
 
-# FIXME: move to a separate script. This should create a new histogram with corrected binning.
 def remove_high_pt(hist):
     ind = hist.GetXaxis().FindBin(12.0)
-    for binn in range(ind, hist.GetNbinsX() + 1):
-        hist.SetBinContent(binn, 0.0)
-        hist.SetBinError(binn, 0.0)
+    bins = []
+    for binn in range(ind):
+        bins.append(hist.GetBinLowEdge(binn + 1))
+    print(f"Bins {bins}")
+    hist2 = TH1F(hist.GetName(), hist.GetTitle(), len(bins) - 1, array('d', bins))
+    for binn in range(ind):
+        hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1))
+        hist2.SetBinError(binn + 1, hist.GetBinError(binn + 1))
+    hist2.SetMarkerSize(hist.GetMarkerSize())
+    hist2.SetMarkerStyle(hist.GetMarkerStyle())
+    hist2.SetLineWidth(hist.GetLineWidth())
+    hist2.SetLineStyle(hist.GetLineStyle())
+    del hist
+    return hist2
 
 
 def combine_syst_errors(syst_errors, value):
@@ -119,9 +133,9 @@ def get_hist_for_label(label, color, cfg):
         print(f"Merging histograms for {label}")
         hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
 
-    if not "Run 2" in label and not "D^{0}" in label:
+    if not "Run 2" in label and not "D^{0}" in label and not "13 TeV" in label:
         print(f"Removing high pts for {label}")
-        remove_high_pt(hist)
+        hist = remove_high_pt(hist)
 
     hist.SetMarkerColor(color)
     hist.SetLineColor(color)
@@ -151,6 +165,9 @@ def get_hist_model(label, color, style, cfg):
         hist = fin.Get(cfg["models"][label]["histoname"])
         hist.SetDirectory(0)
 
+    print(f"Removing high pts for model {label}")
+    hist = remove_high_pt(hist)
+
     hist.SetMarkerColor(color)
     hist.SetFillColor(color)
     hist.SetLineColor(color)
@@ -173,7 +190,7 @@ def plot_compare(cfg):
     hists_models = []
     if cfg.get("models", None):
         leg_models = get_legend(0.60, 0.77, 0.87, 0.87, len(cfg["models"]))
-        leg = get_legend(0.12, 0.60, 0.50, 0.70, len(cfg["hists"]))
+        leg = get_legend(0.14, 0.60, 0.50, 0.70, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
@@ -187,7 +204,7 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.45, 0.12, 0.83, 0.28, len(cfg["hists"]))
+        leg = get_legend(0.45, 0.14, 0.83, 0.28, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -220,7 +237,6 @@ def plot_compare(cfg):
     #maxy = maxy + margin / k * rangey
     miny = max(miny - margin, 0)
     print(f"Hist maxy: {maxy}")
-    maxy = 0.3
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin)
     for _, hist in hists.items():
@@ -237,7 +253,7 @@ def plot_compare(cfg):
         alice_text = get_alice_text()
         alice_text.Draw("same")
 
-    return canv, hists, leg, hists_syst, alice_text, leg_models
+    return canv, hists, leg, hists_syst, hists_models, alice_text, leg_models
 
 
 def plot_ratio(cfg, hists):
