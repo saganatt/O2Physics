@@ -41,30 +41,30 @@
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
-    0.0091,
-    0.0101,
-    0.0100,
-    0.0117,
-    0.0140,
-    0.0152,
-    0.0197,
+    0.0060,
+    0.0029,
+    0.0088,
+    0.0089,
+    0.0096,
+    0.0156,
+    0.0190,
     0.0220
   ],
   "_FixSigmaManual": "fix sigma mannually",
   "FixMean": false,
   "MeanFile": "",
   "_MeanFile": "fix mean from file",
-  "FixSecondSigma": false,
+  "FixSecondSigma": true,
   "SecondSigmaFile": "",
   "_SecondSigmaFile": "fix second sigma for double gauss from file",
   "FixSecondSigmaManual": [
     0.0092,
     0.0097,
-    0.0219,
+    0.0188,
     0.0146,
-    0.0220,
+    0.0196,
     0.0135,
-    0.0080,
+    0.0090,
     0.0220
   ],
   "_FixSecondSigmaManual": "fix second sigma for double gauss manually",
@@ -112,14 +112,14 @@
     2.476
   ],
   "Rebin": [
+    4,
+    4,
+    4,
     5,
     5,
-    5,
-    6,
     6,
     7,
-    8,
-    11
+    10
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
@@ -147,14 +147,14 @@
     "6 for NoBkg"
   ],
   "SgnFunc": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
   ],
   "_SgnFuncs": [
     "0 for SingleGaus",
