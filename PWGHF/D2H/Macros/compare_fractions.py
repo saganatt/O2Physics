@@ -77,20 +77,24 @@ def save_canvas(canv, cfg, filename):
         canv.SaveAs(os.path.join(cfg["output"]["outdir"], f"{filename}.{ext}"))
 
 
-def remove_high_pt(hist):
-    ind = hist.GetXaxis().FindBin(12.0)
+def create_hist_from_existing(hist, hist_name, last_bin):
     bins = []
-    for binn in range(ind):
+    for binn in range(last_bin):
         bins.append(hist.GetBinLowEdge(binn + 1))
-    hist2 = TH1F(hist.GetName(), hist.GetTitle(), len(bins) - 1, array('d', bins))
-    for binn in range(ind):
+    hist2 = TH1F(f"{hist.GetName()}_{hist_name}", "", len(bins) - 1, array('d', bins))
+    for binn in range(last_bin):
         hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1))
         hist2.SetBinError(binn + 1, hist.GetBinError(binn + 1))
     hist2.SetMarkerSize(hist.GetMarkerSize())
     hist2.SetMarkerStyle(hist.GetMarkerStyle())
     hist2.SetLineWidth(hist.GetLineWidth())
     hist2.SetLineStyle(hist.GetLineStyle())
-    del hist
+    return hist2
+
+
+def remove_high_pt(hist):
+    ind = hist.GetXaxis().FindBin(12.0)
+    hist2 = create_hist_from_existing(hist, "2", ind)
     return hist2
 
 
@@ -146,7 +150,8 @@ def get_hist_for_label(label, color, cfg):
     return hist
 
 
-def get_hist_systematics(hist_syst, label, color, cfg):
+def get_hist_systematics(hist, label, color, cfg):
+    hist_syst = create_hist_from_existing(hist, "syst", hist.GetNbinsX() + 1)
     for binn in range(hist_syst.GetNbinsX()):
         syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
                                            hist_syst.GetBinContent(binn + 1))
@@ -222,11 +227,11 @@ def plot_compare(cfg):
         hists[label] = hist
 
         if cfg["hists"][label].get("systematics", None):
-            hist_syst = hist.Clone()
-            hist_syst = get_hist_systematics(hist_syst, label, color, cfg)
+            hist_syst = get_hist_systematics(hist, label, color, cfg)
             maxy = max(hist_syst.GetMaximum(), maxy)
             miny = min(hist_syst.GetMinimum(), miny)
-            hist_syst.Draw("E2 same")
+            canv.cd()
+            hist_syst.Draw("sameE2")
             hists_syst.append(hist_syst)
 
     margin = 0.05
