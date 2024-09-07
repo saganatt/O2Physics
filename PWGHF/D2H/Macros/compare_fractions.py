@@ -294,7 +294,8 @@ def calc_systematics(cfg, hists):
         count = 0
         for label in hists:
             if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
-                syst_err = hists[label].GetBinContent(binn + 1) - \
+                syst_err = (hists[label].GetBinContent(binn + 1) - \
+                             central_hist.GetBinContent(binn + 1)) / \
                              central_hist.GetBinContent(binn + 1)
                 syst_err_bin += syst_err * syst_err
                 count += 1
