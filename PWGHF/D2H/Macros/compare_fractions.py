@@ -39,7 +39,7 @@ MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
 
 
 def get_alice_text(alice_text_config):
-    alice_text = TPaveText(0.54, 0.74, 0.81, 0.84, "brNDC")
+    alice_text = TPaveText(0.15, 0.74, 0.50, 0.84, "brNDC")
     alice_text.SetTextFont(42)
     alice_text.SetTextSize(0.04)
     alice_text.SetBorderSize(0)
@@ -158,8 +158,8 @@ def plot_compare(cfg):
 
     hists_models = []
     if cfg.get("models", None):
-        leg_models = get_legend(0.45, 0.16, 0.87, 0.24, len(cfg["models"]))
-        leg = get_legend(0.14, 0.58, 0.58, 0.77, len(cfg["hists"]))
+        leg_models = get_legend(0.45, 0.26, 0.87, 0.32, len(cfg["models"]))
+        leg = get_legend(0.33, 0.16, 0.87, 0.24, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
