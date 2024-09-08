@@ -1,7 +1,7 @@
 {
   "inputdir": "/home/maja/systematics/run3-run2",
   "histoname": "hCorrFracNonPrompt",
-  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
+  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
     "#Lambda_{c}^{#plus} #rightarrow pK_{S}^{0}, pp, #sqrt{#it{s}} = 13 TeV": {
       "file": [
@@ -14,9 +14,9 @@
         [0.06, 0.09, 0.08, 0.04, 0.01, 0.016, 0.05]
       ]
     },
-    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_12.root"
       ],
       "systematics": [
         [0.09, 0.07, 0.10, 0.07],
