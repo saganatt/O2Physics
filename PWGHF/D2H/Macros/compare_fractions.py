@@ -10,7 +10,6 @@ import argparse
 import json
 import math
 import os
-from array import array
 
 from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TCanvas,
@@ -33,7 +32,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
+COLORS=[kRed, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -77,27 +76,6 @@ def save_canvas(canv, cfg, filename):
         canv.SaveAs(os.path.join(cfg["output"]["outdir"], f"{filename}.{ext}"))
 
 
-def create_hist_from_existing(hist, hist_name, last_bin):
-    bins = []
-    for binn in range(last_bin):
-        bins.append(hist.GetBinLowEdge(binn + 1))
-    hist2 = TH1F(f"{hist.GetName()}_{hist_name}", "", len(bins) - 1, array('d', bins))
-    for binn in range(last_bin):
-        hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1))
-        hist2.SetBinError(binn + 1, hist.GetBinError(binn + 1))
-    hist2.SetMarkerSize(hist.GetMarkerSize())
-    hist2.SetMarkerStyle(hist.GetMarkerStyle())
-    hist2.SetLineWidth(hist.GetLineWidth())
-    hist2.SetLineStyle(hist.GetLineStyle())
-    return hist2
-
-
-def remove_high_pt(hist):
-    ind = hist.GetXaxis().FindBin(12.0)
-    hist2 = create_hist_from_existing(hist, "2", ind)
-    return hist2
-
-
 def combine_syst_errors(syst_errors, value):
     err = 0.0
     for syst in syst_errors:
@@ -114,13 +92,12 @@ def merge_fractions(inputdir, histname, filenames):
 
     for ind, file in enumerate(filenames[1:]):
         ind += 1
-        fin = TFile.Open(os.path.join(inputdir, file))
-        hist = fin.Get(histname)
-        reshist.SetBinContent(ind + 1, hist.GetBinContent(ind + 1))
-        reshist.SetBinError(ind + 1, hist.GetBinError(ind + 1))
-        maxy = max(hist.GetBinContent(ind + 1), maxy)
-        miny = min(hist.GetBinContent(ind + 1), miny)
-        fin.Close()
+        with TFile.Open(os.path.join(inputdir, file)) as fin:
+            hist = fin.Get(histname)
+            reshist.SetBinContent(ind + 1, hist.GetBinContent(ind + 1))
+            reshist.SetBinError(ind + 1, hist.GetBinError(ind + 1))
+            maxy = max(hist.GetBinContent(ind + 1), maxy)
+            miny = min(hist.GetBinContent(ind + 1), miny)
     reshist.SetMaximum(maxy)
     reshist.SetMinimum(miny)
 
@@ -136,32 +113,24 @@ def get_hist_for_label(label, color, cfg):
         print(f"Merging histograms for {label}")
         hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
 
-    #if not "Run 2" in label and not "D^{0}" in label and not "13 TeV" in label:
-        #print(f"Removing high pts for {label}")
-        #hist = remove_high_pt(hist)
-
     hist.SetMarkerColor(color)
     hist.SetLineColor(color)
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    hist.GetXaxis().SetRangeUser(0, 12)
+    #hist.GetXaxis().SetRangeUser(0, 12)
 
     return hist
 
 
 def get_hist_systematics(hist_syst, label, color, cfg):
-    nbins = hist_syst.GetNbinsX()
-    if not "Run 2" in label and not "D^{0}" in label and not "13 TeV" in label:
-        nbins -= 1
-        print(f"Less bins for {label}: {nbins}")
-    for binn in range(nbins):
+    for binn in range(hist_syst.GetNbinsX()):
         syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
                                            hist_syst.GetBinContent(binn + 1))
         print(f"Syst error {label} bin {binn + 1} {syst_err}")
         hist_syst.SetBinError(binn + 1, syst_err)
     hist_syst.SetMarkerColor(color)
     hist_syst.SetLineColor(color)
-    hist_syst.GetXaxis().SetRangeUser(0, 12)
+    #hist_syst.GetXaxis().SetRangeUser(0, 12)
     return hist_syst
 
 
@@ -170,9 +139,6 @@ def get_hist_model(label, color, style, cfg):
         hist = fin.Get(cfg["models"][label]["histoname"])
         hist.SetDirectory(0)
 
-    #print(f"Removing high pts for model {label}")
-    #hist = remove_high_pt(hist)
-
     hist.SetMarkerColor(color)
     hist.SetFillColor(color)
     hist.SetLineColor(color)
@@ -180,7 +146,7 @@ def get_hist_model(label, color, style, cfg):
     hist.SetTitle("")
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    hist.GetXaxis().SetRangeUser(0, 12)
+    #hist.GetXaxis().SetRangeUser(0, 12)
 
     return hist
 
@@ -194,7 +160,7 @@ def plot_compare(cfg):
     hists_models = []
     if cfg.get("models", None):
         leg_models = get_legend(0.45, 0.16, 0.87, 0.24, len(cfg["models"]))
-        leg = get_legend(0.14, 0.68, 0.58, 0.87, len(cfg["hists"]))
+        leg = get_legend(0.14, 0.58, 0.58, 0.77, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
@@ -224,9 +190,8 @@ def plot_compare(cfg):
         hist.Draw(draw_opt)
         leg.AddEntry(hist, label, "p")
 
-        hists[label] = hist
-
         if cfg["hists"][label].get("systematics", None):
+            print("Plotting systematic")
             hist_syst = hist.Clone()
             hist_syst = get_hist_systematics(hist_syst, label, color, cfg)
             maxy = max(hist_syst.GetMaximum(), maxy)
@@ -234,6 +199,8 @@ def plot_compare(cfg):
             canv.cd()
             hist_syst.Draw("sameE2")
             hists_syst.append(hist_syst)
+
+        hists[label] = hist
 
     margin = 0.05
     #k = 1.0 - 2 * margin
@@ -299,6 +266,8 @@ def calc_systematics(cfg, hists):
                              central_hist.GetBinContent(binn + 1)
                 syst_err_bin += syst_err * syst_err
                 count += 1
+        if count == 0:
+            return
         syst_err_bin = 100 * (math.sqrt(syst_err_bin / count))
         syst_errors.append(syst_err_bin)
 
@@ -344,6 +313,7 @@ def main():
             hist.Write()
 
         canvr, histr, _ = plot_ratio(cfg, hists)
+        output.cd()
         canvr.Write()
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
         for hist in histr:
