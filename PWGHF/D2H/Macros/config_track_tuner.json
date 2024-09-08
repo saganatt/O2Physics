@@ -5,17 +5,17 @@
   "hists": {
     "No #it{p}_{T} smearing": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing.root"
+        "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing_12.root"
       ]
     },
     "Reso p1": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_resop1.root"
+        "CutVarLc_pp13TeV_LHC24d3_resop1_12.root"
       ]
     },
     "Default (with #it{p}_{T} smearing)": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_12.root"
       ]
     }
   },

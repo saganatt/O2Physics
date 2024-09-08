@@ -1,11 +1,11 @@
 {
   "inputdir": "/home/maja/systematics/run3",
   "histoname": "hCorrFracNonPrompt",
-  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
+  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
-    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus} #pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_12.root"
       ],
       "systematics": [
         [0.09, 0.07, 0.10, 0.07],
@@ -20,8 +20,8 @@
   },
   "models": {
     "Monash": {
-      "file": "NonPromptLcFraction_Monash.root",
-      "histoname": "nonprompt_fraction"
+      "file": "NonPromptLcFraction_Monash_1B_12.root",
+      "histoname": "h_nonprompt_fraction"
     }
   },
   "bin_min": [1,2,3,4,5,6,8,12],

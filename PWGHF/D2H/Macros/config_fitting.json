@@ -5,73 +5,73 @@
   "hists": {
     "Poly3 bkg": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_poly3_1-2.root",
-        "CutVarLc_pp13TeV_LHC24d3_poly3.root",
-        "CutVarLc_pp13TeV_LHC24d3_poly3.root",
-        "CutVarLc_pp13TeV_LHC24d3_poly3_4-5.root",
-        "CutVarLc_pp13TeV_LHC24d3_poly3_5-6.root",
-        "CutVarLc_pp13TeV_LHC24d3_poly3_6-8.root",
-        "CutVarLc_pp13TeV_LHC24d3_poly3_8-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_poly3_1-2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_poly3_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_poly3_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_poly3_4-5_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_poly3_5-6_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_poly3_6-8_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_poly3_8-12_12.root"
       ]
     },
     "Double gauss signal": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss_1-2.root",
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss_2-3.root",
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss.root",
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss_4-5.root",
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss_5-6.root",
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss_6-8.root",
-        "CutVarLc_pp13TeV_LHC24d3_double_gauss_8-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_1-2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_2-3_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_4-5_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_5-6_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_6-8_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_double_gauss_8-12_12.root"
       ]
     },
     "Rebin +1": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_1-2.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_4-5.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_5-6.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_6-8.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_8-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_1-2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_4-5_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_5-6_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_6-8_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_8-12_12.root"
       ]
     },
     "Range wider by 0.04": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_wide4_1-2.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide4.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide4.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide4.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide4_5-6.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide4_6-8.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide4_8-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_wide4_1-2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide4_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide4_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide4_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide4_5-6_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide4_6-8_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide4_8-12_12.root"
       ]
     },
     "Rebin -1": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_1-2.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_4-5.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_5-6.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_6-8.root",
-        "CutVarLc_pp13TeV_LHC24d3_rebin+1_8-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_1-2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_4-5_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_5-6_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_6-8_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_rebin+1_8-12_12.root"
       ]
     },
     "Range wider by 0.02": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_wide2_1-2.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide2.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide2.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide2_4-5.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide2_5-6.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide2_6-8.root",
-        "CutVarLc_pp13TeV_LHC24d3_wide2_8-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_wide2_1-2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide2_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide2_4-5_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide2_5-6_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide2_6-8_12.root",
+        "CutVarLc_pp13TeV_LHC24d3_wide2_8-12_12.root"
       ]
     },
     "Default": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_12.root"
       ]
     }
   },
