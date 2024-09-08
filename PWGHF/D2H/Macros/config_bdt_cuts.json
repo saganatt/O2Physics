@@ -5,27 +5,27 @@
   "hists": {
     "Narrow left": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_narrow_left.root"
+        "CutVarLc_pp13TeV_LHC24d3_narrow_left_12.root"
       ]
     },
     "Narrow right": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_narrow_right.root"
+        "CutVarLc_pp13TeV_LHC24d3_narrow_right_12.root"
       ]
     },
     "Narrow both": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_narrow_both.root"
+        "CutVarLc_pp13TeV_LHC24d3_narrow_both_12.root"
       ]
     },
     "Wide steps": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_wide_steps.root"
+        "CutVarLc_pp13TeV_LHC24d3_wide_steps_12.root"
       ]
     },
     "Default": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_12.root"
       ]
     }
   },

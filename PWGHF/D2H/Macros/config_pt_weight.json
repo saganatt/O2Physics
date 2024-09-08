@@ -5,12 +5,12 @@
   "hists": {
     "Weighted #it{p}_{T}": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_pt_weight.root"
+        "CutVarLc_pp13TeV_LHC24d3_pt_weight_12.root"
       ]
     },
     "Default": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_12.root"
       ]
     }
   },
