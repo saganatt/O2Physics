@@ -174,7 +174,7 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.14, 0.68, 0.58, 0.87, len(cfg["hists"]))
+        leg = get_legend(0.30, 0.16, 0.87, 0.28, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -190,17 +190,16 @@ def plot_compare(cfg):
         hist.Draw(draw_opt)
         leg.AddEntry(hist, label, "p")
 
+        hists[label] = hist
+
         if cfg["hists"][label].get("systematics", None):
             print("Plotting systematic")
-            hist_syst = hist.Clone()
+            hist_syst = hist.Clone(f"{label}_syst")
             hist_syst = get_hist_systematics(hist_syst, label, color, cfg)
             maxy = max(hist_syst.GetMaximum(), maxy)
             miny = min(hist_syst.GetMinimum(), miny)
-            canv.cd()
             hist_syst.Draw("sameE2")
             hists_syst.append(hist_syst)
-
-        hists[label] = hist
 
     margin = 0.05
     #k = 1.0 - 2 * margin
@@ -225,7 +224,7 @@ def plot_compare(cfg):
         alice_text = get_alice_text(cfg["alice_text"])
         alice_text.Draw("same")
 
-    return canv, hists, leg, hists_syst, hists_models, alice_text, leg_models
+    return canv, hists, leg, alice_text, leg_models, hists_syst, hists_models
 
 
 def plot_ratio(cfg, hists):
