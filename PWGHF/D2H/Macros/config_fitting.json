@@ -1,5 +1,5 @@
 {
-  "inputdir": "/data8/majak/systematics/230824/fitting",
+  "inputdir": "/home/maja/systematics/fitting",
   "histoname": "hCorrFracNonPrompt",
   "default": "Default",
   "hists": {
@@ -79,7 +79,7 @@
   "bin_max": [2,3,4,5,6,8,12,24],
   "y_axis": "Non-prompt #Lambda_{c}^{#plus} fraction",
   "output": {
-    "outdir": "/data8/majak/systematics/230824/fitting",
+    "outdir": "/home/maja/systematics/fitting",
     "file": "NP_Frac_pp13TeV_fitting"
   }
 }
