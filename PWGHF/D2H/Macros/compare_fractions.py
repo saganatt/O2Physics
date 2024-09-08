@@ -32,14 +32,14 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kRed, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
+COLORS=[kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
 
 
 def get_alice_text(alice_text_config):
-    alice_text = TPaveText(0.15, 0.72, 0.4, 0.85, "brNDC")
+    alice_text = TPaveText(0.54, 0.74, 0.81, 0.84, "brNDC")
     alice_text.SetTextFont(42)
     alice_text.SetTextSize(0.04)
     alice_text.SetBorderSize(0)
@@ -59,6 +59,7 @@ def get_legend(x_1, y_1, x_2, y_2, num_hists):
         leg.SetNColumns(2)
     leg.SetTextSize(0.04)
     leg.SetBorderSize(0)
+    leg.SetFillStyle(0)
     return leg
 
 def prepare_canvas(cname):
@@ -117,20 +118,19 @@ def get_hist_for_label(label, color, cfg):
     hist.SetLineColor(color)
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    #hist.GetXaxis().SetRangeUser(0, 12)
 
     return hist
 
 
-def get_hist_systematics(hist_syst, label, color, cfg):
+def get_hist_systematics(hist, label, color, cfg):
+    hist_syst = hist.Clone(f"{label}_syst")
+    hist_syst.SetDirectory(0)
     for binn in range(hist_syst.GetNbinsX()):
         syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
                                            hist_syst.GetBinContent(binn + 1))
         print(f"Syst error {label} bin {binn + 1} {syst_err}")
         hist_syst.SetBinError(binn + 1, syst_err)
-    hist_syst.SetMarkerColor(color)
-    hist_syst.SetLineColor(color)
-    #hist_syst.GetXaxis().SetRangeUser(0, 12)
+    hist_syst.SetFillStyle(0)
     return hist_syst
 
 
@@ -146,7 +146,6 @@ def get_hist_model(label, color, style, cfg):
     hist.SetTitle("")
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(cfg["y_axis"])
-    #hist.GetXaxis().SetRangeUser(0, 12)
 
     return hist
 
@@ -174,7 +173,7 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.30, 0.16, 0.87, 0.28, len(cfg["hists"]))
+        leg = get_legend(0.33, 0.16, 0.87, 0.28, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -194,8 +193,7 @@ def plot_compare(cfg):
 
         if cfg["hists"][label].get("systematics", None):
             print("Plotting systematic")
-            hist_syst = hist.Clone(f"{label}_syst")
-            hist_syst = get_hist_systematics(hist_syst, label, color, cfg)
+            hist_syst = get_hist_systematics(hist, label, color, cfg)
             maxy = max(hist_syst.GetMaximum(), maxy)
             miny = min(hist_syst.GetMinimum(), miny)
             hist_syst.Draw("sameE2")
@@ -224,7 +222,7 @@ def plot_compare(cfg):
         alice_text = get_alice_text(cfg["alice_text"])
         alice_text.Draw("same")
 
-    return canv, hists, leg, alice_text, leg_models, hists_syst, hists_models
+    return canv, hists, hists_syst, hists_models, leg, leg_models, alice_text
 
 
 def plot_ratio(cfg, hists):
@@ -233,11 +231,12 @@ def plot_ratio(cfg, hists):
 
     histsr = []
     maxy = 2.0
+    central_hist = hists[cfg["default"]]
     for ind, label in enumerate(hists):
-        if label != cfg["default"]:
+        if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
             histr = hists[label].Clone()
             histr.SetName(f"h_ratio_{label}")
-            histr.Divide(hists[cfg["default"]])
+            histr.Divide(central_hist)
             draw_opt = "same" if ind != 0 else ""
             histr.GetYaxis().SetTitle("Ratio")
             maxy = max(maxy, histr.GetMaximum())
@@ -302,13 +301,15 @@ def main():
     with TFile(os.path.join(cfg["output"]["outdir"],
                f'{cfg["output"]["file"]}.root'), "recreate") as output:
 
-        results = plot_compare(cfg) # pylint: disable=unused-variable
-        canv = results[0]
-        hists = results [1]
+        canv, hists, hists_syst, hists_models, leg, leg_models, alice_text = plot_compare(cfg) # pylint: disable=unused-variable
         output.cd()
         canv.Write()
         save_canvas(canv, cfg, cfg["output"]["file"])
         for _, hist in hists.items():
+            hist.Write()
+        for hist in hists_syst:
+            hist.Write()
+        for hist in hists_models:
             hist.Write()
 
         canvr, histr, _ = plot_ratio(cfg, hists)
