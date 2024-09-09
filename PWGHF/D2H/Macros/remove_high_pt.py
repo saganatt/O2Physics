@@ -33,13 +33,14 @@ def main():
         hist.SetDirectory(0)
         first_bin = 1
         last_bin = hist.GetXaxis().FindBin(12.0)
-        bins = []
+        bins = [0.0]
+        empty_bins = len(bins)
         for binn in range(first_bin, last_bin + 1):
             bins.append(hist.GetBinLowEdge(binn))
         hist2 = TH1F(args.histname, "", len(bins) - 1, array('d', bins))
-        for binn in range(last_bin):
-            hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1))
-            hist2.SetBinError(binn + 1, hist.GetBinError(binn + 1))
+        for binn in range(empty_bins, len(bins) - 1):
+            hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1 - empty_bins))
+            hist2.SetBinError(binn + 1, hist.GetBinError(binn + 1 - empty_bins))
         hist2.SetMarkerSize(hist.GetMarkerSize())
         hist2.SetMarkerColor(hist.GetMarkerColor())
         hist2.SetMarkerStyle(hist.GetMarkerStyle())
