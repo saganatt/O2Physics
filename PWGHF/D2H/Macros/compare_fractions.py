@@ -79,8 +79,12 @@ def save_canvas(canv, cfg, filename):
 
 def combine_syst_errors(syst_errors, value):
     err = 0.0
+    err_perc = 0.0
     for syst in syst_errors:
         err += syst * syst
+        err_perc += (100 * syst) * (100 * syst)
+    err_perc = math.sqrt(err_perc)
+    print(f"Combined percentage error: {err_perc}")
     return math.sqrt(err) * value
 
 
