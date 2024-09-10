@@ -37,24 +37,24 @@
     "Dstar"
   ],
   "EnableRefl": false,
-  "FixSigma": true,
+  "FixSigma": false,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
-    0.0060,
-    0.0029,
-    0.0088,
-    0.0089,
-    0.0096,
-    0.0156,
-    0.0190,
+    0.0086,
+    0.0099,
+    0.0103,
+    0.0117,
+    0.0138,
+    0.0155,
+    0.0191,
     0.0220
   ],
   "_FixSigmaManual": "fix sigma mannually",
   "FixMean": false,
   "MeanFile": "",
   "_MeanFile": "fix mean from file",
-  "FixSecondSigma": true,
+  "FixSecondSigma": false,
   "SecondSigmaFile": "",
   "_SecondSigmaFile": "fix second sigma for double gauss from file",
   "FixSecondSigmaManual": [
@@ -147,14 +147,14 @@
     "6 for NoBkg"
   ],
   "SgnFunc": [
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
   ],
   "_SgnFuncs": [
     "0 for SingleGaus",
