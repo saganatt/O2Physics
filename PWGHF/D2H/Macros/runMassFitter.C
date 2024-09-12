@@ -436,7 +436,39 @@ int runMassFitter(const TString& configFileName)
     Int_t iCanvas = floor(static_cast<float>(iSliceVar) / nCanvasesMax);
     cout << "Plotting histogram " << iSliceVar << " pt: " << sliceVarMin[iSliceVar] << ", " << sliceVarMax[iSliceVar] << std::endl;
 
+    //double mass_min = massMin[iPt] < 2.10 ? 2.0 : 2.10;
+    //cout << "mass_min " << mass_min << std::endl;
+    //int bin_min = hMass[iPt]->FindBin(mass_min);
+    //int nbins = hMass[iPt]->GetNbinsX();
+    //std::vector<float> bins = std::vector<float>();
+    //cout << "bin min: " << bin_min << " all bins: " << nbins << std::endl;
+    //for (int i = bin_min; i <= nbins; i++) {
+      //bins.push_back(hMass[iPt]->GetBinLowEdge(i));
+      //cout << "new bin " << i << " low edge " << bins[bins.size()-1] << std::endl;
+    //}
+    //bins.push_back(hMass[iPt]->GetXaxis()->GetBinUpEdge(nbins));
+    //cout << "new bin " << nbins << " last edge " << bins[bins.size()-1] << std::endl;
+    //nbins = bins.size() - 1;
+    //std::cout << "new number of bins: " << nbins << std::endl;
+    //TH1F* hMass2 = new TH1F(hMass[iPt]->GetName(), hMass[iPt]->GetTitle(), nbins, &bins[0]);
+    //for (int i = 1; i <= hMass2->GetNbinsX(); i++) {
+      //hMass2->SetBinContent(i, hMass[iPt]->GetBinContent(bin_min + i - 1));
+      //cout << "Setting bin " << i << " content " << hMass2->GetBinContent(i) << std::endl;
+    //}
+    //hMassForFit[iPt] = reinterpret_cast<TH1F*>(hMass2->Rebin(nRebin[iPt]));
+    //int nbins_rebin = hMass2_rebin->GetNbinsX();
+    //std::cout << "new number of bins after rebin: " << nbins_rebin << std::endl;
+    //for (int i = 1; i <= hMass2_rebin->GetNbinsX(); i++) {
+    //  cout << "New bin " << i << " content after rebin " << hMass2_rebin->GetBinContent(i) << std::endl;
+    //}
+
     hMassForFit[iSliceVar] = static_cast<TH1*>(hMass[iSliceVar]->Rebin(nRebin[iSliceVar]));
+
+    //std::cout << "new number of bins after rebin: " << hMassForFit[iPt]->GetNbinsX() << std::endl;
+    //for (int i = 1; i <= hMassForFit[iPt]->GetNbinsX(); i++) {
+    //  cout << "New bin " << i << " content after rebin " << hMassForFit[iPt]->GetBinContent(i) << std::endl;
+    //}
+
     TString ptTitle =
       Form("%0.2f < " + sliceVarName + " < %0.2f " + sliceVarUnit, sliceVarMin[iSliceVar], sliceVarMax[iSliceVar]);
     hMassForFit[iSliceVar]->SetTitle(Form("%s;%s;Counts per %0.1f MeV/#it{c}^{2}",
