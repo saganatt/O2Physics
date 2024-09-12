@@ -46,9 +46,9 @@ std::vector<Double_t> bdtScoreCuts_8_12 = {0.08, 0.11, 0.14, 0.16, 0.18, 0.20, 0
 std::vector<Double_t> bdtScoreCuts_toPlot = {0.29, 0.45, 0.61, 0.77, 0.93};
 std::vector<Double_t> bdtScoreCuts_toPlot_ind = {0, 4, 8, 12, 16};
 
-const Int_t binMin = 1;
-const Int_t binMax = 2;
-std::vector<Double_t> bdtScoreCuts = bdtScoreCuts_1_2;
+const Int_t binMin = 4;
+const Int_t binMax = 5;
+std::vector<Double_t> bdtScoreCuts = bdtScoreCuts_4_5;
 
 bool DrawAllPoints = false;
 
@@ -106,10 +106,10 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   hRawYieldsVsCutPt->GetYaxis()->SetTitle("Raw yield");
   hRawYieldsVsCutPt->GetYaxis()->SetTitleSize(0.05);
   hRawYieldsVsCutPt->GetYaxis()->SetMaxDigits(1);
-  hRawYieldsVsCutPt->GetXaxis()->SetTitle("Minimum BDT score for non-prompt #Lambda_{c}^{#plus}");
+  hRawYieldsVsCutPt->GetXaxis()->SetTitle("Minimum BDT score for non-prompt#Lambda_{c}^{#plus}");
   hRawYieldsVsCutPt->GetXaxis()->SetTitleSize(0.05);
-  hRawYieldsVsCutPt->SetMinimum(1000);
-  //hRawYieldsVsCutPt->SetMaximum(160000);
+  hRawYieldsVsCutPt->SetMinimum(0.1);
+  hRawYieldsVsCutPt->SetMaximum(35000);
   hRawYieldsVsCutPt->SetLineWidth(2);
   hRawYieldsVsCutPt->GetYaxis()->SetTitleOffset(1.8);
   // Set custom labels
@@ -146,22 +146,22 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   info.SetNDC();
   info.SetTextFont(43);
   info.SetTextSize(40);
-  info.DrawLatex(0.20, 0.30, "ALICE Preliminary");
+  info.DrawLatex(0.20, 0.86, "ALICE Preliminary");
 
   TLatex infos;
   infos.SetNDC();
   infos.SetTextFont(43);
   infos.SetTextSize(30);
-  infos.DrawLatex(0.20, 0.25,
-                  "pp, #sqrt{#it{s}} = 13.6 TeV, |#it{y}| < 0.5");
-  //infos.DrawLatex(0.8, 0.86, "|#it{y}| < 0.5");
+  infos.DrawLatex(0.20, 0.80,
+                  "pp, #sqrt{#it{s}} = 13.6 TeV");
+  infos.DrawLatex(0.20, 0.74, "|#it{y}| < 0.5");
 
   TLatex infoPt;
   infoPt.SetNDC();
   infoPt.SetTextFont(43);
   infoPt.SetTextSize(30);
 
-  infoPt.DrawLatex(0.20, 0.20, Form("%d < #it{p}_{T} < %d GeV/#it{c}", binMin, binMax));
+  infoPt.DrawLatex(0.55, 0.70, Form("%d < #it{p}_{T} < %d GeV/#it{c}", binMin, binMax));
   //  TLatex info5;
   //  info5.SetNDC();
   //  info5.SetTextFont(43);
@@ -183,7 +183,7 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   //  info2.DrawLatex(0.21, 0.17, "#pm 3.7% lumi. unc. not shown");
   //  info2.DrawLatex(0.21, 0.22, "#pm 0.76% BR unc. not shown");
 
-  TLegend *leg = new TLegend(0.65, 0.70, 0.75, 0.90);
+  TLegend *leg = new TLegend(0.55, 0.48, 0.70, 0.68);
   leg->SetFillColor(0);
   leg->SetFillStyle(0);
   leg->SetBorderSize(0);
