@@ -4,9 +4,9 @@ MLHEP_DIR="/data8/majak/MLHEP"
 OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-10092024"
 
 RESDIR_PATTERN="${MLHEP_DIR}/results-2308-hyp-ml_"
-PERM_PATTERN="1224_split_widerange_"
+PERM_PATTERN="fd_precise_1224_split_"
 
-for dir in ${RESDIR_PATTERN}${PERM_PATTERN}* ; do
+for dir in ${RESDIR_PATTERN}${PERM_PATTERN}*0.60_0.60* ; do
   suffix=${dir##${RESDIR_PATTERN}}
   echo $suffix
   
