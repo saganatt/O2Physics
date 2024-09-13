@@ -38,13 +38,14 @@ def main():
         empty_bins = len(bins)
         for binn in range(first_bin, last_bin + 1):
             bins.append(hist.GetBinLowEdge(binn))
-        #last_bins = [16.0, 24.0]
-        #bins += last_bins
+        print(f"Hist bins {bins}")
+        last_bins = [24.0]
+        bins += last_bins
         hist2 = TH1F(args.histname, "", len(bins) - 1, array('d', bins))
         for binn in range(empty_bins, last_bin + 1):
             hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1 - empty_bins))
             hist2.SetBinError(binn + 1, hist.GetBinError(binn + 1 - empty_bins))
-            print(f"Setting bin {binn + 1} low edge {hist2.GetBinLowEdge(binn + 1)} content to content from bin {binn + 1 - empty_bins}")
+            print(f"Setting bin {binn + 1} low edge {hist2.GetBinLowEdge(binn + 1)} up edge {hist2.GetXaxis().GetBinUpEdge(binn + 1)} content to content from bin {binn + 1 - empty_bins}: {hist2.GetBinContent(binn + 1)}")
         hist2.SetMarkerSize(hist.GetMarkerSize())
         hist2.SetMarkerColor(hist.GetMarkerColor())
         hist2.SetMarkerStyle(hist.GetMarkerStyle())
