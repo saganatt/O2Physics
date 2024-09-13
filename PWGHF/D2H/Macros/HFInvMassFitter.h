@@ -220,6 +220,16 @@ class HFInvMassFitter : public TNamed
   void drawResidual(TVirtualPad* c);
   void drawReflection(TVirtualPad* c);
 
+  RooAbsPdf* mSgnPdf;                /// signal fit function
+  RooAbsPdf* mBkgPdf;                /// background fit function
+  RooAbsPdf* mTotalPdf;              /// total fit function
+  RooArgSet* mBkgObservables;
+  RooArgSet* mSgnObservables;
+  RooArgSet* mTotalObservables;
+  RooArgSet* mBkgParameters;
+  RooArgSet* mSgnParameters;
+  RooArgSet* mTotalParameters;
+
  private:
   HFInvMassFitter(const HFInvMassFitter& source);
   HFInvMassFitter& operator=(const HFInvMassFitter& source);
@@ -273,13 +283,10 @@ class HFInvMassFitter : public TNamed
   Bool_t mFixReflOverSgn;            /// switch for fix refl/signal
   RooRealVar* mRooMeanSgn;           /// mean for gaussian of signal
   RooRealVar* mRooSigmaSgn;          /// sigma for gaussian of signal
-  RooAbsPdf* mSgnPdf;                /// signal fit function
-  RooAbsPdf* mBkgPdf;                /// background fit function
   RooAbsPdf* mReflPdf;               /// reflection fit function
   RooRealVar* mRooNSgn;              /// total Signal fit function integral
   RooRealVar* mRooNBkg;              /// total background fit function integral
   RooRealVar* mRooNRefl;             /// total reflection fit function integral
-  RooAbsPdf* mTotalPdf;              /// total fit function
   RooPlot* mInvMassFrame;            /// frame of mass
   RooPlot* mReflFrame;               /// reflection frame
   RooPlot* mReflOnlyFrame;           /// reflection frame plot on reflection only

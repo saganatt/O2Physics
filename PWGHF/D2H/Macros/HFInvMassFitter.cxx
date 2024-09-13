@@ -349,6 +349,21 @@ void HFInvMassFitter::doFit()
       mResidualFrame->addPlotable(residualHistogram, "P");
       mSgnPdf->plotOn(mResidualFrame, Normalization(1.0, RooAbsReal::RelativeExpected), LineColor(kBlue));
     }
+
+    mBkgObservables = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getObservables(dataHistogram);
+    //mBkgObservables = bkgPdf->getObservables(dataHistogram);
+    cout << "bkg observables " << *mBkgObservables << std::endl;
+    mBkgParameters = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getParameters(dataHistogram);
+    cout << "bkg parameters " << *mBkgParameters << std::endl;
+    mSgnObservables = mSgnPdf->getObservables(dataHistogram);
+    cout << "sgn observables " << *mSgnObservables << std::endl;
+    mSgnParameters = mSgnPdf->getParameters(dataHistogram);
+    cout << "sgn parameters " << *mSgnParameters << std::endl;
+    mTotalObservables = mTotalPdf->getObservables(dataHistogram);
+    cout << "total observables " << *mTotalObservables << std::endl;
+    mTotalParameters = mTotalPdf->getParameters(dataHistogram);
+    cout << "total parameters " << *mTotalParameters << std::endl;
+
     mass->setRange("bkgForSignificance", mRooMeanSgn->getVal() - mNSigmaForSgn * mRooSigmaSgn->getVal(), mRooMeanSgn->getVal() + mNSigmaForSgn * mRooSigmaSgn->getVal());
     bkgIntegral = mBkgPdf->createIntegral(*mass, NormSet(*mass), Range("bkgForSignificance"));
     mIntegralBkg = bkgIntegral->getValV();
