@@ -451,7 +451,7 @@ int runMassFitter(TString configFileName)
     divideCanvas(canvasRefl[iCanvas], nPads);
   }
 
-  TFile outputFile(outputFileName.Data(), "recreate");
+  //TFile outputFile(outputFileName.Data(), "recreate");
 
   for (unsigned int iPt = 0; iPt < nPtBins; iPt++) {
     cout << "Plotting histogram " << iPt << " pt: " << ptMin[iPt] << ", " << ptMax[iPt] << std::endl;
@@ -655,16 +655,17 @@ int runMassFitter(TString configFileName)
       canvasResiduals[iCanvas]->Modified();
       canvasResiduals[iCanvas]->Update();
 
-      outputFile.cd();
-      (*(massFitter->mTotalPdf->getComponents()))["bkgFuncPoly2"].Write(Form("%s_%.1f_%.1f", massFitter->mBkgPdf->GetName(), ptMin[iPt], ptMax[iPt]));
-      massFitter->mSgnPdf->Write(Form("%s_%.1f_%.1f", massFitter->mSgnPdf->GetName(), ptMin[iPt], ptMax[iPt]));
-      massFitter->mTotalPdf->Write(Form("%s_%.1f_%.1f", massFitter->mTotalPdf->GetName(), ptMin[iPt], ptMax[iPt]));
-      auto bkgTF = massFitter->mBkgPdf->asTF(*massFitter->mBkgObservables, *massFitter->mBkgParameters, RooArgSet(1.0));
-      bkgTF->Write(Form("bkgTF_%.1f_%.1f", ptMin[iPt], ptMax[iPt]));
-      auto sgnTF = massFitter->mSgnPdf->asTF(*massFitter->mSgnObservables, *massFitter->mSgnParameters, RooArgSet(1.0));
-      sgnTF->Write(Form("sgnTF_%.1f_%.1f", ptMin[iPt], ptMax[iPt]));
-      auto totalTF = massFitter->mTotalPdf->asTF(*massFitter->mTotalObservables, *massFitter->mTotalParameters, RooArgSet(1.0));
-      totalTF->Write(Form("totalTF_%.1f_%.1f", ptMin[iPt], ptMax[iPt]));
+      //outputFile.cd();
+      //(*(massFitter->mTotalPdf->getComponents()))["bkgFuncPoly2"].Write(Form("%s_%.1f_%.1f", massFitter->mBkgPdf->GetName(), ptMin[iPt], ptMax[iPt]));
+      //massFitter->mSgnPdf->Write(Form("%s_%.1f_%.1f", massFitter->mSgnPdf->GetName(), ptMin[iPt], ptMax[iPt]));
+      //massFitter->mTotalPdf->Write(Form("%s_%.1f_%.1f", massFitter->mTotalPdf->GetName(), ptMin[iPt], ptMax[iPt]));
+      //RooConstVar one("one", "constant 1.0", 1.0);
+      //auto bkgTF = massFitter->mBkgPdf->asTF(*massFitter->mBkgObservables, *massFitter->mBkgParameters, RooArgSet(one));
+      //bkgTF->Write(Form("bkgTF_%.1f_%.1f", ptMin[iPt], ptMax[iPt]));
+      //auto sgnTF = massFitter->mSgnPdf->asTF(*massFitter->mSgnObservables, *massFitter->mSgnParameters, RooArgSet(one));
+      //sgnTF->Write(Form("sgnTF_%.1f_%.1f", ptMin[iPt], ptMax[iPt]));
+      //auto totalTF = massFitter->mTotalPdf->asTF(*massFitter->mTotalObservables, *massFitter->mTotalParameters, RooArgSet(one));
+      //totalTF->Write(Form("totalTF_%.1f_%.1f", ptMin[iPt], ptMax[iPt]));
     }
 
     hFitConfig->SetBinContent(1, iPt + 1, massMin[iPt]);
@@ -682,8 +683,8 @@ int runMassFitter(TString configFileName)
   }
 
   // save output histograms
-  //TFile outputFile(outputFileName.Data(), "recreate");
-  outputFile.cd();
+  TFile outputFile(outputFileName.Data(), "recreate");
+  //outputFile.cd();
   for (int iCanvas = 0; iCanvas < nCanvases; iCanvas++) {
     canvasMass[iCanvas]->Write();
     if (!isMc) {
