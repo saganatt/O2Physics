@@ -1,13 +1,17 @@
 #!/bin/bash
 
+#INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-23082024"
 INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-10092024"
 INPUT_PATTERN="${INPUT_DIR}/projections_"
 
+#CONFIG="config_massfitter_figure"
 CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
-PERM_PATTERN="fd_precise_1224_split_"
+#PERM_PATTERN="fd_precise_rebin4_bkg"
+PERM_PATTERN="1224_split_widerange_"
 
 RES_SUFFIX="-fixed-sigma"
+#RES_SUFFIX="-figure"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   echo $dir
@@ -39,16 +43,19 @@ for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
 
   sed -i "s/%bkg1216%/${probs[1]}/g" "${CUR_CFG}" || exit 1
   sed -i "s/%bkg1624%/${probs[2]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%bkg812%/${probs[1]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%bkg1224%/${probs[2]}/g" "${CUR_CFG}" || exit 1
 
   sed -i "s/%sf12%/${probs[4]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf23%/${probs[5]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf34%/${probs[6]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf45%/${probs[7]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf56%/${probs[8]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf68%/${probs[9]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf812%/${probs[10]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1216%/${probs[11]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1624%/${probs[12]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf23%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf34%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf45%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf56%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf68%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf812%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1224%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1216%/${probs[4]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1624%/${probs[4]}/g" "${CUR_CFG}" || exit 1
 
   root -b -l -q -x "HFInvMassFitter.cxx" runMassFitter.C\(\"${CUR_CFG}\"\)
 done
