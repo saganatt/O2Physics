@@ -2,46 +2,46 @@
   "rawyields": {
     "inputdir": "/data8/majak/MLHEP/input-fd-10092024",
     "inputfiles": [
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.17-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.19-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.23-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.26-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.28-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.09-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.11-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.13-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.16-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.18-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.20-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.22-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.24-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.25-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.27-rebin-1-fixed-sigma.root",
       "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.30-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.33-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.32-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.34-rebin-1-fixed-sigma.root",
       "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.37-rebin-1-fixed-sigma.root",
       "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.39-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.43-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.45-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.47-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.49-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.51-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.54-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.57-rebin-1-fixed-sigma.root",
-      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.59-rebin-1-fixed-sigma.root"
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.42-rebin-1-fixed-sigma.root",
+      "yields-1224_split_widerange_bkg_0.60_0.60_fd_0.44-rebin-1-fixed-sigma.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd-10092024",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.17.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.19.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.23.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.26.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.28.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.09.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.11.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.13.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.16.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.18.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.20.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.22.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.24.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.25.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.27.root",
       "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.30.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.33.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.32.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.34.root",
       "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.37.root",
       "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.39.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.43.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.45.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.47.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.49.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.51.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.54.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.57.root",
-      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.59.root"
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.42.root",
+      "efficienciesLcpKpiRun3analysis_1224_split_widerange_bkg_0.60_0.60_fd_0.44.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -61,7 +61,7 @@
       }
   },
   "output": {
-    "directory": "fdd-results/10092024/fdd-results-12-16-rebin-1",
+    "directory": "fdd-results/10092024/fdd-results-16-24-rebin-1",
     "file": "CutVarLc_pp13TeV_LHC24d3.root"
   }
 }
