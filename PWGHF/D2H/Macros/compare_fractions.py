@@ -95,12 +95,17 @@ def merge_fractions(inputdir, histname, filenames):
 
     maxy = miny = reshist.GetBinContent(1)
 
+    print(f"First hist bins:")
+    for binn in range(reshist.GetNbinsX()):
+        print(f"Bin {binn + 1} low edge {reshist.GetBinLowEdge(binn + 1)} up edge {reshist.GetXaxis().GetBinUpEdge(binn + 1)}")
+
     for ind, file in enumerate(filenames[1:]):
         ind += 1
         with TFile.Open(os.path.join(inputdir, file)) as fin:
             hist = fin.Get(histname)
             reshist.SetBinContent(ind + 1, hist.GetBinContent(ind + 1))
             reshist.SetBinError(ind + 1, hist.GetBinError(ind + 1))
+            print(f"Setting bin {ind + 1} low edge {reshist.GetBinLowEdge(ind + 1)} up edge {reshist.GetXaxis().GetBinUpEdge(ind + 1)} to {reshist.GetBinContent(ind + 1)}")
             maxy = max(hist.GetBinContent(ind + 1), maxy)
             miny = min(hist.GetBinContent(ind + 1), miny)
     reshist.SetMaximum(maxy)
