@@ -3,22 +3,31 @@
   "histoname": "hCorrFracNonPrompt",
   "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
-    "#Lambda_{c}^{#plus} #rightarrow pK_{S}^{0}, pp, #sqrt{#it{s}} = 13 TeV": {
+    "#Lambda_{c}^{#plus} combined, pp, #sqrt{#it{s}} = 13 TeV": {
       "file": [
-        "CutVarLc2pK0s_pp13TeV_0-12.root"
+        "CutVarLcMerged_pp13TeV_0-24.root"
       ],
       "systematics": [
         [0.0],
-        [0.0],
-        [0.04, 0.09, 0.09, 0.04, 0.03, 0.016, 0.05],
-        [0.04, 0.09, 0.05, 0.04, 0.01, 0.016, 0.05],
-        [0.06, 0.09, 0.08, 0.04, 0.01, 0.016, 0.05],
-        [0.06, 0.09, 0.08, 0.04, 0.01, 0.016, 0.05]
+        [0.08],
+        [0.08],
+        [0.08],
+        [0.08],
+        [0.13]
       ]
     },
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default_0-12.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-24.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-24.root"
       ],
       "systematics": [
         [0.0],
@@ -28,16 +37,18 @@
         [0.06, 0.04, 0.10, 0.04],
         [0.09, 0.04, 0.10, 0.04],
         [0.10, 0.04, 0.10, 0.04],
-        [0.14, 0.04, 0.10, 0.04]
+        [0.14, 0.04, 0.10, 0.04],
+        [0.0],
+        [0.0]
       ]
     }
   },
-  "bin_min": [1,2,3,4,5,6,8,12],
-  "bin_max": [2,3,4,5,6,8,12,24],
+  "bin_min": [1,2,3,4,5,6,8,12,16],
+  "bin_max": [2,3,4,5,6,8,12,16,24],
   "y_axis": "Non-prompt #Lambda_{c}^{#plus} fraction",
   "alice_text": "#Lambda_{c}^{#plus} baryon, |#it{y}| < 0.5",
   "output": {
     "outdir": "/data8/majak/systematics/230824/run3-run2",
-    "file": "NP_Frac_pp13TeV_run3_run2"
+    "file": "NP_Frac_pp13TeV_run3_run2_1-24"
   }
 }
