@@ -14,7 +14,7 @@
         "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing_0-24.root",
         "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing_0-24.root",
         "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing_1-24_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing_1-24_0-24.root"
+        "CutVarLc_pp13TeV_LHC24d3_no_pt_smearing_16-24_0-24.root"
       ]
     },
     "Reso p1": {
@@ -28,7 +28,7 @@
         "CutVarLc_pp13TeV_LHC24d3_resop1_0-24.root",
         "CutVarLc_pp13TeV_LHC24d3_resop1_0-24.root",
         "CutVarLc_pp13TeV_LHC24d3_resop1_1-24_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_resop1_1-24_0-24.root"
+        "CutVarLc_pp13TeV_LHC24d3_resop1_16-24_0-24.root"
       ]
     },
     "Default (with #it{p}_{T} smearing)": {
