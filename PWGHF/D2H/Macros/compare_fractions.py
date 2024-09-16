@@ -32,7 +32,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
+COLORS=[kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -84,16 +84,25 @@ def combine_syst_errors(syst_errors, value):
         err += syst * syst
         err_perc += (100 * syst) * (100 * syst)
     err_perc = math.sqrt(err_perc)
-    print(f"Combined percentage error: {err_perc}")
+    print(f"Combined percentage error: {err_perc:0.0f}")
     return math.sqrt(err) * value
+
+
+def get_hist_limits(hist):
+    miny = 0.0
+    maxy = 0.0
+    for binn in range(hist.GetNbinsX()):
+        maxval = hist.GetBinContent(binn + 1) + hist.GetBinError(binn + 1)
+        minval = hist.GetBinContent(binn + 1) - hist.GetBinError(binn + 1)
+        maxy = maxval if maxval > maxy else maxy
+        miny = minval if minval < miny else miny
+    return miny, maxy
 
 
 def merge_fractions(inputdir, histname, filenames):
     with TFile.Open(os.path.join(inputdir, filenames[0])) as fin:
         reshist = fin.Get(histname).Clone()
         reshist.SetDirectory(0)
-
-    maxy = miny = reshist.GetBinContent(1)
 
     print(f"First hist bins:")
     for binn in range(reshist.GetNbinsX()):
@@ -106,10 +115,11 @@ def merge_fractions(inputdir, histname, filenames):
             reshist.SetBinContent(ind + 1, hist.GetBinContent(ind + 1))
             reshist.SetBinError(ind + 1, hist.GetBinError(ind + 1))
             print(f"Setting bin {ind + 1} low edge {reshist.GetBinLowEdge(ind + 1)} up edge {reshist.GetXaxis().GetBinUpEdge(ind + 1)} to {reshist.GetBinContent(ind + 1)}")
-            maxy = max(hist.GetBinContent(ind + 1), maxy)
-            miny = min(hist.GetBinContent(ind + 1), miny)
-    reshist.SetMaximum(maxy)
-    reshist.SetMinimum(miny)
+
+            #maxy = max(hist.GetBinContent(ind + 1), maxy)
+            #miny = min(hist.GetBinContent(ind + 1), miny)
+    #reshist.SetMaximum(maxy)
+    #reshist.SetMinimum(miny)
 
     return reshist
 
@@ -167,13 +177,12 @@ def plot_compare(cfg):
 
     hists_models = []
     if cfg.get("models", None):
-        leg_models = get_legend(0.45, 0.26, 0.87, 0.32, len(cfg["models"]))
-        leg = get_legend(0.33, 0.16, 0.87, 0.24, len(cfg["hists"]))
+        leg_models = get_legend(0.15, 0.62, 0.87, 0.72, len(cfg["models"]))
+        leg = get_legend(0.15, 0.52, 0.87, 0.62, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
-            maxy = max(hist.GetMaximum(), maxy)
-            miny = min(hist.GetMinimum(), miny)
+            miny, maxy = get_hist_limits(hist)
 
             canv.cd()
             draw_opt = "sameE3" if ind != 0 else "E3"
@@ -182,16 +191,14 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.33, 0.16, 0.87, 0.28, len(cfg["hists"]))
+        leg = get_legend(0.14, 0.60, 0.50, 0.72, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
     hists_syst = []
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
         hist = get_hist_for_label(label, color, cfg)
-
-        maxy = max(hist.GetMaximum(), maxy)
-        miny = min(hist.GetMinimum(), miny)
+        miny, maxy = get_hist_limits(hist)
 
         canv.cd()
         draw_opt = "same" if ind != 0 or len(hists_models) > 0 else ""
@@ -203,8 +210,7 @@ def plot_compare(cfg):
         if cfg["hists"][label].get("systematics", None):
             print("Plotting systematic")
             hist_syst = get_hist_systematics(hist, label, color, cfg)
-            maxy = max(hist_syst.GetMaximum(), maxy)
-            miny = min(hist_syst.GetMinimum(), miny)
+            miny, maxy = get_hist_limits(hist_syst)
             hist_syst.Draw("sameE2")
             hists_syst.append(hist_syst)
 
@@ -236,7 +242,7 @@ def plot_compare(cfg):
 
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
-    legr = get_legend(0.37, 0.15, 0.82, 0.31, len(cfg["hists"]))
+    legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
 
     histsr = []
     maxy = 2.0
@@ -281,7 +287,7 @@ def calc_systematics(cfg, hists):
 
     str_err = "Systematic errors:"
     for err in syst_errors:
-        str_err = f"{str_err} {err:0.2f}"
+        str_err = f"{str_err} {err:0.0f}"
     print(str_err)
 
 
