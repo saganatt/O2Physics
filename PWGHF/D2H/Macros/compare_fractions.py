@@ -39,7 +39,7 @@ MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
 
 
 def get_alice_text(alice_text_config):
-    alice_text = TPaveText(0.15, 0.74, 0.50, 0.84, "brNDC")
+    alice_text = TPaveText(0.17, 0.74, 0.50, 0.84, "brNDC")
     alice_text.SetTextFont(42)
     alice_text.SetTextSize(0.04)
     alice_text.SetBorderSize(0)
@@ -57,7 +57,9 @@ def get_legend(x_1, y_1, x_2, y_2, num_hists):
     leg = TLegend(x_1, y_1, x_2, y_2)
     if num_hists > 4:
         leg.SetNColumns(2)
+    leg.SetTextAlign(12)
     leg.SetTextSize(0.04)
+    leg.SetMargin(0.1)
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     return leg
@@ -67,8 +69,8 @@ def prepare_canvas(cname):
     canv.SetCanvasSize(800, 600)
     canv.SetTickx()
     canv.SetTicky()
-    canv.SetLeftMargin(0.13)
-    canv.SetBottomMargin(0.13)
+    canv.SetLeftMargin(0.15)
+    canv.SetBottomMargin(0.15)
     return canv
 
 
@@ -124,6 +126,21 @@ def merge_fractions(inputdir, histname, filenames):
     return reshist
 
 
+def set_hist_style(hist, color, y_axis):
+    hist.GetYaxis().SetTitleSize(0.06)
+    hist.GetYaxis().SetTitleOffset(1.3)
+    hist.GetYaxis().SetLabelSize(0.05)
+    hist.GetYaxis().SetLabelOffset(0.02)
+    hist.GetXaxis().SetTitleSize(0.05)
+    hist.GetXaxis().SetTitleOffset(1.4)
+    hist.GetXaxis().SetLabelSize(0.05)
+    hist.GetXaxis().SetLabelOffset(0.02)
+    hist.SetMarkerColor(color)
+    hist.SetLineColor(color)
+    hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
+    hist.GetYaxis().SetTitle(y_axis)
+
+
 def get_hist_for_label(label, color, cfg):
     if len(cfg["hists"][label]["file"]) == 1:
         with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
@@ -133,11 +150,7 @@ def get_hist_for_label(label, color, cfg):
         print(f"Merging histograms for {label}")
         hist = merge_fractions(cfg["inputdir"], cfg["histoname"], cfg["hists"][label]["file"])
 
-    hist.SetMarkerColor(color)
-    hist.SetLineColor(color)
-    hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
-    hist.GetYaxis().SetTitle(cfg["y_axis"])
-
+    set_hist_style(hist, color, cfg["y_axis"])
     return hist
 
 
@@ -158,13 +171,10 @@ def get_hist_model(label, color, style, cfg):
         hist = fin.Get(cfg["models"][label]["histoname"])
         hist.SetDirectory(0)
 
-    hist.SetMarkerColor(color)
     hist.SetFillColor(color)
-    hist.SetLineColor(color)
     hist.SetFillStyle(style)
     hist.SetTitle("")
-    hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
-    hist.GetYaxis().SetTitle(cfg["y_axis"])
+    set_hist_style(hist, color, cfg["y_axis"])
 
     return hist
 
@@ -177,8 +187,8 @@ def plot_compare(cfg):
 
     hists_models = []
     if cfg.get("models", None):
-        leg_models = get_legend(0.15, 0.62, 0.87, 0.72, len(cfg["models"]))
-        leg = get_legend(0.15, 0.52, 0.87, 0.62, len(cfg["hists"]))
+        leg_models = get_legend(0.17, 0.62, 0.87, 0.72, len(cfg["models"]))
+        leg = get_legend(0.17, 0.52, 0.87, 0.62, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
@@ -191,7 +201,8 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.14, 0.60, 0.50, 0.72, len(cfg["hists"]))
+        #leg = get_legend(0.17, 0.58, 0.65, 0.74, len(cfg["hists"]))
+        leg = get_legend(0.33, 0.16, 0.87, 0.28, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -299,13 +310,6 @@ def main():
 
     gStyle.SetOptStat(0)
     gStyle.SetFrameLineWidth(2)
-    gStyle.SetTitleSize(0.05, "x")
-    gStyle.SetTitleSize(0.05, "y")
-    gStyle.SetMarkerSize(1)
-    gStyle.SetLabelOffset(0.015, "x")
-    gStyle.SetLabelOffset(0.02, "y")
-    gStyle.SetTitleOffset(1.2, "x")
-    gStyle.SetTitleOffset(1.2, "y")
 
     parser = argparse.ArgumentParser(description="Arguments to pass")
     parser.add_argument("config", help="JSON config file")
