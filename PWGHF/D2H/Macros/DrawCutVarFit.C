@@ -54,7 +54,7 @@ bool DrawAllPoints = false;
 
 void DrawCutVarFit(bool isPreliminary = kTRUE) {
 
-  //  TGaxis::SetMaxDigits(3);
+  //TGaxis::SetMaxDigits(1);
   gStyle->SetOptTitle(0);
   gStyle->SetOptStat(0);
 
@@ -105,13 +105,13 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
 
   hRawYieldsVsCutPt->GetYaxis()->SetTitle("Raw yield");
   hRawYieldsVsCutPt->GetYaxis()->SetTitleSize(0.05);
-  hRawYieldsVsCutPt->GetYaxis()->SetMaxDigits(1);
+  hRawYieldsVsCutPt->GetYaxis()->SetMaxDigits(3);
   hRawYieldsVsCutPt->GetXaxis()->SetTitle("Minimum BDT score for non-prompt#Lambda_{c}^{#plus}");
   hRawYieldsVsCutPt->GetXaxis()->SetTitleSize(0.05);
   hRawYieldsVsCutPt->SetMinimum(0.1);
   hRawYieldsVsCutPt->SetMaximum(35000);
   hRawYieldsVsCutPt->SetLineWidth(2);
-  hRawYieldsVsCutPt->GetYaxis()->SetTitleOffset(1.8);
+  hRawYieldsVsCutPt->GetYaxis()->SetTitleOffset(1.1);
   // Set custom labels
     for (size_t i = 0; i < bdtScoreCuts.size(); ++i) {
       hRawYieldsVsCutPt->GetXaxis()->SetBinLabel(i + 1, Form(""));
@@ -130,7 +130,7 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   c1->SetBottomMargin(0.13);
   c1->SetLeftMargin(0.17);
   c1->SetTopMargin(0.06);
-  c1->SetRightMargin(0.03);
+  c1->SetRightMargin(0.06);
   c1->cd();
 
   hRawYieldsVsCutPt->Draw();
@@ -146,22 +146,22 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   info.SetNDC();
   info.SetTextFont(43);
   info.SetTextSize(40);
-  info.DrawLatex(0.20, 0.86, "ALICE Preliminary");
+  info.DrawLatex(0.21, 0.86, "ALICE Preliminary");
 
   TLatex infos;
   infos.SetNDC();
   infos.SetTextFont(43);
   infos.SetTextSize(30);
-  infos.DrawLatex(0.20, 0.80,
-                  "pp, #sqrt{#it{s}} = 13.6 TeV");
-  infos.DrawLatex(0.20, 0.74, "|#it{y}| < 0.5");
+  infos.DrawLatex(0.21, 0.80,
+                  "#Lambda_{c}^{#plus} and charge conj., pp, #sqrt{#it{s}} = 13.6 TeV");
+  //infos.DrawLatex(0.21, 0.74, "|#it{y}| < 0.5");
 
   TLatex infoPt;
   infoPt.SetNDC();
   infoPt.SetTextFont(43);
   infoPt.SetTextSize(30);
 
-  infoPt.DrawLatex(0.55, 0.70, Form("%d < #it{p}_{T} < %d GeV/#it{c}", binMin, binMax));
+  infoPt.DrawLatex(0.62, 0.70, Form("%d < #it{p}_{T} < %d GeV/#it{c}", binMin, binMax));
   //  TLatex info5;
   //  info5.SetNDC();
   //  info5.SetTextFont(43);
@@ -183,7 +183,7 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   //  info2.DrawLatex(0.21, 0.17, "#pm 3.7% lumi. unc. not shown");
   //  info2.DrawLatex(0.21, 0.22, "#pm 0.76% BR unc. not shown");
 
-  TLegend *leg = new TLegend(0.55, 0.48, 0.70, 0.68);
+  TLegend *leg = new TLegend(0.62, 0.48, 0.70, 0.68);
   leg->SetFillColor(0);
   leg->SetFillStyle(0);
   leg->SetBorderSize(0);
@@ -191,8 +191,8 @@ void DrawCutVarFit(bool isPreliminary = kTRUE) {
   leg->SetTextSize(28);
   leg->SetTextFont(43);
   leg->AddEntry(hRawYieldsVsCutPt, "Data", "p");
-  leg->AddEntry(hRawYieldPromptVsCut, "Prompt #Lambda_{c}^{#plus}", "F");
-  leg->AddEntry(hRawYieldFDVsCut, "Non-prompt #Lambda_{c}^{#plus}", "F");
+  leg->AddEntry(hRawYieldPromptVsCut, "Prompt", "F");
+  leg->AddEntry(hRawYieldFDVsCut, "Non-prompt", "F");
   leg->AddEntry(hRawYieldsVsCutReSum, "Total", "l");
   leg->Draw();
 
@@ -256,8 +256,8 @@ void SetStyleHisto(TH1D *h) {
   h->GetXaxis()->SetTitleFont(42);
   h->GetXaxis()->SetLabelFont(42);
   h->GetXaxis()->SetTitleSize(0.06);
-  h->GetXaxis()->SetTitleOffset(1.0);
-  h->GetXaxis()->SetLabelSize(0.05);
+  h->GetXaxis()->SetTitleOffset(1.2);
+  h->GetXaxis()->SetLabelSize(0.07);
   h->GetXaxis()->SetNdivisions(510);
 }
 
@@ -275,8 +275,9 @@ void SetStyleHisto(TH1F *h) {
   h->GetXaxis()->SetTitleFont(42);
   h->GetXaxis()->SetLabelFont(42);
   h->GetXaxis()->SetTitleSize(0.06);
-  h->GetXaxis()->SetTitleOffset(1.0);
-  h->GetXaxis()->SetLabelSize(0.05);
+  h->GetXaxis()->SetTitleOffset(1.3);
+  h->GetXaxis()->SetLabelSize(0.07);
+  h->GetXaxis()->SetLabelOffset(0.01);
   //  h->GetXaxis()->SetNdivisions(505);
   // h->GetXaxis()->SetNdivisions(510);
 }
