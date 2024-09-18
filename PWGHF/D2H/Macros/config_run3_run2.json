@@ -3,9 +3,9 @@
   "histoname": "hCorrFracNonPrompt",
   "default": "#Lambda_{c}^{#plus}#rightarrowpK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
-    "Average #Lambda_{c}^{#plus}#rightarrowpK^{#minus}#pi^{#plus}, pK_{S}^{0}, pp, #sqrt{#it{s}} = 13 TeV": {
+    "#Lambda_{c}^{#plus}#rightarrowpK^{#minus}#pi^{#plus}, pK_{S}^{0}, pp, #sqrt{#it{s}} = 13 TeV": {
       "file": [
-        "CutVarLcMerged_pp13TeV_0-24.root"
+        "CutVarLcMerged_pp13TeV_0-25.root"
       ],
       "systematics": [
         [0.0],
@@ -13,21 +13,22 @@
         [0.08],
         [0.08],
         [0.08],
-        [0.13]
+        [0.13],
+        [0.0]
       ]
     },
     "#Lambda_{c}^{#plus}#rightarrowpK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-24.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-25.root"
       ],
       "systematics": [
         [0.0],
@@ -39,7 +40,8 @@
         [0.16],
         [0.18],
         [0.20],
-        [0.24]
+        [0.24],
+        [0.0]
       ]
     }
   },
