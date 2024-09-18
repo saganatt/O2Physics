@@ -1,8 +1,8 @@
 # pylint: disable=missing-function-docstring
 """
-file:  remove_high_pt.py
-brief: Remove 12-24 pt bin from the input histogram.
-usage: python3 remove_high_pt.py file.root my_histo file_out.root
+file:  add_pt_bins.py
+brief: Add 0-1 and 24-25 dummy pT bins to extend x-range of input histogram.
+usage: python3 add_pt_bins.py file.root my_histo file_out.root
 author: Maja Karwowska <mkarwowska@cern.ch>, Warsaw University of Technology
 """
 
