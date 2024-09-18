@@ -35,10 +35,12 @@ def main():
         #last_bin = hist.GetXaxis().FindBin(12.0)
         last_bin = hist.GetNbinsX()
         bins = [0.0]
+        #bins = []
         empty_bins = len(bins)
         for binn in range(first_bin, last_bin + 1):
             bins.append(hist.GetBinLowEdge(binn))
-        last_bins = [16.0, 24.0]
+        #last_bins = [16.0, 24.0, 25.0]
+        last_bins = [24.0, 25.0]
         bins += last_bins
         print(f"Hist bins {bins}")
         hist2 = TH1F(args.histname, "", len(bins) - 1, array('d', bins))
