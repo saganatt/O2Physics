@@ -5,7 +5,7 @@
   "hists": {
     "D^{0} #rightarrow K^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "CutVarD0_pp136TeV_final.root"
+        "CutVarD0_pp136TeV_final_0-25.root"
       ],
       "systematics": [
         [0.10, 0.04, 0.08, 0.08],
@@ -21,21 +21,22 @@
         [0.08, 0.01, 0.15, 0.08],
         [0.08, 0.01, 0.15, 0.08],
         [0.03, 0.01, 0.15, 0.08],
-        [0.03, 0.01, 0.15, 0.08]
+        [0.03, 0.01, 0.15, 0.08],
+        [0.0]
       ]
     },
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-24.root",
-        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-24.root"
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-25.root",
+        "CutVarLc_pp13TeV_LHC24d3_default_1-24_0-25.root"
       ],
       "systematics": [
         [0.0],
@@ -47,7 +48,8 @@
         [0.16],
         [0.18],
         [0.20],
-        [0.24]
+        [0.24],
+        [0.0]
       ]
     }
   },
