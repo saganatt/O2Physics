@@ -1,0 +1,24 @@
+{
+  "inputdir": "/data8/majak/crosssec",
+  "histoname": "hptspectrum_wo_br",
+  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
+  "hists": {
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
+      "file": [
+        "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled.root"
+      ]
+    },
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV": {
+      "file": [
+        "LcpKpi_merged_Run2_crosssec_mergedBins.root"
+      ]
+    }
+  },
+  "bin_min": [0,1,2,3,4,5,6,8,12],
+  "bin_max": [1,2,3,4,5,6,8,12,24],
+  "y_axis": "#Lambda_{c} cross section",
+  "output": {
+    "outdir": "/data8/majak/crosssec",
+    "file": "crosssec_Lc_run2_run3_wrong_selnorm_rescaled"
+  }
+}
