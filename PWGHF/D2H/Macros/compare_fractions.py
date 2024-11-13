@@ -90,10 +90,9 @@ def combine_syst_errors(syst_errors, value):
     return math.sqrt(err) * value
 
 
-def get_hist_limits(hist, graph_syst = None):
-    miny = 0.0
-    maxy = 0.0
+def get_hist_limits(hist, graph_syst = None, miny = 0.0, maxy = 0.0):
     for binn in range(hist.GetNbinsX()):
+        print(f"bin {binn + 1} val {hist.GetBinContent(binn + 1)} err {hist.GetBinError(binn + 1)}")
         maxval = hist.GetBinContent(binn + 1) + hist.GetBinError(binn + 1)
         minval = hist.GetBinContent(binn + 1) - hist.GetBinError(binn + 1)
         if graph_syst:
@@ -181,6 +180,7 @@ def get_hist_model(label, color, style, cfg):
 
 def plot_compare(cfg):
     canv = prepare_canvas(f'c_{cfg["histoname"]}')
+    canv.SetLogy()
 
     maxy = 0.
     miny = 1.0
@@ -192,7 +192,7 @@ def plot_compare(cfg):
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
-            miny, maxy = get_hist_limits(hist)
+            miny, maxy = get_hist_limits(hist, None, miny, maxy)
 
             canv.cd()
             draw_opt = "sameE3" if ind != 0 else "E3"
@@ -201,15 +201,15 @@ def plot_compare(cfg):
 
             hists_models.append(hist)
     else:
-        leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
-        #leg = get_legend(0.42, 0.18, 0.97, 0.32, len(cfg["hists"]))
+        #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
+        leg = get_legend(0.42, 0.74, 0.90, 0.88, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
     graphs_syst = []
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
         hist = get_hist_for_label(label, color, cfg)
-        miny, maxy = get_hist_limits(hist)
+        miny, maxy = get_hist_limits(hist, None, miny, maxy)
 
         canv.cd()
         draw_opt = "same" if ind != 0 or len(hists_models) > 0 else ""
@@ -221,16 +221,16 @@ def plot_compare(cfg):
         if cfg["hists"][label].get("systematics", None):
             print("Plotting systematic")
             graph_syst = get_graph_systematics(hist, label, color, cfg)
-            miny, maxy = get_hist_limits(hist, graph_syst)
+            miny, maxy = get_hist_limits(hist, graph_syst, miny, maxy)
             graph_syst.Draw("sameE2")
             graphs_syst.append(graph_syst)
 
-    margin = 0.05
+    margin = 0.000000005
     #k = 1.0 - 2 * margin
     #rangey = maxy - miny
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
-    miny = max(miny - margin, 0)
+    miny = max(miny - margin, 0.000000001)
     print(f"Hist maxy: {maxy}")
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin)
@@ -263,11 +263,14 @@ def plot_ratio(cfg, hists):
             histr = hists[label].Clone()
             histr.SetName(f"h_ratio_{label}")
             histr.Divide(central_hist)
+            miny, maxy = get_hist_limits(histr, None, 0.0, 2.0)
+            for binn in range(histr.GetNbinsX()):
+                print(f"ratio bin {binn + 1}: {histr.GetBinContent(binn + 1)}")
             draw_opt = "same" if ind != 0 else ""
             histr.GetYaxis().SetTitle("Ratio")
             maxy = max(maxy, histr.GetMaximum())
             histr.SetMaximum(maxy)
-            histr.SetMinimum(0.0)
+            histr.SetMinimum(miny)
             histr.Draw(draw_opt)
             legr.AddEntry(histr, label, "p")
             histsr.append(histr)
