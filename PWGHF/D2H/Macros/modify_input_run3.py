@@ -15,6 +15,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
 
 MLHEP_EV_SEL = 20430386.
 NORM = 47092223769.611162532
+BR = 0.0623
 
 def main():
     """
@@ -33,7 +34,8 @@ def main():
         hist = fin.Get(args.histname)
         hist.SetDirectory(0)
         hist.Scale(MLHEP_EV_SEL / NORM)
-        hist.Scale(1./59400000000) # luminosity scaling
+        #hist.Scale(1./59400000000) # luminosity scaling, lumi in pb
+        #hist.Scale(BR) # BR scaling back
         fout.cd()
         hist.Write()
 
