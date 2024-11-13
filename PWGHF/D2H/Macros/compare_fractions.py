@@ -256,6 +256,7 @@ def plot_ratio(cfg, hists):
     legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
 
     histsr = []
+    miny = 0.0
     maxy = 2.0
     central_hist = hists[cfg["default"]]
     for ind, label in enumerate(hists):
@@ -263,12 +264,14 @@ def plot_ratio(cfg, hists):
             histr = hists[label].Clone()
             histr.SetName(f"h_ratio_{label}")
             histr.Divide(central_hist)
-            miny, maxy = get_hist_limits(histr, None, 0.0, 2.0)
+            histr.SetBinContent(histr.GetNbinsX(), 0.0)
+            histr.SetBinError(histr.GetNbinsX(), 0.0)
+            miny, maxy = get_hist_limits(histr, None, miny, maxy)
             for binn in range(histr.GetNbinsX()):
                 print(f"ratio bin {binn + 1}: {histr.GetBinContent(binn + 1)}")
+            print(f"maxy {maxy} miny {miny}")
             draw_opt = "same" if ind != 0 else ""
             histr.GetYaxis().SetTitle("Ratio")
-            maxy = max(maxy, histr.GetMaximum())
             histr.SetMaximum(maxy)
             histr.SetMinimum(miny)
             histr.Draw(draw_opt)
