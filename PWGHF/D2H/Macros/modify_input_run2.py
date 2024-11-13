@@ -17,6 +17,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
 )
 
 OUTPUT_BINS = [0, 1, 2, 3, 4, 5, 6, 8, 12, 24]
+BR = 0.0623
 
 def main():
     """
@@ -34,7 +35,8 @@ def main():
     with TFile(args.filename) as fin, TFile(args.outname, "recreate") as fout:
         hist = fin.Get(args.histname)
         hist.SetDirectory(0)
-        hist.Scale(0.000000001)
+        #hist.Scale(0.000000001)
+        hist.Scale(1./BR)
         hist2 = TH1F(args.outhistname, "", len(OUTPUT_BINS) - 1, array('d', OUTPUT_BINS))
         merge_bins = [7, 9]
         ind = 0
