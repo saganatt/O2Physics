@@ -13,7 +13,7 @@
         "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled.root"
       ]
     },
-    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV, Nb method": {
+    "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method}": {
       "file": [
         "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled_Nb.root"
       ]
