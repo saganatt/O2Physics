@@ -1,16 +1,21 @@
 {
   "inputdir": "/data8/majak/crosssec",
   "histoname": "hptspectrum",
-  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
+  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV",
   "hists": {
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV": {
+      "file": [
+        "LcpKpi_merged_Run2_crosssec_mergedBins.root"
+      ]
+    },
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
         "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled.root"
       ]
     },
-    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV": {
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV, Nb method": {
       "file": [
-        "LcpKpi_merged_Run2_crosssec_mergedBins.root"
+        "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled_Nb.root"
       ]
     }
   },
@@ -19,6 +24,6 @@
   "y_axis": "#Lambda_{c} cross section (pb)",
   "output": {
     "outdir": "/data8/majak/crosssec",
-    "file": "crosssec_Lc_run2_run3_wrong_selnorm_rescaled"
+    "file": "crosssec_Lc_run2_run3_wrong_selnorm_rescaled_Nb"
   }
 }
