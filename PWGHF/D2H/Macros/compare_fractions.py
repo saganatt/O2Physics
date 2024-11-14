@@ -32,7 +32,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kRed-3, kBlack, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
+COLORS=[kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -92,7 +92,7 @@ def combine_syst_errors(syst_errors, value):
 
 def get_hist_limits(hist, graph_syst = None, miny = 0.0, maxy = 0.0):
     for binn in range(hist.GetNbinsX()):
-        print(f"bin {binn + 1} val {hist.GetBinContent(binn + 1)} err {hist.GetBinError(binn + 1)}")
+        print(f"bin {binn + 1} [{hist.GetXaxis().GetBinLowEdge(binn + 1)}, {hist.GetXaxis().GetBinLowEdge(binn + 2)}\) val {hist.GetBinContent(binn + 1)} err {hist.GetBinError(binn + 1)}")
         maxval = hist.GetBinContent(binn + 1) + hist.GetBinError(binn + 1)
         minval = hist.GetBinContent(binn + 1) - hist.GetBinError(binn + 1)
         if graph_syst:
@@ -209,6 +209,7 @@ def plot_compare(cfg):
     graphs_syst = []
     for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
         hist = get_hist_for_label(label, color, cfg)
+        print(label)
         miny, maxy = get_hist_limits(hist, None, miny, maxy)
 
         canv.cd()
@@ -225,12 +226,12 @@ def plot_compare(cfg):
             graph_syst.Draw("sameE2")
             graphs_syst.append(graph_syst)
 
-    margin = 0.000000005
+    margin = 5
     #k = 1.0 - 2 * margin
     #rangey = maxy - miny
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
-    miny = max(miny - margin, 0.000000001)
+    miny = max(miny - margin, 10000)
     print(f"Hist maxy: {maxy}")
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin)
@@ -253,22 +254,32 @@ def plot_compare(cfg):
 
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
-    legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
+    #legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
+    legr = get_legend(0.42, 0.74, 0.90, 0.88, len(cfg["hists"]))
 
     histsr = []
     miny = 0.0
     maxy = 2.0
     central_hist = hists[cfg["default"]]
-    for ind, label in enumerate(hists):
+    for ind, (label, color) in enumerate(zip(hists, COLORS)):
         if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
-            histr = hists[label].Clone()
+            #histr = hists[label].Clone()
+            histr = central_hist.Clone()
+            for binn in range(2, central_hist.GetNbinsX()):
+                histr.SetBinContent(binn, hists[label].GetBinContent(binn - 1))
+                histr.SetBinError(binn, hists[label].GetBinError(binn - 1))
             histr.SetName(f"h_ratio_{label}")
+            histr.SetMarkerColor(color)
+            histr.SetLineColor(color)
+
             histr.Divide(central_hist)
             histr.SetBinContent(histr.GetNbinsX(), 0.0)
             histr.SetBinError(histr.GetNbinsX(), 0.0)
+            histr.SetBinContent(1, 0.0)
+            histr.SetBinError(1, 0.0)
             miny, maxy = get_hist_limits(histr, None, miny, maxy)
-            for binn in range(histr.GetNbinsX()):
-                print(f"ratio bin {binn + 1}: {histr.GetBinContent(binn + 1)}")
+            #for binn in range(histr.GetNbinsX()):
+            #    print(f"ratio bin {binn + 1}: {histr.GetBinContent(binn + 1)}")
             print(f"maxy {maxy} miny {miny}")
             draw_opt = "same" if ind != 0 else ""
             histr.GetYaxis().SetTitle("Ratio")
