@@ -17,12 +17,14 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TGraphErrors,
     TLegend,
     TPaveText,
+    TLine,
     gROOT,
     gStyle,
     kAzure,
     kBlack,
     kBlue,
     kCyan,
+    kDashed,
     kGray,
     kGreen,
     kMagenta,
@@ -32,7 +34,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kMagenta+1, kBlue, kRed-3, kTeal+3, kGreen, kAzure+8,
+COLORS=[kBlack, kRed-3, kAzure-7, kMagenta+1, kGreen+2, kOrange-3, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -57,7 +59,7 @@ def get_legend(x_1, y_1, x_2, y_2, num_hists):
     leg = TLegend(x_1, y_1, x_2, y_2)
     if num_hists > 4:
         leg.SetNColumns(2)
-    leg.SetTextAlign(12)
+    leg.SetTextAlign(13)
     leg.SetTextSize(0.045)
     leg.SetMargin(0.1)
     leg.SetBorderSize(0)
@@ -92,7 +94,9 @@ def combine_syst_errors(syst_errors, value):
 
 def get_hist_limits(hist, graph_syst = None, miny = 0.0, maxy = 0.0):
     for binn in range(hist.GetNbinsX()):
-        print(f"bin {binn + 1} [{hist.GetXaxis().GetBinLowEdge(binn + 1)}, {hist.GetXaxis().GetBinLowEdge(binn + 2)}\) val {hist.GetBinContent(binn + 1)} err {hist.GetBinError(binn + 1)}")
+        print(f"bin {binn + 1} [{hist.GetXaxis().GetBinLowEdge(binn + 1)}, "\
+              f"{hist.GetXaxis().GetBinLowEdge(binn + 2)}) val {hist.GetBinContent(binn + 1)} "\
+              f"err {hist.GetBinError(binn + 1)}")
         maxval = hist.GetBinContent(binn + 1) + hist.GetBinError(binn + 1)
         minval = hist.GetBinContent(binn + 1) - hist.GetBinError(binn + 1)
         if graph_syst:
@@ -202,7 +206,7 @@ def plot_compare(cfg):
             hists_models.append(hist)
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
-        leg = get_legend(0.42, 0.74, 0.90, 0.88, len(cfg["hists"]))
+        leg = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -255,11 +259,12 @@ def plot_compare(cfg):
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
     #legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
-    legr = get_legend(0.42, 0.74, 0.90, 0.88, len(cfg["hists"]))
+    legr = get_legend(0.40, 0.70, 0.90, 0.85, len(cfg["hists"]))
 
     histsr = []
     miny = 0.0
     maxy = 2.0
+    maxx = 0.0
     central_hist = hists[cfg["default"]]
     for ind, (label, color) in enumerate(zip(hists, COLORS)):
         if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
@@ -288,9 +293,17 @@ def plot_ratio(cfg, hists):
             histr.Draw(draw_opt)
             legr.AddEntry(histr, label, "p")
             histsr.append(histr)
+            maxx = max(maxx, histr.GetBinLowEdge(histr.GetNbinsX() + 1))
+
+
+    line = TLine(0.0, 1.0, maxx, 1.0)
+    line.SetLineColor(COLORS[len(hists)])
+    line.SetLineWidth(3)
+    line.SetLineStyle(kDashed)
+    line.Draw()
     legr.Draw()
 
-    return canvr, histsr, legr
+    return canvr, histsr, legr, line
 
 
 def calc_systematics(cfg, hists):
@@ -349,7 +362,7 @@ def main():
         for hist in hists_models:
             hist.Write()
 
-        canvr, histr, _ = plot_ratio(cfg, hists)
+        canvr, histr, legr, line = plot_ratio(cfg, hists)
         output.cd()
         canvr.Write()
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
