@@ -152,18 +152,23 @@ def get_hist_for_label(label, color, cfg):
 
 
 def get_graph_systematics(hist, label, color, cfg):
-    graph_syst = TGraphErrors()
-    for binn in range(hist.GetNbinsX()):
-        syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
-                                           hist.GetBinContent(binn + 1))
-        print(f"Syst error {label} bin {binn + 1} {syst_err}")
-        x_point = hist.GetBinCenter(binn + 1)
-        y_point = hist.GetBinContent(binn + 1)
-        x_width = hist.GetBinWidth(binn + 1) / 2.0
-        x_width /= 2.0 # We want syst boxes to be of half-bin width
-        if y_point != 0:
-            graph_syst.SetPoint(binn, x_point, y_point)
-            graph_syst.SetPointError(binn, x_width, syst_err)
+    if isinstance(cfg["hists"][label]["systematics"][0], str):
+        with TFile.Open(os.path.join(cfg["inputdir"], \
+                cfg["hists"][label]["systematics"][0])) as fin:
+            graph_syst = fin.Get(cfg["hists"][label]["systematics"][1])
+    else:
+        graph_syst = TGraphErrors()
+        for binn in range(hist.GetNbinsX()):
+            syst_err = combine_syst_errors(cfg["hists"][label]["systematics"][binn],
+                                               hist.GetBinContent(binn + 1))
+            print(f"Syst error {label} bin {binn + 1} {syst_err}")
+            x_point = hist.GetBinCenter(binn + 1)
+            y_point = hist.GetBinContent(binn + 1)
+            x_width = hist.GetBinWidth(binn + 1) / 2.0
+            x_width /= 2.0 # We want syst boxes to be of half-bin width
+            if y_point != 0:
+                graph_syst.SetPoint(binn, x_point, y_point)
+                graph_syst.SetPointError(binn, x_width, syst_err)
     set_hist_style(graph_syst, color, cfg["y_axis"])
     graph_syst.SetFillStyle(0)
     return graph_syst

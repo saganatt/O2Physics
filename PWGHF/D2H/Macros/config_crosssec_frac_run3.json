@@ -1,16 +1,24 @@
 {
   "inputdir": "/data8/majak/crosssec",
-  "histoname": "gfraction",
+  "histoname": "hfraction",
   "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
         "finalcrossLcpKpiRun3analysis_prompt_wrong_selnorm.root"
+      ],
+      "systematics": [
+        "finalcrossLcpKpiRun3analysis_prompt_wrong_selnorm.root",
+        "gfraction"
       ]
     },
     "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method}": {
       "file": [
         "finalcrossLcpKpiRun3analysis_prompt_wrong_selnorm_Nb.root"
+      ],
+      "systematics": [
+        "finalcrossLcpKpiRun3analysis_prompt_wrong_selnorm_Nb.root",
+        "gfraction"
       ]
     }
   },
