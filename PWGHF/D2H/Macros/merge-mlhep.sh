@@ -49,7 +49,7 @@ for i in "${!FD_12[@]}" ; do
 
   RESPATH="${OUTPUT_DIR_EFF}/eff_${PERM_PATTERN}bkg_${BKG_812}_${BKG_1224}_fd_${fd12}_${fd23}_${fd34}_${fd45}_${fd56}_${fd68}_${fd812}_${fd1224}.root"
 
-  python merge_eff.py \
+  python merge_histos.py \
     -n eff \
     -n eff_fd \
     -o ${RESPATH} \

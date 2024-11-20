@@ -1,5 +1,6 @@
 """
 Merge MLHEP histomass root files for the PWGHF mass fitter. One file per pt bin.
+One histogram per pt bin.
 """
 
 import argparse
