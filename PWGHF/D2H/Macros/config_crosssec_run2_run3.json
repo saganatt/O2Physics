@@ -10,12 +10,12 @@
     },
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled.root"
+        "finalcrossLcpKpiRun3analysis_prompt.root"
       ]
     },
     "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method}": {
       "file": [
-        "finalcrossLcpKpiRun3analysistot_wrong_selnorm_rescaled_Nb.root"
+        "finalcrossLcpKpiRun3analysis_prompt_Nb.root"
       ]
     }
   },
@@ -24,6 +24,6 @@
   "y_axis": "#Lambda_{c} cross section (pb)",
   "output": {
     "outdir": "/data8/majak/crosssec",
-    "file": "crosssec_Lc_run2_run3_wrong_selnorm_rescaled_Nb"
+    "file": "crosssec_Lc_run2_run3_Nb"
   }
 }
