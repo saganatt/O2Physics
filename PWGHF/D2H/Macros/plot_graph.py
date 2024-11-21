@@ -58,7 +58,7 @@ def main():
                f'{cfg["output"]["file"]}.root'), "recreate") as output:
 
         canv = prepare_canvas(f'c_{cfg["histoname"]}')
-        leg = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
+        leg = get_legend(0.40, 0.22, 0.90, 0.37, len(cfg["hists"]))
 
         maxy = 0.
         miny = 1.
@@ -77,10 +77,12 @@ def main():
 
             hists.append(hist)
 
-        margin = 0.05
+        margin = 0.1
         print(f"Hist maxy: {maxy} miny: {miny}")
         for hist in hists:
-            hist.GetYaxis().SetRangeUser(miny - margin, maxy + margin)
+            #hist.GetYaxis().SetRangeUser(miny - margin, maxy + margin)
+            hist.GetYaxis().SetRangeUser(0.5, 1.0)
+            hist.GetXaxis().SetRangeUser(0.0, 25.0)
 
         leg.Draw()
 
