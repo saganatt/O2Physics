@@ -16,7 +16,7 @@
   },
   "bin_min": [0,1,2,3,4,5,6,8,12],
   "bin_max": [1,2,3,4,5,6,8,12,24],
-  "y_axis": "#Lambda_{c} non-prompt fraction",
+  "y_axis": "#Lambda_{c} prompt fraction",
   "output": {
     "outdir": "/data8/majak/crosssec",
     "file": "graph_frac_Lc_run3_Nb"
