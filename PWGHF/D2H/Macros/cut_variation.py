@@ -272,6 +272,30 @@ class CutVarMinimiser:
 
         return self.m_covariance.item(1, 0)
 
+    def get_prompt_prompt_cov(self):
+        """
+        Helper function to get covariance between prompt and prompt corrected yields
+
+        Returns
+        -----------------------------------------------------
+        - cov_p_np: float
+            covariance between prompt and prompt corrected yields
+        """
+
+        return self.m_covariance.item(0, 0)
+
+    def get_nonprompt_nonprompt_cov(self):
+        """
+        Helper function to get covariance between non-prompt and non-prompt corrected yields
+
+        Returns
+        -----------------------------------------------------
+        - cov_p_np: float
+            covariance between non-prompt and non-prompt corrected yields
+        """
+
+        return self.m_covariance.item(1, 1)
+
     def get_raw_prompt_fraction(self, effacc_p, effacc_np):
         """
         Helper function to get the raw prompt fraction given the efficiencies

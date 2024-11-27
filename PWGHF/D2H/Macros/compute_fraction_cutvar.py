@@ -77,7 +77,9 @@ def main(config):
 
     hist_corry_prompt = hist_rawy[0].Clone("hCorrYieldsPrompt")
     hist_corry_nonprompt = hist_rawy[0].Clone("hCorrYieldsNonPrompt")
-    hist_covariance = hist_rawy[0].Clone("hCovPromptNonPrompt")
+    hist_covariance_pnp = hist_rawy[0].Clone("hCovPromptNonPrompt")
+    hist_covariance_pp = hist_rawy[0].Clone("hCovPromptPrompt")
+    hist_covariance_npnp = hist_rawy[0].Clone("hCovNonPromptNonPrompt")
     hist_corrfrac_prompt = hist_rawy[0].Clone("hCorrFracPrompt")
     hist_corrfrac_nonprompt = hist_rawy[0].Clone("hCorrFracNonPrompt")
     hist_corry_prompt.GetYaxis().SetTitle("corrected yields prompt")
@@ -97,7 +99,9 @@ def main(config):
         fillstyle=0,
         markerstyle=ROOT.kFullSquare,
     )
-    set_object_style(hist_covariance)
+    set_object_style(hist_covariance_pnp)
+    set_object_style(hist_covariance_pp)
+    set_object_style(hist_covariance_npnp)
     set_object_style(
         hist_corrfrac_prompt,
         color=ROOT.kRed + 1,
@@ -155,8 +159,12 @@ def main(config):
             hist_corry_prompt.SetBinError(ipt + 1, minimiser.get_prompt_yield_and_error()[1])
             hist_corry_nonprompt.SetBinContent(ipt + 1, minimiser.get_nonprompt_yield_and_error()[0])
             hist_corry_nonprompt.SetBinError(ipt + 1, minimiser.get_nonprompt_yield_and_error()[1])
-            hist_covariance.SetBinContent(ipt + 1, minimiser.get_prompt_nonprompt_cov())
-            hist_covariance.SetBinError(ipt + 1, 0)
+            hist_covariance_pnp.SetBinContent(ipt + 1, minimiser.get_prompt_nonprompt_cov())
+            hist_covariance_pnp.SetBinError(ipt + 1, 0)
+            hist_covariance_pp.SetBinContent(ipt + 1, minimiser.get_prompt_prompt_cov())
+            hist_covariance_pp.SetBinError(ipt + 1, 0)
+            hist_covariance_npnp.SetBinContent(ipt + 1, minimiser.get_nonprompt_nonprompt_cov())
+            hist_covariance_npnp.SetBinError(ipt + 1, 0)
             corr_frac_prompt = minimiser.get_corr_prompt_fraction()
             corr_frac_nonprompt = minimiser.get_corr_nonprompt_fraction()
             hist_corrfrac_prompt.SetBinContent(ipt + 1, corr_frac_prompt[0])
@@ -248,7 +256,9 @@ def main(config):
     output.cd()
     hist_corry_prompt.Write()
     hist_corry_nonprompt.Write()
-    hist_covariance.Write()
+    hist_covariance_pnp.Write()
+    hist_covariance_pp.Write()
+    hist_covariance_npnp.Write()
     hist_corrfrac_prompt.Write()
     hist_corrfrac_nonprompt.Write()
     if cfg["central_efficiency"]["computerawfrac"]:
