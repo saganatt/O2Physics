@@ -84,7 +84,9 @@ def main(config):
     hist_corrfrac_nonprompt = hist_rawy[0].Clone("hCorrFracNonPrompt")
     hist_corry_prompt.GetYaxis().SetTitle("corrected yields prompt")
     hist_corry_nonprompt.GetYaxis().SetTitle("corrected yields non-prompt")
-    hist_covariance.GetYaxis().SetTitle("#sigma(prompt, non-prompt)")
+    hist_covariance_pnp.GetYaxis().SetTitle("#sigma(prompt, non-prompt)")
+    hist_covariance_pp.GetYaxis().SetTitle("#sigma(prompt, prompt)")
+    hist_covariance_npnp.GetYaxis().SetTitle("#sigma(non-prompt, non-prompt)")
     hist_corrfrac_prompt.GetYaxis().SetTitle("corrected fraction prompt")
     hist_corrfrac_nonprompt.GetYaxis().SetTitle("corrected fraction non-prompt")
     set_object_style(
@@ -154,7 +156,7 @@ def main(config):
         minimiser = CutVarMinimiser(rawy, effp, effnp, unc_rawy, unc_effp, unc_effnp)
         status = minimiser.minimise_system(cfg["minimisation"]["correlated"])
 
-        if status == True:
+        if status:
             hist_corry_prompt.SetBinContent(ipt + 1, minimiser.get_prompt_yield_and_error()[0])
             hist_corry_prompt.SetBinError(ipt + 1, minimiser.get_prompt_yield_and_error()[1])
             hist_corry_nonprompt.SetBinContent(ipt + 1, minimiser.get_nonprompt_yield_and_error()[0])
@@ -265,7 +267,7 @@ def main(config):
         hist_frac_raw_prompt.Write()
         hist_frac_raw_nonprompt.Write()
 
-    for hist, outname in zip ((hist_corry_prompt, hist_corry_nonprompt, hist_covariance, hist_corrfrac_prompt, hist_corrfrac_nonprompt), ("CorrYieldPrompt", "CorrYieldNonPrompt", "Covariance", "CorrFracPrompt", "CorrFracNonPrompt")):
+    for hist, outname in zip ((hist_corry_prompt, hist_corry_nonprompt, hist_covariance_pnp, hist_covariance_pp, hist_covariance_npnp, hist_corrfrac_prompt, hist_corrfrac_nonprompt), ("CorrYieldPrompt", "CorrYieldNonPrompt", "CovariancePromptNonPrompt", "CovariancePromptPrompt", "CovarianceNonPromptNonPrompt", "CorrFracPrompt", "CorrFracNonPrompt")):
         canv = ROOT.TCanvas("", "")
         hist.Draw()
         canv.SaveAs(f"{os.path.join(cfg['output']['directory'], outname)}.png")
