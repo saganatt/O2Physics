@@ -211,7 +211,7 @@ def plot_compare(cfg):
             hists_models.append(hist)
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
-        leg = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
+        leg = get_legend(0.40, 0.45, 0.90, 0.85, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -264,7 +264,7 @@ def plot_compare(cfg):
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
     #legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
-    legr = get_legend(0.40, 0.70, 0.90, 0.85, len(cfg["hists"]))
+    legr = get_legend(0.40, 0.50, 0.90, 0.85, len(cfg["hists"]))
 
     histsr = []
     miny = 0.0
