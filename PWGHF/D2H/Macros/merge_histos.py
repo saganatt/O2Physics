@@ -17,7 +17,7 @@ def main():
     parser.add_argument("-n", "--histname", action="append", type=str,
                         help="name of histograms to merge")
     parser.add_argument("-o", "--outfile", action="append", type=str, help="Output file")
-    parser.add_argument("-i", "--infile", type=str, nargs="+", help="Input file")
+    parser.add_argument("-i", "--infile", action="append", type=str, help="Input file")
     args = parser.parse_args()
 
     if len(args.outfile) != 1:
