@@ -17,6 +17,7 @@
 #define PWGHF_HFC_DATAMODEL_DERIVEDDATACORRELATIONTABLES_H_
 
 #include "Framework/AnalysisDataModel.h"
+#include "Framework/ASoA.h"
 
 namespace o2::aod
 {
@@ -28,9 +29,9 @@ DECLARE_SOA_COLUMN(PosZ, posZ, float);                 //! Primary vertex z posi
 } // namespace hf_collisions_reduced
 
 DECLARE_SOA_TABLE(HfcRedCollisions, "AOD", "HFCREDCOLLISION", //! Table with collision info
-                  soa::Index<>,
-                  aod::hf_collisions_reduced::Multiplicity,
-                  aod::hf_collisions_reduced::PosZ);
+                  o2::soa::Index<>,
+                  hf_collisions_reduced::Multiplicity,
+                  hf_collisions_reduced::PosZ);
 
 using HfcRedCollision = HfcRedCollisions::iterator;
 
@@ -46,26 +47,27 @@ DECLARE_SOA_COLUMN(PtCand, ptCand, float);                //! Pt of the candidat
 DECLARE_SOA_COLUMN(InvMassDs, invMassDs, float);          //! Invariant mass of Ds candidate
 } // namespace hf_candidate_reduced
 DECLARE_SOA_TABLE(DsCandReduceds, "AOD", "DSCANDREDUCED", //! Table with Ds candidate info (rectangular selection)
-                  soa::Index<>,
-                  aod::hf_candidate_reduced::HfcRedCollisionId,
-                  aod::hf_candidate_reduced::PhiCand,
-                  aod::hf_candidate_reduced::EtaCand,
-                  aod::hf_candidate_reduced::PtCand,
-                  aod::hf_candidate_reduced::InvMassDs);
+                  o2::soa::Index<>,
+                  hf_candidate_reduced::HfcRedCollisionId,
+                  hf_candidate_reduced::PhiCand,
+                  hf_candidate_reduced::EtaCand,
+                  hf_candidate_reduced::PtCand,
+                  hf_candidate_reduced::InvMassDs);
 
 namespace hf_assoc_track_reduced
 {
+DECLARE_SOA_INDEX_COLUMN(HfcRedCollision, hfcRedCollision); //! ReducedCollision index
 DECLARE_SOA_COLUMN(TrackId, trackId, int);               //! Original track index
 DECLARE_SOA_COLUMN(EtaAssocTrack, etaAssocTrack, float); //! Eta of the track
 DECLARE_SOA_COLUMN(PhiAssocTrack, phiAssocTrack, float); //! Phi of the track
 DECLARE_SOA_COLUMN(PtAssocTrack, ptAssocTrack, float);   //! Pt of the track
 } // namespace hf_assoc_track_reduced
 DECLARE_SOA_TABLE(AssocTrackReds, "AOD", "ASSOCTRACKRED", //! Table with associated track info
-                  soa::Index<>,
-                  aod::hf_candidate_reduced::HfcRedCollisionId,
-                  aod::hf_assoc_track_reduced::PhiAssocTrack,
-                  aod::hf_assoc_track_reduced::EtaAssocTrack,
-                  aod::hf_assoc_track_reduced::PtAssocTrack)
+                  o2::soa::Index<>,
+                  hf_assoc_track_reduced::HfcRedCollisionId,
+                  hf_assoc_track_reduced::PhiAssocTrack,
+                  hf_assoc_track_reduced::EtaAssocTrack,
+                  hf_assoc_track_reduced::PtAssocTrack)
 } // namespace o2::aod
 
 #endif // PWGHF_HFC_DATAMODEL_DERIVEDDATACORRELATIONTABLES_H_
