@@ -10,17 +10,17 @@
     },
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "finalcrossLcpKpiRun3analysis_prompt.root"
+        "finalcrossLcpKpiRun3analysis_prompt_merged.root"
       ]
     },
     "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method}": {
       "file": [
-        "finalcrossLcpKpiRun3analysis_prompt_Nb.root"
+        "finalcrossLcpKpiRun3analysis_prompt_Nb_merged.root"
       ]
     },
     "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{N_{prompt} from FDD}": {
       "file": [
-        "finalcrossLcpKpiRun3analysis_prompt_dd_Nprompt.root"
+        "finalcrossLcpKpiRun3analysis_prompt_dd_Nprompt_merged.root"
       ]
     }
   },
@@ -29,6 +29,6 @@
   "y_axis": "#Lambda_{c} cross section (pb)",
   "output": {
     "outdir": "/data8/majak/crosssec",
-    "file": "crosssec_Lc_run2_run3_Nb_dd_nprompt"
+    "file": "crosssec_Lc_run2_run3_Nb_dd_nprompt_merged"
   }
 }
