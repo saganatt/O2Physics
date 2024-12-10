@@ -58,7 +58,7 @@ def main():
                f'{cfg["output"]["file"]}.root'), "recreate") as output:
 
         canv = prepare_canvas(f'c_{cfg["histoname"]}')
-        leg = get_legend(0.40, 0.22, 0.90, 0.37, len(cfg["hists"]))
+        leg = get_legend(0.25, 0.20, 0.70, 0.35, len(cfg["hists"]))
 
         maxy = 0.
         miny = 1.
