@@ -18,6 +18,7 @@
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "Framework/AnalysisTask.h"
+#include "Framework/ASoAHelpers.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/runDataProcessing.h"
 
@@ -279,12 +280,25 @@ struct HfCorrelatorDsHadronsReduced {
 
     BinningTypeDerived corrBinning{{zPoolBins, multPoolBins}, true};
 
-    auto tracksTuple = std::make_tuple(candidates, tracks);
+    //auto tracksTuple = std::make_tuple(candidates, tracks);
+    auto tracksTuple = std::make_tuple(tracks);
     for (const auto& collision : collisions) {
+      LOG(info) << "collision: " << collision.globalIndex() << " multiplicity " << collision.multiplicity();
       registry.fill(HIST("hMultFT0M"), collision.multiplicity());
     }
     
-    Pair<aod::HfcRedCollisions, aod::AssocTrackReds, aod::DsCandReduceds, BinningTypeDerived> pairData{corrBinning, numberEventsMixed, -1, collisions, tracksTuple, &cache};
+    for (const auto& track : candidates) {
+      LOG(info) << "cand: " << track.globalIndex() << " collision: " << track.hfcRedCollisionId() << " phi cand: " << track.phiCand();
+    }
+    
+    for (const auto& track : tracks) {
+      LOG(info) << "track: " << track.globalIndex() << " collision: " << track.hfcRedCollisionId() << " phi assoc track: " << track.phiAssocTrack();
+    }
+
+    LOG(info) << "creating pair";
+    //Pair<aod::HfcRedCollisions, aod::AssocTrackReds, aod::DsCandReduceds, BinningTypeDerived> pairData{corrBinning, numberEventsMixed, -1, collisions, tracksTuple, &cache};
+    SameKindPair<aod::HfcRedCollisions, aod::AssocTrackReds, BinningTypeDerived> pairData{corrBinning, numberEventsMixed, -1, collisions, tracksTuple, &cache};
+    LOG(info) << "pair created";
      
     for (const auto& [c1, tracks1, c2, tracks2] : pairData) {
       if (tracks1.size() == 0) {
@@ -298,18 +312,18 @@ struct HfCorrelatorDsHadronsReduced {
       registry.fill(HIST("hTracksPoolBin"), poolBin);
       registry.fill(HIST("hDsPoolBin"), poolBinDs);
       
-      for (const auto& [cand, pAssoc] : o2::soa::combinations(o2::soa::CombinationsFullIndexPolicy(tracks1, tracks2))) {
-        LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", cand.index(), pAssoc.index(), c1.index(), c2.index(), cand.hfcRedCollisionId(), pAssoc.hfcRedCollisionId());
-        
-        entryDsHadronPair(getDeltaPhi(pAssoc.phiAssocTrack(), cand.phiCand()),
-                          pAssoc.etaAssocTrack() - cand.etaCand(),
-                          cand.ptCand(),
-                          pAssoc.ptAssocTrack(),
-                          poolBin);
-        entryDsHadronRecoInfo(cand.invMassDs(), false, false);
-        entryDsHadronGenInfo(false, false, 0);
-        
-      }
+      //for (const auto& [cand, pAssoc] : o2::soa::combinations(o2::soa::CombinationsFullIndexPolicy(tracks1, tracks2))) {
+      //  LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", cand.index(), pAssoc.index(), c1.index(), c2.index(), cand.hfcRedCollisionId(), pAssoc.hfcRedCollisionId());
+      //  
+      //  entryDsHadronPair(getDeltaPhi(pAssoc.phiAssocTrack(), cand.phiCand()),
+      //                    pAssoc.etaAssocTrack() - cand.etaCand(),
+      //                    cand.ptCand(),
+      //                    pAssoc.ptAssocTrack(),
+      //                    poolBin);
+      //  entryDsHadronRecoInfo(cand.invMassDs(), false, false);
+      //  entryDsHadronGenInfo(false, false, 0);
+      //  
+      //}
     }
   }
   PROCESS_SWITCH(HfCorrelatorDsHadronsReduced, processDerivedDataME, "Process Mixed Event Derived Data", true);
