@@ -315,18 +315,18 @@ struct HfCorrelatorDsHadronsReduced {
       registry.fill(HIST("hTracksPoolBin"), poolBin);
       registry.fill(HIST("hDsPoolBin"), poolBinDs);
 
-      for (const auto& [cand, pAssoc] : o2::soa::combinations(o2::soa::CombinationsFullIndexPolicy(tracks1, tracks2))) {
-        LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", cand.index(), pAssoc.index(), c1.index(), c2.index(), cand.hfcRedCollisionId(), pAssoc.hfcRedCollisionId());
+      //for (const auto& [cand, pAssoc] : o2::soa::combinations(o2::soa::CombinationsFullIndexPolicy(tracks1, tracks2))) {
+      //  LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", cand.index(), pAssoc.index(), c1.index(), c2.index(), cand.hfcRedCollisionId(), pAssoc.hfcRedCollisionId());
 
-        entryDsHadronPair(getDeltaPhi(pAssoc.phiAssocTrack(), cand.phiCand()),
-                          pAssoc.etaAssocTrack() - cand.etaCand(),
-                          cand.ptCand(),
-                          pAssoc.ptAssocTrack(),
-                          poolBin);
-        entryDsHadronRecoInfo(cand.invMassDs(), false, false);
-        entryDsHadronGenInfo(false, false, 0);
+      //  entryDsHadronPair(getDeltaPhi(pAssoc.phiAssocTrack(), cand.phiCand()),
+      //                    pAssoc.etaAssocTrack() - cand.etaCand(),
+      //                    cand.ptCand(),
+      //                    pAssoc.ptAssocTrack(),
+      //                    poolBin);
+      //  entryDsHadronRecoInfo(cand.invMassDs(), false, false);
+      //  entryDsHadronGenInfo(false, false, 0);
 
-      }
+      //}
     }
   }
   PROCESS_SWITCH(HfCorrelatorDsHadronsReduced, processDerivedDataME, "Process Mixed Event Derived Data", true);
