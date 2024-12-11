@@ -54,6 +54,8 @@ DECLARE_SOA_TABLE(DsCandReduceds, "AOD", "DSCANDREDUCED", //! Table with Ds cand
                   hf_candidate_reduced::PtCand,
                   hf_candidate_reduced::InvMassDs);
 
+using DsCandReduced = DsCandReduceds::iterator;
+
 namespace hf_assoc_track_reduced
 {
 DECLARE_SOA_INDEX_COLUMN(HfcRedCollision, hfcRedCollision); //! ReducedCollision index
@@ -68,6 +70,8 @@ DECLARE_SOA_TABLE(AssocTrackReds, "AOD", "ASSOCTRACKRED", //! Table with associa
                   hf_assoc_track_reduced::PhiAssocTrack,
                   hf_assoc_track_reduced::EtaAssocTrack,
                   hf_assoc_track_reduced::PtAssocTrack)
+
+using AssocTrackRed = AssocTrackReds::iterator;
 } // namespace o2::aod
 
 #endif // PWGHF_HFC_DATAMODEL_DERIVEDDATACORRELATIONTABLES_H_
