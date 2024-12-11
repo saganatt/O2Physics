@@ -56,8 +56,8 @@ struct HfCorrelatorDsHadronsReduced {
   Produces<aod::DsHadronRecoInfo> entryDsHadronRecoInfo;
   Produces<aod::DsHadronGenInfo> entryDsHadronGenInfo;
 
-  Preslice<aod::AssocTrackReds> tracksPerCol = aod::hf_assoc_track_reduced::HfcRedCollisionId;
-  Preslice<aod::DsCandReduceds> candsPerCol = aod::hf_candidate_reduced::HfcRedCollisionId;
+  Preslice<aod::AssocTrackReds> tracksPerCol = aod::hf_assoc_track_reduced::hfcRedCollisionId;
+  Preslice<aod::DsCandReduceds> candsPerCol = aod::hf_candidate_reduced::hfcRedCollisionId;
 
   Configurable<bool> fillHistoData{"fillHistoData", true, "Flag for filling histograms in data processes"};
   Configurable<bool> fillHistoMcRec{"fillHistoMcRec", true, "Flag for filling histograms in MC Rec processes"};
