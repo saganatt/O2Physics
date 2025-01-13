@@ -37,6 +37,7 @@ DECLARE_SOA_TABLE(MixingHashes, "AOD", "HASH", hash::Bin);
 
 struct MixedEvents {
   SliceCache cache;
+  Preslice<aod::Tracks> perCollision = aod::track::collisionId;
   std::vector<double> xBins{VARIABLE_WIDTH, -0.064, -0.062, -0.060, 0.066, 0.068, 0.070, 0.072};
   std::vector<double> yBins{VARIABLE_WIDTH, -0.320, -0.301, -0.300, 0.330, 0.340, 0.350, 0.360};
   using BinningType = ColumnBinningPolicy<aod::collision::PosX, aod::collision::PosY>;
@@ -486,17 +487,17 @@ WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
     adaptAnalysisTask<MixedEvents>(cfgc),
-    adaptAnalysisTask<MixedEventsInsideProcess>(cfgc),
-    adaptAnalysisTask<MixedEventsFilteredTracks>(cfgc),
-    adaptAnalysisTask<MixedEventsJoinedCollisions>(cfgc),
-    adaptAnalysisTask<MixedEventsDynamicColumns>(cfgc),
-    adaptAnalysisTask<MixedEventsVariousKinds>(cfgc),
-    adaptAnalysisTask<MixedEventsTriple>(cfgc),
-    adaptAnalysisTask<MixedEventsTripleVariousKinds>(cfgc),
-    adaptAnalysisTask<HashTask>(cfgc),
-    adaptAnalysisTask<MixedEventsWithHashTask>(cfgc),
-    adaptAnalysisTask<MixedEventsPartitionedTracks>(cfgc),
-    adaptAnalysisTask<MixedEventsLambdaBinning>(cfgc),
-    adaptAnalysisTask<MixedEventsCounters>(cfgc),
+    //adaptAnalysisTask<MixedEventsInsideProcess>(cfgc),
+    //adaptAnalysisTask<MixedEventsFilteredTracks>(cfgc),
+    //adaptAnalysisTask<MixedEventsJoinedCollisions>(cfgc),
+    //adaptAnalysisTask<MixedEventsDynamicColumns>(cfgc),
+    //adaptAnalysisTask<MixedEventsVariousKinds>(cfgc),
+    //adaptAnalysisTask<MixedEventsTriple>(cfgc),
+    //adaptAnalysisTask<MixedEventsTripleVariousKinds>(cfgc),
+    //adaptAnalysisTask<HashTask>(cfgc),
+    //adaptAnalysisTask<MixedEventsWithHashTask>(cfgc),
+    //adaptAnalysisTask<MixedEventsPartitionedTracks>(cfgc),
+    //adaptAnalysisTask<MixedEventsLambdaBinning>(cfgc),
+    //adaptAnalysisTask<MixedEventsCounters>(cfgc),
   };
 }
