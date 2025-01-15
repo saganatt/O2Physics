@@ -172,6 +172,7 @@ struct MixedEventsJoinedCollisions {
 
 struct MixedEventsDynamicColumns {
   SliceCache cache;
+  Preslice<aod::Tracks> perCollision = aod::track::collisionId;
   using aodCollisions = soa::Join<aod::Collisions, aod::EvSels, aod::Mults>;
   std::vector<double> zBins{7, -7, 7};
   std::vector<double> multBins{VARIABLE_WIDTH, 0, 5, 10, 20, 30, 40, 50, 100.1};
@@ -486,11 +487,11 @@ struct MixedEventsCounters {
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
-    adaptAnalysisTask<MixedEvents>(cfgc),
+    //adaptAnalysisTask<MixedEvents>(cfgc),
     //adaptAnalysisTask<MixedEventsInsideProcess>(cfgc),
     //adaptAnalysisTask<MixedEventsFilteredTracks>(cfgc),
     //adaptAnalysisTask<MixedEventsJoinedCollisions>(cfgc),
-    //adaptAnalysisTask<MixedEventsDynamicColumns>(cfgc),
+    adaptAnalysisTask<MixedEventsDynamicColumns>(cfgc)//,
     //adaptAnalysisTask<MixedEventsVariousKinds>(cfgc),
     //adaptAnalysisTask<MixedEventsTriple>(cfgc),
     //adaptAnalysisTask<MixedEventsTripleVariousKinds>(cfgc),
