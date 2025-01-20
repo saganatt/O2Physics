@@ -194,7 +194,7 @@ struct MixedEventsDynamicColumns {
       // Example of using tracks from mixed events -- iterate over all track pairs from the two collisions
       int trackCount = 0;
       for (auto& [t1, t2] : combinations(CombinationsFullIndexPolicy(tracks1, tracks2))) {
-        LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
+        //LOGF(info, "Mixed event tracks pair: (%d, %d) from events (%d, %d), track event: (%d, %d)", t1.index(), t2.index(), c1.index(), c2.index(), t1.collision().index(), t2.collision().index());
         trackCount++;
         if (trackCount == 10)
           break;
