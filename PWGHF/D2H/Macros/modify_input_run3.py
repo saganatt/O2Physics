@@ -13,9 +13,14 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TFile,
 )
 
+# 2024 values for LHC22o
 MLHEP_EV_SEL = 20430386.
 NORM = 47092223769.611162532
 BR = 0.0623
+
+# 2025 values for LHC23_pass4_thin
+MLHEP_EV_SEL = 258442910841.
+NORM = 3.0077675e+11
 
 def main():
     """
@@ -32,12 +37,13 @@ def main():
 
     with TFile(args.filename) as fin, TFile(args.outname, "recreate") as fout:
         hist = fin.Get(args.histname)
-        hist.SetDirectory(0)
-        hist.Scale(MLHEP_EV_SEL / NORM)
+        hist2 = hist.Clone(args.outhistname)
+        hist2.SetDirectory(0)
+        hist2.Scale(MLHEP_EV_SEL / NORM)
         #hist.Scale(1./59400000000) # luminosity scaling, lumi in pb
         #hist.Scale(BR) # BR scaling back
         fout.cd()
-        hist.Write()
+        hist2.Write()
 
 
 if __name__ == "__main__":
