@@ -40,9 +40,9 @@ def main():
         for binn in range(first_bin, last_bin + 1):
             bins.append(hist.GetBinLowEdge(binn))
         #last_bins = [16.0, 24.0, 25.0]
-        last_bins = [24.0, 25.0]
+        last_bins = [24.0]
         bins += last_bins
-        print(f"Hist bins {bins}")
+        #print(f"Hist bins {bins}")
         hist2 = TH1F(args.histname, "", len(bins) - 1, array('d', bins))
         for binn in range(empty_bins, last_bin + 1):
             hist2.SetBinContent(binn + 1, hist.GetBinContent(binn + 1 - empty_bins))
