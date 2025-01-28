@@ -16,7 +16,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     TH1F
 )
 
-OUTPUT_BINS = [0, 1, 2, 3, 4, 5, 6, 8, 12, 24]
+OUTPUT_BINS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 24]
 BR = 0.0623
 
 def main():
@@ -38,7 +38,7 @@ def main():
         #hist.Scale(0.000000001)
         hist.Scale(1./BR)
         hist2 = TH1F(args.outhistname, "", len(OUTPUT_BINS) - 1, array('d', OUTPUT_BINS))
-        merge_bins = [7, 9]
+        merge_bins = [20] # dummy number so as not to merge [7, 9]
         ind = 0
         for binn in range(1, hist.GetNbinsX() + 1):
             print(f"Old hist bin {binn} low edge {hist.GetBinLowEdge(binn)} "\

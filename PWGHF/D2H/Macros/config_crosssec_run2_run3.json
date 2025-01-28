@@ -1,13 +1,27 @@
 {
-  "inputdir": "/data8/majak/crosssec",
+  "inputdir": "/data8/majak/crosssec/202501",
   "histoname": "hptspectrum",
   "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV",
   "hists": {
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV": {
       "file": [
-        "LcpKpi_merged_Run2_crosssec_mergedBins.root"
+        "LcpKpi_merged_Run2_crosssec_scaled.root"
       ]
     },
+    "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method, new 2023 data}": {
+      "file": [
+        "finalcrossLcpKpiRun3analysistot_pt0-1.root"
+      ]
+    }
+  },
+  "bin_min": [0,1,2,3,4,5,6,7,8,10,12],
+  "bin_max": [1,2,3,4,5,6,7,8,10,12,24],
+  "y_axis": "#Lambda_{c} cross section (pb)",
+  "output": {
+    "outdir": "/data8/majak/crosssec/202501",
+    "file": "crosssec_Lc_run2_run3_my_eff"
+  },
+  "_comment": {
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
         "finalcrossLcpKpiRun3analysis_prompt_merged.root"
@@ -23,12 +37,5 @@
         "finalcrossLcpKpiRun3analysis_prompt_dd_Nprompt_merged.root"
       ]
     }
-  },
-  "bin_min": [0,1,2,3,4,5,6,8,12],
-  "bin_max": [1,2,3,4,5,6,8,12,24],
-  "y_axis": "#Lambda_{c} cross section (pb)",
-  "output": {
-    "outdir": "/data8/majak/crosssec",
-    "file": "crosssec_Lc_run2_run3_Nb_dd_nprompt_merged"
   }
 }

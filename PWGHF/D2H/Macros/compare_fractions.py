@@ -59,7 +59,7 @@ def get_legend(x_1, y_1, x_2, y_2, num_hists):
     leg = TLegend(x_1, y_1, x_2, y_2)
     if num_hists > 4:
         leg.SetNColumns(2)
-    leg.SetTextAlign(13)
+    leg.SetTextAlign(12) #13)
     leg.SetTextSize(0.045)
     leg.SetMargin(0.1)
     leg.SetBorderSize(0)
@@ -93,7 +93,7 @@ def combine_syst_errors(syst_errors, value):
 
 
 def get_hist_limits(hist, graph_syst = None, miny = 0.0, maxy = 0.0):
-    for binn in range(hist.GetNbinsX()):
+    for binn in range(1, hist.GetNbinsX()):
         print(f"bin {binn + 1} [{hist.GetXaxis().GetBinLowEdge(binn + 1)}, "\
               f"{hist.GetXaxis().GetBinLowEdge(binn + 2)}) val {hist.GetBinContent(binn + 1)} "\
               f"err {hist.GetBinError(binn + 1)}")
@@ -211,7 +211,7 @@ def plot_compare(cfg):
             hists_models.append(hist)
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
-        leg = get_legend(0.40, 0.45, 0.90, 0.85, len(cfg["hists"]))
+        leg = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -235,7 +235,7 @@ def plot_compare(cfg):
             graph_syst.Draw("sameE2")
             graphs_syst.append(graph_syst)
 
-    margin = 5
+    margin = 100000000
     #k = 1.0 - 2 * margin
     #rangey = maxy - miny
     #miny = miny - margin / k * rangey
@@ -264,27 +264,29 @@ def plot_compare(cfg):
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
     #legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
-    legr = get_legend(0.40, 0.50, 0.90, 0.85, len(cfg["hists"]))
+    legr = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
 
     histsr = []
-    miny = 0.0
-    maxy = 2.0
+    miny = 0.4
+    maxy = 1.5
     maxx = 0.0
     central_hist = hists[cfg["default"]]
     for ind, (label, color) in enumerate(zip(hists, COLORS)):
+        print(f"central hist bins: {central_hist.GetNbinsX()} {label} bins: {hists[label].GetNbinsX()}")
         if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
             #histr = hists[label].Clone()
             histr = central_hist.Clone()
-            for binn in range(2, central_hist.GetNbinsX()):
-                histr.SetBinContent(binn, hists[label].GetBinContent(binn - 1))
-                histr.SetBinError(binn, hists[label].GetBinError(binn - 1))
+            for binn in range(1, central_hist.GetNbinsX() + 1):
+                histr.SetBinContent(binn, hists[label].GetBinContent(binn))
+                histr.SetBinError(binn, hists[label].GetBinError(binn))
+                print(f"Central hist bin {binn} {central_hist.GetBinContent(binn)} {label} hist bin: {hists[label].GetBinContent(binn)}")
             histr.SetName(f"h_ratio_{label}")
             histr.SetMarkerColor(color)
             histr.SetLineColor(color)
 
             histr.Divide(central_hist)
-            histr.SetBinContent(histr.GetNbinsX(), 0.0)
-            histr.SetBinError(histr.GetNbinsX(), 0.0)
+            #histr.SetBinContent(histr.GetNbinsX(), 0.0)
+            #histr.SetBinError(histr.GetNbinsX(), 0.0)
             histr.SetBinContent(1, 0.0)
             histr.SetBinError(1, 0.0)
             miny, maxy = get_hist_limits(histr, None, miny, maxy)
