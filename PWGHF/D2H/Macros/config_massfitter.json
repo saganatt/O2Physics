@@ -4,15 +4,17 @@
   "ReflFileName": "input reflection file directory",
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
-    "hmassfPt1_2_0.020.00%sf12%",
-    "hmassfPt2_3_0.020.00%sf23%",
-    "hmassfPt3_4_0.020.00%sf34%",
-    "hmassfPt4_5_0.060.00%sf45%",
-    "hmassfPt5_6_0.060.00%sf56%",
-    "hmassfPt6_8_0.100.00%sf68%",
-    "hmassfPt8_12_0.200.00%sf812%",
-    "hmassfPt12_16_%bkg1216%0.00%sf1216%",
-    "hmassfPt16_24_%bkg1624%0.00%sf1624%"
+    "hmassfPt1_2_0.020.000.00",
+    "hmassfPt2_3_0.030.000.00",
+    "hmassfPt3_4_0.040.000.00",
+    "hmassfPt4_5_0.070.000.00",
+    "hmassfPt5_6_0.090.000.00",
+    "hmassfPt6_7_0.110.000.00",
+    "hmassfPt7_8_0.150.000.00",
+    "hmassfPt8_10_0.180.000.00",
+    "hmassfPt10_12_0.250.000.00",
+    "hmassfPt12_16_0.250.000.00",
+    "hmassfPt16_24_0.250.000.00"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
@@ -38,7 +40,7 @@
     "Dstar"
   ],
   "EnableRefl": false,
-  "FixSigma": true,
+  "FixSigma": false,
   "SigmaFile": "",
   "_SigmaFile": "fix sigma from file",
   "FixSigmaManual": [
@@ -49,6 +51,8 @@
     0.0138,
     0.0155,
     0.0191,
+    0.0220,
+    0.0220,
     0.0220,
     0.0220
   ],
@@ -68,6 +72,8 @@
     0.0135,
     0.0090,
     0.0220,
+    0.0220,
+    0.0220,
     0.0220
   ],
   "_FixSecondSigmaManual": "fix second sigma for double gauss manually",
@@ -81,7 +87,9 @@
     4.0,
     5.0,
     6.0,
+    7.0,
     8.0,
+    10.0,
     12.0,
     16.0
   ],
@@ -91,43 +99,49 @@
     4.0,
     5.0,
     6.0,
+    7.0,
     8.0,
+    10.0,
     12.0,
     16.0,
     24.0
   ],
   "MassMin": [
+    2.216,
+    2.20,
+    2.19,
+    2.18,
+    2.18,
+    2.18,
     2.16,
-    2.16,
-    2.13,
-    2.14,
-    2.16,
-    2.11,
     2.10,
-    2.00,
-    2.00
+    2.10,
+    2.10
   ],
   "MassMax": [
+    2.36,
+    2.37,
+    2.38,
     2.40,
-    2.43,
-    2.43,
+    2.40,
+    2.40,
     2.42,
-    2.40,
-    2.476,
-    2.476,
-    2.476,
-    2.476
+    2.46,
+    2.46,
+    2.46
   ],
   "Rebin": [
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
     4,
-    4,
-    4,
-    5,
     5,
     6,
-    7,
-    10,
-    10
+    6
   ],
   "InclSecPeak": false,
   "UseLikelihood": true,
@@ -136,6 +150,8 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
+    2,
+    2,
     2,
     2,
     2,
@@ -156,6 +172,8 @@
     "6 for NoBkg"
   ],
   "SgnFunc": [
+    0,
+    0,
     0,
     0,
     0,
