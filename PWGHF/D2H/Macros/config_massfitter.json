@@ -4,17 +4,17 @@
   "ReflFileName": "input reflection file directory",
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
-    "hmassfPt1_2_0.020.000.00",
-    "hmassfPt2_3_0.030.000.00",
-    "hmassfPt3_4_0.040.000.00",
-    "hmassfPt4_5_0.070.000.00",
-    "hmassfPt5_6_0.090.000.00",
-    "hmassfPt6_7_0.110.000.00",
-    "hmassfPt7_8_0.150.000.00",
-    "hmassfPt8_10_0.180.000.00",
-    "hmassfPt10_12_0.250.000.00",
-    "hmassfPt12_16_0.250.000.00",
-    "hmassfPt16_24_0.250.000.00"
+    "hmassfPt1_2_0.020.00%sf12%",
+    "hmassfPt2_3_0.030.00%sf23%",
+    "hmassfPt3_4_0.040.00%sf34%",
+    "hmassfPt4_5_0.070.00%sf45%",
+    "hmassfPt5_6_0.090.00%sf56%",
+    "hmassfPt6_7_0.110.00%sf67%",
+    "hmassfPt7_8_0.150.00%sf78%",
+    "hmassfPt8_10_0.180.00%sf810%",
+    "hmassfPt10_12_0.250.00%sf1012%",
+    "hmassfPt12_16_0.350.00%sf1216%",
+    "hmassfPt16_24_0.350.00%sf1624%"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
