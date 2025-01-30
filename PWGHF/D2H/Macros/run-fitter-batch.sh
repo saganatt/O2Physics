@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-23082024"
-INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-07112024"
+INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-012025"
 INPUT_PATTERN="${INPUT_DIR}/projections_"
 
 #CONFIG="config_massfitter_figure"
@@ -10,7 +10,7 @@ CONFIG_EXT="${CONFIG}.json"
 #PERM_PATTERN="fd_precise_rebin4_bkg"
 PERM_PATTERN=""
 
-RES_SUFFIX="-fixed-sigma"
+RES_SUFFIX=""
 #RES_SUFFIX="-figure"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
@@ -31,7 +31,7 @@ for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]} ${probs[10]} ${probs[11]} ${probs[12]}"
 
   RESDIR="results_${suffix_no_ext}${RES_SUFFIX}"
-  RESPATH="/data8/majak/d2h-fitter/071124/${RESDIR}"
+  RESPATH="/data8/majak/d2h-fitter/0125/${RESDIR}"
   mkdir "${RESPATH}"
 
   CUR_CFG="${CONFIG}_${suffix_no_ext}_edit.json"

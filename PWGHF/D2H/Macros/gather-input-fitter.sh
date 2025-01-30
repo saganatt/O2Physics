@@ -1,10 +1,10 @@
 #!/bin/bash
 
 MLHEP_DIR="/data8/majak/MLHEP"
-OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-07112024"
+OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-012025"
 
-RESDIR_PATTERN="${MLHEP_DIR}/results-0711-fdd-precise_"
-PERM_PATTERN="bkg_0.60_0.60_"
+RESDIR_PATTERN="${MLHEP_DIR}/results-24012025-hyp-ml-luigi-cuts_"
+PERM_PATTERN="bkg_0.25"
 
 for dir in ${RESDIR_PATTERN}${PERM_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
@@ -13,7 +13,7 @@ for dir in ${RESDIR_PATTERN}${PERM_PATTERN}* ; do
   RESPATH="${OUTPUT_DIR}/projections_${suffix}.root"
 
   python gather_input_fitter.py \
-    "${dir}/LHC22pp/Results/resultsdatatot/masshisto.root" \
+    "${dir}/LHC23pp_pass4/Results/resultsdatatot/masshisto.root" \
     hmassfPt \
     ${RESPATH}
 done
