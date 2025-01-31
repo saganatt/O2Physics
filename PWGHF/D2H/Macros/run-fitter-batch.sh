@@ -27,7 +27,7 @@ for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   echo "sufix no ext ext ${suffix_no_ext_ext}"
 
   IFS='_' read -ra probs <<< "${suffix_no_ext_ext}"
-  echo "fd ${probs[1]}"
+  echo "fd ${probs[0]}"
   #echo "bkg ${probs[1]} ${probs[2]}"
   #echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]} ${probs[10]} ${probs[11]} ${probs[12]}"
 
@@ -47,17 +47,17 @@ for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
   sed -i "s/%bkg812%/${probs[1]}/g" "${CUR_CFG}" || exit 1
   sed -i "s/%bkg1224%/${probs[2]}/g" "${CUR_CFG}" || exit 1
 
-  sed -i "s/%sf12%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf23%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf34%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf45%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf56%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf67%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf78%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf810%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1012%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1216%/${probs[1]}/g" "${CUR_CFG}" || exit 1
-  sed -i "s/%sf1624%/${probs[1]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf12%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf23%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf34%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf45%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf56%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf67%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf78%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf810%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1012%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1216%/${probs[0]}/g" "${CUR_CFG}" || exit 1
+  sed -i "s/%sf1624%/${probs[0]}/g" "${CUR_CFG}" || exit 1
 
   root -b -l -q -x "HFInvMassFitter.cxx" runMassFitter.C\(\"${CUR_CFG}\"\)
 done
