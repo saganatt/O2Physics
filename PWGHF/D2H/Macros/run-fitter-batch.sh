@@ -10,7 +10,7 @@ CONFIG_EXT="${CONFIG}.json"
 #PERM_PATTERN="fd_precise_rebin4_bkg"
 PERM_PATTERN="fd_"
 
-RES_SUFFIX=""
+RES_SUFFIX="-fixed-sigma"
 #RES_SUFFIX="-figure"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
