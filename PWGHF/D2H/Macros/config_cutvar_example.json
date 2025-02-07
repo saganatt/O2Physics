@@ -18,7 +18,7 @@
       "yields-fd_0.39-fixed-sigma.root",
       "yields-fd_0.42-fixed-sigma.root",
       "yields-fd_0.445-fixed-sigma.root",
-      "yields-fd_0.465-fixed-sigma.root",
+      "yields-fd_0.46-fixed-sigma.root",
       "yields-fd_0.48-fixed-sigma.root"
     ],
     "histoname": "hRawYields"
@@ -42,7 +42,7 @@
       "efficienciesLcpKpiRun3analysis_fd_0.39.root",
       "efficienciesLcpKpiRun3analysis_fd_0.42.root",
       "efficienciesLcpKpiRun3analysis_fd_0.445.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.465.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.46.root",
       "efficienciesLcpKpiRun3analysis_fd_0.48.root"
     ],
     "histonames": {
