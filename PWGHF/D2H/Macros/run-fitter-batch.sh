@@ -10,7 +10,7 @@ CONFIG_EXT="${CONFIG}.json"
 #PERM_PATTERN="fd_precise_rebin4_bkg"
 PERM_PATTERN="fd_"
 
-RES_SUFFIX="-fixed-sigma"
+RES_SUFFIX="-cheb-fixed-sigma"
 #RES_SUFFIX="-figure"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
@@ -28,6 +28,9 @@ for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
 
   IFS='_' read -ra probs <<< "${suffix_no_ext_ext}"
   echo "fd ${probs[0]}"
+
+  #fd=`python3 get_fd_from_histomass.py ${dir}`
+  #echo "fd ${fd}"
   #echo "bkg ${probs[1]} ${probs[2]}"
   #echo "fd ${probs[4]} ${probs[5]} ${probs[6]} ${probs[7]} ${probs[8]} ${probs[9]} ${probs[10]} ${probs[11]} ${probs[12]}"
 
