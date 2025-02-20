@@ -1,43 +1,49 @@
 {
   "rawyields": {
-    "inputdir": "/data8/majak/MLHEP/input-fd-012025",
+    "inputdir": "/data8/majak/MLHEP/input-fd-022025-roofit",
     "inputfiles": [
-      "yields-fd_0.14-fixed-sigma.root",
-      "yields-fd_0.165-fixed-sigma.root",
-      "yields-fd_0.185-fixed-sigma.root",
-      "yields-fd_0.205-fixed-sigma.root",
-      "yields-fd_0.23-fixed-sigma.root",
-      "yields-fd_0.265-fixed-sigma.root",
-      "yields-fd_0.29-fixed-sigma.root",
-      "yields-fd_0.345-fixed-sigma.root",
-      "yields-fd_0.37-fixed-sigma.root",
-      "yields-fd_0.40-fixed-sigma.root",
-      "yields-fd_0.415-fixed-sigma.root",
-      "yields-fd_0.455-fixed-sigma.root",
-      "yields-fd_0.50-fixed-sigma.root",
-      "yields-fd_0.52-fixed-sigma.root",
-      "yields-fd_0.545-fixed-sigma.root"
+      "yieldsLcpKpiRun3analysis-fd_0.170.root",
+      "yieldsLcpKpiRun3analysis-fd_0.190.root",
+      "yieldsLcpKpiRun3analysis-fd_0.205.root",
+      "yieldsLcpKpiRun3analysis-fd_0.235.root",
+      "yieldsLcpKpiRun3analysis-fd_0.250.root",
+      "yieldsLcpKpiRun3analysis-fd_0.270.root",
+      "yieldsLcpKpiRun3analysis-fd_0.290.root",
+      "yieldsLcpKpiRun3analysis-fd_0.315.root",
+      "yieldsLcpKpiRun3analysis-fd_0.330.root",
+      "yieldsLcpKpiRun3analysis-fd_0.355.root",
+      "yieldsLcpKpiRun3analysis-fd_0.370.root",
+      "yieldsLcpKpiRun3analysis-fd_0.390.root",
+      "yieldsLcpKpiRun3analysis-fd_0.405.root",
+      "yieldsLcpKpiRun3analysis-fd_0.440.root",
+      "yieldsLcpKpiRun3analysis-fd_0.470.root",
+      "yieldsLcpKpiRun3analysis-fd_0.490.root",
+      "yieldsLcpKpiRun3analysis-fd_0.510.root",
+      "yieldsLcpKpiRun3analysis-fd_0.525.root"
     ],
-    "histoname": "hRawYields"
+    "histoname": "hyields0"
   },
   "efficiencies": {
-    "inputdir": "/data8/majak/MLHEP/input-fd-012025",
+    "inputdir": "/data8/majak/MLHEP/input-fd-022025-roofit",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis_fd_0.14.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.165.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.185.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.170.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.190.root",
       "efficienciesLcpKpiRun3analysis_fd_0.205.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.23.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.265.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.29.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.345.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.37.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.40.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.415.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.455.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.50.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.52.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.545.root"
+      "efficienciesLcpKpiRun3analysis_fd_0.235.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.250.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.270.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.290.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.315.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.330.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.355.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.370.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.390.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.405.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.440.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.470.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.490.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.510.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.525.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -49,7 +55,7 @@
   },
   "central_efficiency": {
     "computerawfrac": false,
-    "inputdir": "/data8/majak/MLHEP/input-fd-012025",
+    "inputdir": "/data8/majak/MLHEP/input-fd-022025-roofit",
       "inputfile": "efficiency.root",
       "histonames": {
           "prompt": "eff",
@@ -57,7 +63,7 @@
       }
   },
   "output": {
-    "directory": "/data8/majak/fdd-results/012025/fdd-results-10-12",
+    "directory": "/data8/majak/fdd-results/022025/fdd-results-2-3",
     "file": "CutVarLc_pp13TeV_LHC23_pass4.root"
   }
 }
