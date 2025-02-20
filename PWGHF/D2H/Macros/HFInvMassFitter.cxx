@@ -322,19 +322,19 @@ void HFInvMassFitter::doFit(Bool_t draw)
       mTotalPdf->plotOn(mResidualFrame, Components(*mSgnPdf), Normalization(1.0, RooAbsReal::RelativeExpected), LineColor(kBlue));
     }
 
-    mBkgObservables = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getObservables(dataHistogram);
+    //mBkgObservables = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getObservables(dataHistogram);
     //mBkgObservables = bkgPdf->getObservables(dataHistogram);
-    cout << "bkg observables " << *mBkgObservables << std::endl;
-    mBkgParameters = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getParameters(dataHistogram);
-    cout << "bkg parameters " << *mBkgParameters << std::endl;
-    mSgnObservables = mSgnPdf->getObservables(dataHistogram);
-    cout << "sgn observables " << *mSgnObservables << std::endl;
-    mSgnParameters = mSgnPdf->getParameters(dataHistogram);
-    cout << "sgn parameters " << *mSgnParameters << std::endl;
-    mTotalObservables = mTotalPdf->getObservables(dataHistogram);
-    cout << "total observables " << *mTotalObservables << std::endl;
-    mTotalParameters = mTotalPdf->getParameters(dataHistogram);
-    cout << "total parameters " << *mTotalParameters << std::endl;
+    //cout << "bkg observables " << *mBkgObservables << std::endl;
+    //mBkgParameters = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getParameters(dataHistogram);
+    //cout << "bkg parameters " << *mBkgParameters << std::endl;
+    //mSgnObservables = mSgnPdf->getObservables(dataHistogram);
+    //cout << "sgn observables " << *mSgnObservables << std::endl;
+    //mSgnParameters = mSgnPdf->getParameters(dataHistogram);
+    //cout << "sgn parameters " << *mSgnParameters << std::endl;
+    //mTotalObservables = mTotalPdf->getObservables(dataHistogram);
+    //cout << "total observables " << *mTotalObservables << std::endl;
+    //mTotalParameters = mTotalPdf->getParameters(dataHistogram);
+    //cout << "total parameters " << *mTotalParameters << std::endl;
 
     mass->setRange("bkgForSignificance", mRooMeanSgn->getVal() - mNSigmaForSgn * mRooSigmaSgn->getVal(), mRooMeanSgn->getVal() + mNSigmaForSgn * mRooSigmaSgn->getVal());
     bkgIntegral = mBkgPdf->createIntegral(*mass, NormSet(*mass), Range("bkgForSignificance"));
@@ -363,7 +363,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace)
   workspace.import(*bkgFuncPoly1);
   // bkg poly2
   RooRealVar PolyParam2("PolyParam2", "Parameter of Poly function", 0.2, -5., 5.);
-  RooAbsPdf* bkgFuncPoly2 = new RooPolynomial("bkgFuncPoly2", "background fit function", mass, RooArgSet(PolyParam0, PolyParam1, PolyParam2));
+  RooAbsPdf* bkgFuncPoly2 = new RooChebychev("bkgFuncPoly2", "background fit function", mass, RooArgSet(PolyParam0, PolyParam1, PolyParam2));
   workspace.import(*bkgFuncPoly2);
   // bkg poly3
   RooRealVar PolyParam3("PolyParam3", "Parameter of Poly function", 0.2, -1., 1.);
