@@ -2,7 +2,8 @@
   "rawyields": {
     "inputdir": "/data8/majak/MLHEP/input-fd-012025",
     "inputfiles": [
-      "yields-fd_0.070-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.010-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.090-cheb-fixed-sigma-125-190.root",
       "yields-fd_0.110-cheb-fixed-sigma-125-190.root",
       "yields-fd_0.130-cheb-fixed-sigma-125-190.root",
       "yields-fd_0.150-cheb-fixed-sigma-125-190.root",
@@ -21,22 +22,15 @@
       "yields-fd_0.430-cheb-fixed-sigma-125-190.root",
       "yields-fd_0.450-cheb-fixed-sigma-125-190.root",
       "yields-fd_0.470-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.490-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.510-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.530-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.550-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.570-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.590-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.610-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.630-cheb-fixed-sigma-125-190.root",
-      "yields-fd_0.650-cheb-fixed-sigma-125-190.root"
+      "yields-fd_0.490-cheb-fixed-sigma-125-190.root"
     ],
     "histoname": "hRawYields"
   },
   "efficiencies": {
     "inputdir": "/data8/majak/MLHEP/input-fd-012025",
     "inputfiles": [
-      "efficienciesLcpKpiRun3analysis_fd_0.070.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.010.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.090.root",
       "efficienciesLcpKpiRun3analysis_fd_0.110.root",
       "efficienciesLcpKpiRun3analysis_fd_0.130.root",
       "efficienciesLcpKpiRun3analysis_fd_0.150.root",
@@ -55,15 +49,7 @@
       "efficienciesLcpKpiRun3analysis_fd_0.430.root",
       "efficienciesLcpKpiRun3analysis_fd_0.450.root",
       "efficienciesLcpKpiRun3analysis_fd_0.470.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.490.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.510.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.530.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.550.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.570.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.590.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.610.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.630.root",
-      "efficienciesLcpKpiRun3analysis_fd_0.650.root"
+      "efficienciesLcpKpiRun3analysis_fd_0.490.root"
     ],
     "histonames": {
       "prompt": "eff",
@@ -83,7 +69,7 @@
       }
   },
   "output": {
-    "directory": "/data8/majak/fdd-results/012025/fdd-results-3-4-cheb-wide",
+    "directory": "/data8/majak/fdd-results/012025/fdd-results-4-5-cheb-wide",
     "file": "CutVarLc_pp13TeV_LHC23_pass4.root"
   }
 }
