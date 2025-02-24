@@ -10,10 +10,10 @@ CONFIG_EXT="${CONFIG}.json"
 #PERM_PATTERN="fd_precise_rebin4_bkg"
 PERM_PATTERN="fd_"
 
-RES_SUFFIX="-cheb-fixed-sigma"
+RES_SUFFIX="-poly-fixed-sigma"
 #RES_SUFFIX="-figure"
 
-for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
+for dir in ${INPUT_PATTERN}${PERM_PATTERN}0.[0-9][0-9][0-9].root ; do
   echo $dir
 
   suffix=${dir##${INPUT_PATTERN}}
