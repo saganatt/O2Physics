@@ -394,7 +394,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   delete bkgFuncPoly1;
   // bkg poly2
   RooRealVar polyParam2("polyParam2", "Parameter of Poly function", 0.2, -5., 5.);
-  RooAbsPdf* bkgFuncPoly2 = new RooChebychev("bkgFuncPoly2", "background fit function", mass, RooArgSet(polyParam0, polyParam1, polyParam2));
+  RooAbsPdf* bkgFuncPoly2 = new RooPolynomial("bkgFuncPoly2", "background fit function", mass, RooArgSet(polyParam0, polyParam1, polyParam2));
   workspace.import(*bkgFuncPoly2);
   delete bkgFuncPoly2;
   // bkg poly3
