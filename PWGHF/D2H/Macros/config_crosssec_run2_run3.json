@@ -1,5 +1,5 @@
 {
-  "inputdir": "/data8/majak/crosssec/202501",
+  "inputdir": "/data8/majak/crosssec/202502",
   "histoname": "hptspectrum",
   "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV",
   "hists": {
@@ -10,16 +10,16 @@
     },
     "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method, new 2023 data}": {
       "file": [
-        "finalcrossLcpKpiRun3analysistot_pt0-1.root"
+        "finalcrossLcpKpiRun3analysistot_pt0-1_12-24.root"
       ]
     }
   },
-  "bin_min": [0,1,2,3,4,5,6,7,8,10,12],
-  "bin_max": [1,2,3,4,5,6,7,8,10,12,24],
+  "bin_min": [0,1,2,3,4,5,6,7,8,10,12,16],
+  "bin_max": [1,2,3,4,5,6,7,8,10,12,16,24],
   "y_axis": "#Lambda_{c} cross section (pb)",
   "output": {
-    "outdir": "/data8/majak/crosssec/202501",
-    "file": "crosssec_Lc_run2_run3_my_eff"
+    "outdir": "/data8/majak/crosssec/202502",
+    "file": "crosssec_Lc_run2_run3"
   },
   "_comment": {
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
