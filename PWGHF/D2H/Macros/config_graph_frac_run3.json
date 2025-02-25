@@ -1,22 +1,24 @@
 {
-  "inputdir": "/data8/majak/crosssec",
+  "inputdir": "/data8/majak/crosssec/202502/",
   "histoname": "gfraction",
   "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV",
   "hists": {
-    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
-      "file": [
-        "finalcrossLcpKpiRun3analysis_prompt_merged.root"
-      ]
-    },
     "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method}": {
       "file": [
-        "finalcrossLcpKpiRun3analysis_prompt_Nb_merged.root"
+        "finalcrossLcpKpiRun3analysis.root"
       ]
     }
   },
   "y_axis": "#Lambda_{c} prompt fraction",
   "output": {
-    "outdir": "/data8/majak/crosssec",
-    "file": "graph_frac_Lc_run3_Nb_merged"
+    "outdir": "/data8/majak/crosssec/202502/",
+    "file": "graph_frac_Lc_run3_Nb"
+  },
+  "comment_": {
+    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
+      "file": [
+        "finalcrossLcpKpiRun3analysis_prompt_merged.root"
+      ]
+    }
   }
 }
