@@ -199,7 +199,7 @@ void HFInvMassFitter::doFit(Bool_t draw)
   RooRealVar* mass = mWorkspace->var("mass");
   RooDataHist dataHistogram("dataHistogram", "data", *mass, Import(*mHistoInvMass));
 
-  if (mTypeOfBkgPdf == 6) { // MC
+  if (mTypeOfBkgPdf == 7) { // MC
     mass->setRange("signal", mMass - 3. * mSigmaSgn, mMass + 3. * mSigmaSgn);
   } else {
     if (mTypeOfSgnPdf == 3) { // Second Peak fit range
@@ -224,7 +224,7 @@ void HFInvMassFitter::doFit(Bool_t draw)
   RooAbsPdf* sgnPdf = createSignalFitFunction(mWorkspace);                                                       // Create signal pdf
 
   // fir MC or Data
-  if (mTypeOfBkgPdf == 6) {                                                                                    // MC
+  if (mTypeOfBkgPdf == 7) {                                                                                    // MC
     mRooNSgn = new RooRealVar("mRooNSig", "number of signal", 0.3 * mIntegralHisto, 0., 1.2 * mIntegralHisto); // signal yield
     mTotalPdf = new RooAddPdf("mMCFunc", "MC fit function", RooArgList(*sgnPdf), RooArgList(*mRooNSgn));       // create total pdf
     if (!strcmp(mFitOption.Data(), "Chi2")) {
@@ -382,6 +382,8 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace)
   RooFormulaVar PowExpoParam4("PowExpoParam4", "1./PowExpoParam2", RooArgList(PowExpoParam2));
   RooAbsPdf* bkgFuncPowExpo = new RooGamma("bkgFuncPowExpo", "background pdf", mass, PowExpoParam3, PowExpoParam4, massPi);
   workspace.import(*bkgFuncPowExpo);
+  RooAbsPdf* bkgFuncCheb = new RooChebychev("bkgFuncCheb", "background fit function", mass, RooArgSet(PolyParam0, PolyParam1, PolyParam2));
+  workspace.import(*bkgFuncCheb);
   // signal pdf
   RooRealVar mean("mean", "mean for signal fit", mMass, 2.26, 2.30);
   if (mBoundMean) {
@@ -526,14 +528,14 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     textInfoRight->SetFillStyle(0);
     textInfoRight->SetTextColor(kBlue);
     textInfoLeft->AddText(Form("S = %.0f #pm %.0f ", mRawYield, mRawYieldErr));
-    if (mTypeOfBkgPdf != 6) {
+    if (mTypeOfBkgPdf != 7) {
       textInfoLeft->AddText(Form("B (%d#sigma) = %.0f #pm %.0f", mNSigmaForSidebands, mBkgYield, mBkgYieldErr));
       textInfoLeft->AddText(Form("S/B (%d#sigma) = %.4g ", mNSigmaForSidebands, mRawYield / mBkgYield));
     }
     if (mReflPdf) {
       textInfoLeft->AddText(Form("Refl/Sig =  %.3f #pm %.3f ", mReflOverSgn, 0.0));
     }
-    if (mTypeOfBkgPdf != 6) {
+    if (mTypeOfBkgPdf != 7) {
       textInfoLeft->AddText(Form("Signif (%d#sigma) = %.1f #pm %.1f ", mNSigmaForSidebands, mSignificance, mSignificanceErr));
       textInfoLeft->AddText(Form("#chi^{2} / ndf  =  %.3f", mChiSquareOverNdf));
     }
@@ -694,7 +696,10 @@ RooAbsPdf* HFInvMassFitter::createBackgroundFitFunction(RooWorkspace* workspace)
     case 5: {
       bkgPdf = workspace->pdf("bkgFuncPoly3");
     } break;
-    case 6: // MC
+    case 6: {
+      bkgPdf = workspace->pdf("bkgFuncCheb");
+    } break;
+    case 7: // MC
       break;
     default:
       break;
@@ -779,6 +784,9 @@ void HFInvMassFitter::plotBkg(RooAbsPdf* pdf)
       pdf->plotOn(mInvMassFrame, Components("bkgFuncPoly3"), Name("Bkg_c"), LineColor(kRed));
       break;
     case 6:
+      pdf->plotOn(mInvMassFrame, Components("bkgFuncCheb"), Name("Bkg_c"), LineColor(kRed));
+      break;
+    case 7:
       break;
     default:
       break;
