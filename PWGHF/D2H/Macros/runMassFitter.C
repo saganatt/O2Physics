@@ -189,6 +189,8 @@ int runMassFitter(TString configFileName)
     } else if (bkgFuncConfig[iPt] == 5) {
       bkgFunc[iPt] = HFInvMassFitter::Poly3;
     } else if (bkgFuncConfig[iPt] == 6) {
+      bkgFunc[iPt] = HFInvMassFitter::Cheb;
+    } else if (bkgFuncConfig[iPt] == 7) {
       bkgFunc[iPt] = HFInvMassFitter::NoBkg;
     } else {
       cerr << "ERROR: only Expo, Poly1, Poly2, Pow and PowEx background "
