@@ -417,6 +417,10 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   RooAbsPdf* bkgFuncPowExpo = new RooGamma("bkgFuncPowExpo", "background pdf", mass, powExpoParam3, powExpoParam4, massPi);
   workspace.import(*bkgFuncPowExpo);
   delete bkgFuncPowExpo;
+  // bkg chebychev 2
+  RooAbsPdf* bkgFuncCheb = new RooChebychev("bkgFuncCheb", "background fit function", mass, RooArgSet(polyParam0, polyParam1, polyParam2));
+  workspace.import(*bkgFuncCheb);
+  delete bkgFuncCheb;
 
   // signal pdf
   RooRealVar mean("mean", "mean for signal fit", mMass, 2.26, 2.30);
@@ -791,7 +795,10 @@ RooAbsPdf* HFInvMassFitter::createBackgroundFitFunction(RooWorkspace* workspace)
     case 5: {
       bkgPdf = workspace->pdf("bkgFuncPoly3");
     } break;
-    case 6: // MC
+    case 6: {
+      bkgPdf = workspace->pdf("bkgFuncCheb");
+    } break;
+    case 7: // MC
       break;
     default:
       break;
@@ -876,6 +883,9 @@ void HFInvMassFitter::plotBkg(RooAbsPdf* pdf, Color_t color)
       pdf->plotOn(mInvMassFrame, Components("bkgFuncPoly3"), Name("Bkg_c"), LineColor(color));
       break;
     case 6:
+      pdf->plotOn(mInvMassFrame, Components("bkgFuncCheb"), Name("Bkg_c"), LineColor(kRed));
+      break;
+    case 7:
       break;
     default:
       break;

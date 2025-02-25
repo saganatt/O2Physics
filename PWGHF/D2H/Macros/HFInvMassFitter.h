@@ -44,7 +44,8 @@ class HFInvMassFitter : public TNamed
     Pow = 3,
     PowExpo = 4,
     Poly3 = 5,
-    NoBkg = 6
+    Cheb = 6,
+    NoBkg = 7
   };
   enum TypeOfSgnPdf {
     SingleGaus = 0,
