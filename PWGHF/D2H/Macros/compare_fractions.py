@@ -34,7 +34,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kRed-3, kAzure-7, kMagenta+1, kGreen+2, kOrange-3, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kRed-3, kAzure-7, kMagenta+1, kGreen+2, kOrange-3, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -189,7 +189,7 @@ def get_hist_model(label, color, style, cfg):
 
 def plot_compare(cfg):
     canv = prepare_canvas(f'c_{cfg["histoname"]}')
-    canv.SetLogy()
+    #canv.SetLogy()
 
     maxy = 0.
     miny = 1.0
@@ -211,7 +211,7 @@ def plot_compare(cfg):
             hists_models.append(hist)
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
-        leg = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
+        leg = get_legend(0.50, 0.15, 0.90, 0.45, len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -235,19 +235,20 @@ def plot_compare(cfg):
             graph_syst.Draw("sameE2")
             graphs_syst.append(graph_syst)
 
-    margin = 100000000
+    margin = 0.1
     #k = 1.0 - 2 * margin
     #rangey = maxy - miny
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
-    miny = max(miny - margin, 10000)
-    print(f"Hist maxy: {maxy}")
+    print(f"Hist maxy: {maxy} miny: {miny}")
+    miny = min(miny - margin * miny, 0.01)
+    print(f"Recalculated hist maxy: {maxy + margin * maxy} miny: {miny}")
     for hist_models in hists_models:
-        hist_models.GetYaxis().SetRangeUser(miny, maxy + margin)
+        hist_models.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
     for _, hist in hists.items():
-        hist.GetYaxis().SetRangeUser(miny, maxy + margin)
+        hist.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
     for graph_syst in graphs_syst:
-        graph_syst.GetYaxis().SetRangeUser(miny, maxy + margin)
+        graph_syst.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
 
     leg.Draw()
     if len(hists_models) > 0:
@@ -264,11 +265,11 @@ def plot_compare(cfg):
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
     #legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
-    legr = get_legend(0.40, 0.65, 0.90, 0.85, len(cfg["hists"]))
+    legr = get_legend(0.40, 0.15, 0.90, 0.35, len(cfg["hists"]))
 
     histsr = []
-    miny = 0.4
-    maxy = 1.5
+    miny = 0.9
+    maxy = 1.1
     maxx = 0.0
     central_hist = hists[cfg["default"]]
     for ind, (label, color) in enumerate(zip(hists, COLORS)):
@@ -287,8 +288,8 @@ def plot_ratio(cfg, hists):
             histr.Divide(central_hist)
             #histr.SetBinContent(histr.GetNbinsX(), 0.0)
             #histr.SetBinError(histr.GetNbinsX(), 0.0)
-            histr.SetBinContent(1, 0.0)
-            histr.SetBinError(1, 0.0)
+            #histr.SetBinContent(1, 0.0)
+            #histr.SetBinError(1, 0.0)
             miny, maxy = get_hist_limits(histr, None, miny, maxy)
             #for binn in range(histr.GetNbinsX()):
             #    print(f"ratio bin {binn + 1}: {histr.GetBinContent(binn + 1)}")
@@ -302,12 +303,12 @@ def plot_ratio(cfg, hists):
             histsr.append(histr)
             maxx = max(maxx, histr.GetBinLowEdge(histr.GetNbinsX() + 1))
 
-
     line = TLine(0.0, 1.0, maxx, 1.0)
     line.SetLineColor(COLORS[len(hists)])
     line.SetLineWidth(3)
     line.SetLineStyle(kDashed)
     line.Draw()
+
     legr.Draw()
 
     return canvr, histsr, legr, line
