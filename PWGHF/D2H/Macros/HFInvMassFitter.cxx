@@ -433,7 +433,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
     mean.setVal(mMass);
     mean.setConstant(kTRUE);
   }
-  RooRealVar sigma("sigma", "sigma for signal", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.01);
+  RooRealVar sigma("sigma", "sigma for signal", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.02);
   if (mFixedSigma) {
     sigma.setVal(mSigmaSgn);
     sigma.setConstant(kTRUE);
