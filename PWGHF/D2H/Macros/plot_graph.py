@@ -58,7 +58,7 @@ def main():
                f'{cfg["output"]["file"]}.root'), "recreate") as output:
 
         canv = prepare_canvas(f'c_{cfg["histoname"]}')
-        leg = get_legend(0.25, 0.20, 0.70, 0.35, len(cfg["hists"]))
+        leg = get_legend(*cfg["legend"], len(cfg["hists"]))
 
         maxy = 0.
         miny = 1.
@@ -66,6 +66,7 @@ def main():
         for ind, (label, color) in enumerate(zip(cfg["hists"], COLORS)):
             with TFile.Open(os.path.join(cfg["inputdir"], cfg["hists"][label]["file"][0])) as fin:
                 hist = fin.Get(cfg["histoname"])
+                print(f'hist {cfg["histoname"]}: {hist}')
             set_hist_style(hist, color, cfg["y_axis"])
             print(label)
             miny, maxy = get_hist_limits(hist, miny, maxy)
@@ -80,8 +81,8 @@ def main():
         margin = 0.1
         print(f"Hist maxy: {maxy} miny: {miny}")
         for hist in hists:
-            #hist.GetYaxis().SetRangeUser(miny - margin, maxy + margin)
-            hist.GetYaxis().SetRangeUser(0.5, 1.0)
+            hist.GetYaxis().SetRangeUser(miny - margin * miny, maxy + margin * maxy)
+            #hist.GetYaxis().SetRangeUser(0.5, 1.0)
             hist.GetXaxis().SetRangeUser(0.0, 25.0)
 
         leg.Draw()
