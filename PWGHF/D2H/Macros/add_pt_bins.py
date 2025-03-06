@@ -34,8 +34,8 @@ def main():
         first_bin = 1
         #last_bin = hist.GetXaxis().FindBin(12.0)
         last_bin = hist.GetNbinsX()-2
-        bins = [0.0]
-        #bins = []
+        #bins = [0.0]
+        bins = []
         empty_bins = len(bins)
         for binn in range(first_bin, last_bin + 1):
             bins.append(hist.GetBinLowEdge(binn))
