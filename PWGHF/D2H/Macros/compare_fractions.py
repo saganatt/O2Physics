@@ -34,7 +34,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kRed-3, kAzure-7, kMagenta+1, kGreen+2, kOrange-3, kBlue, kTeal+3, kGreen, kAzure+8,
+COLORS=[kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kBlue, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -48,7 +48,7 @@ def get_alice_text(alice_text_config):
     alice_text.SetFillStyle(0)
     alice_text.SetTextAlign(11)
 
-    alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
+    #alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
     #alice_text.AddText("#scale[1.05]{pp #sqrt{s} = 13.6 TeV}")
     alice_text.AddText(f"#scale[1.20]{{{alice_text_config}}}")
 
@@ -93,7 +93,7 @@ def combine_syst_errors(syst_errors, value):
 
 
 def get_hist_limits(hist, graph_syst = None, miny = 0.0, maxy = 0.0):
-    for binn in range(1, hist.GetNbinsX()):
+    for binn in range(0, hist.GetNbinsX()):
         print(f"bin {binn + 1} [{hist.GetXaxis().GetBinLowEdge(binn + 1)}, "\
               f"{hist.GetXaxis().GetBinLowEdge(binn + 2)}) val {hist.GetBinContent(binn + 1)} "\
               f"err {hist.GetBinError(binn + 1)}")
@@ -189,10 +189,10 @@ def get_hist_model(label, color, style, cfg):
 
 def plot_compare(cfg):
     canv = prepare_canvas(f'c_{cfg["histoname"]}')
-    #canv.SetLogy()
+    canv.SetLogy()
 
     maxy = 0.
-    miny = 1.0
+    miny = 1.
 
     hists_models = []
     if cfg.get("models", None):
@@ -211,7 +211,7 @@ def plot_compare(cfg):
             hists_models.append(hist)
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
-        leg = get_legend(0.50, 0.15, 0.90, 0.45, len(cfg["hists"]))
+        leg = get_legend(*cfg["legend"], len(cfg["hists"]))
         leg_models = None
 
     hists = {}
@@ -241,7 +241,9 @@ def plot_compare(cfg):
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
     print(f"Hist maxy: {maxy} miny: {miny}")
-    miny = min(miny - margin * miny, 0.01)
+    miny = min(miny - margin * miny, 0.1)
+    if miny == 0:
+        miny = 10000
     print(f"Recalculated hist maxy: {maxy + margin * maxy} miny: {miny}")
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
@@ -265,11 +267,11 @@ def plot_compare(cfg):
 def plot_ratio(cfg, hists):
     canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
     #legr = get_legend(0.32, 0.15, 0.82, 0.31, len(cfg["hists"]))
-    legr = get_legend(0.40, 0.15, 0.90, 0.35, len(cfg["hists"]))
+    legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]))
 
     histsr = []
-    miny = 0.9
-    maxy = 1.1
+    miny = 0.5
+    maxy = 1.6
     maxx = 0.0
     central_hist = hists[cfg["default"]]
     for ind, (label, color) in enumerate(zip(hists, COLORS)):
@@ -290,7 +292,7 @@ def plot_ratio(cfg, hists):
             #histr.SetBinError(histr.GetNbinsX(), 0.0)
             #histr.SetBinContent(1, 0.0)
             #histr.SetBinError(1, 0.0)
-            miny, maxy = get_hist_limits(histr, None, miny, maxy)
+            #miny, maxy = get_hist_limits(histr, None, miny, maxy)
             #for binn in range(histr.GetNbinsX()):
             #    print(f"ratio bin {binn + 1}: {histr.GetBinContent(binn + 1)}")
             print(f"maxy {maxy} miny {miny}")
