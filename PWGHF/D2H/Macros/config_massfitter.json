@@ -4,17 +4,18 @@
   "ReflFileName": "input reflection file directory",
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
-    "hmassfPt1_2_0.020.00%sf12%",
-    "hmassfPt2_3_0.030.00%sf23%",
-    "hmassfPt3_4_0.040.00%sf34%",
-    "hmassfPt4_5_0.070.00%sf45%",
-    "hmassfPt5_6_0.090.00%sf56%",
-    "hmassfPt6_7_0.110.00%sf67%",
-    "hmassfPt7_8_0.150.00%sf78%",
-    "hmassfPt8_10_0.180.00%sf810%",
-    "hmassfPt10_12_0.250.00%sf1012%",
-    "hmassfPt12_16_0.350.00%sf1216%",
-    "hmassfPt16_24_0.350.00%sf1624%"
+    "hmassfPt0_1_0.01%sp01%%sf01%",
+    "hmassfPt1_2_0.02%sp12%%sf12%",
+    "hmassfPt2_3_0.03%sp23%%sf23%",
+    "hmassfPt3_4_0.04%sp34%%sf34%",
+    "hmassfPt4_5_0.07%sp45%%sf45%",
+    "hmassfPt5_6_0.10%sp56%%sf56%",
+    "hmassfPt6_7_0.11%sp67%%sf67%",
+    "hmassfPt7_8_0.15%sp78%%sf78%",
+    "hmassfPt8_10_0.18%sp810%%sf810%",
+    "hmassfPt10_12_0.25%sp1012%%sf1012%",
+    "hmassfPt12_16_0.35%sp1216%%sf1216%",
+    "hmassfPt16_24_0.35%sp1624%%sf1624%"
   ],
   "PromptHistoName": [
     "MC prompt histogram name array"
@@ -56,6 +57,20 @@
     0.0240,
     0.0259
   ],
+  "_FixSigmaForCut": [
+    0.0097,
+    0.0082,
+    0.0092,
+    0.0104,
+    0.0116,
+    0.0134,
+    0.0145,
+    0.0162,
+    0.0182,
+    0.0204,
+    0.0230,
+    0.0263
+  ],
   "_FixSigmaManual": "fix sigma mannually",
   "FixMean": false,
   "MeanFile": "",
@@ -64,6 +79,7 @@
   "SecondSigmaFile": "",
   "_SecondSigmaFile": "fix second sigma for double gauss from file",
   "FixSecondSigmaManual": [
+    0.0092,
     0.0092,
     0.0039,
     0.0188,
@@ -81,6 +97,7 @@
   "SliceVarUnit": "GeV/c",
   "_SliceVarName, _SliceVarUnit": "e.g. pT, GeV/c or something else depending on user's needs",
   "SliceVarMin": [
+    0.0,
     1.0,
     2.0,
     3.0,
@@ -94,6 +111,7 @@
     16.0
   ],
   "SliceVarMax": [
+    1.0,
     2.0,
     3.0,
     4.0,
@@ -108,6 +126,7 @@
   ],
   "MassMin": [
     2.216,
+    2.216,
     2.20,
     2.19,
     2.18,
@@ -121,6 +140,7 @@
   ],
   "MassMax": [
     2.36,
+    2.36,
     2.37,
     2.38,
     2.40,
@@ -133,6 +153,7 @@
     2.46
   ],
   "Rebin": [
+    2,
     2,
     2,
     2,
@@ -152,7 +173,8 @@
     "false: chi2 fit"
   ],
   "BkgFunc": [
-    2,
+    6,
+    6,
     6,
     6,
     6,
@@ -175,6 +197,7 @@
     "7 for NoBkg"
   ],
   "SgnFunc": [
+    0,
     0,
     0,
     0,
