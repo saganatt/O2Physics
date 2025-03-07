@@ -1,3 +1,10 @@
+# pylint: disable=missing-function-docstring, invalid-name
+"""
+file: multitrial.py
+brief: Plot multitrial systematics based on multiple fit trials, one file per trial.
+usage: python3 multitrial.py config_multitrial.json
+author: Maja Karwowska <mkarwowska@cern.ch>, Warsaw University of Technology
+"""
 import argparse
 import glob
 import json
@@ -21,10 +28,11 @@ def get_yields(cfg):
     for filename in filenames:
         with TFile.Open(filename) as fin:
             hist = fin.Get(cfg["histoname"])
-            dirname = re.search(cfg["dir_pattern"], filename).group(0)
-            trial_name = re.split("_", dirname)[-1]
+            dirname = re.split("/", filename)[-2]
+            trial_name = dirname.replace(cfg["dir_pattern"], "")
             trials.append(trial_name)
-            for ind, (pt_bin_min, pt_bin_max) in enumerate(zip(cfg["pt_bins_min"], cfg["pt_bins_max"])):
+            for ind, (pt_bin_min, pt_bin_max) in enumerate(zip(cfg["pt_bins_min"],
+                                                               cfg["pt_bins_max"])):
                 yields[f"{pt_bin_min}_{pt_bin_max}"].append(hist.GetBinContent(ind + 1))
                 yields_err[f"{pt_bin_min}_{pt_bin_max}"].append(hist.GetBinError(ind + 1))
     print(f"final yields:\n{yields}\ntrials:\n{trials}\nyields error:\n{yields_err}")
@@ -48,14 +56,16 @@ def plot_yields_trials(yields, yields_err, trials, cfg, pt_string):
              c="m", linestyle="-", linewidth=4.0)
     #ax.set_xticks(ax.get_xticks()[::50])
     plt.savefig(f'{cfg["outdir"]}/{cfg["outfile"]}_yields_trials_{pt_string}.png')
+    plt.close()
 
 
 def plot_yields_distr(yields, cfg, pt_string):
     plt.figure(figsize=(20, 15))
     ax = plt.subplot(1, 1, 1)
     ax.set_xlabel(cfg["y_axis"])
-    plt.hist(yields, c="b", linewidth=4.0)
+    plt.hist(yields[pt_string], color="b", linewidth=4.0)
     plt.savefig(f'{cfg["outdir"]}/{cfg["outfile"]}_distr_{pt_string}.png')
+    plt.close()
 
 
 def main():
@@ -75,9 +85,10 @@ def main():
             plot_yields_trials(yields, yields_err, trials, cfg, pt_string)
             plot_yields_distr(yields, cfg, pt_string)
 
-            with open(f'{cfg["outdir"]}/{cfg["outfile"]}_trials_{pt_bin_min}_{pt_bin_max}.txt', "w") as ftext:
-                for trial in trials:
-                    f.write(f"{trial}\n")
+        with open(f'{cfg["outdir"]}/{cfg["outfile"]}_trials.txt',
+                  "w", encoding="utf-8") as ftext:
+            for trial in trials:
+                ftext.write(f"{trial}\n")
 
 
 if __name__ == "__main__":
