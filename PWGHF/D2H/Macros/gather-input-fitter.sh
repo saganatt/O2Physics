@@ -4,9 +4,9 @@ MLHEP_DIR="/data8/majak/MLHEP"
 OUTPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-012025"
 
 RESDIR_PATTERN="${MLHEP_DIR}/results-24022025-"
-PERM_PATTERN="newtrain_fd_"
+PERM_PATTERN="prompt"
 
-for dir in ${RESDIR_PATTERN}${PERM_PATTERN}0.000* ; do
+for dir in ${RESDIR_PATTERN}${PERM_PATTERN}* ; do
   suffix=${dir##${RESDIR_PATTERN}}
   echo $suffix
   
