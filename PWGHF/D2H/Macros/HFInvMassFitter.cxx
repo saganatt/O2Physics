@@ -216,7 +216,9 @@ HFInvMassFitter::~HFInvMassFitter()
 
 void HFInvMassFitter::doFit()
 {
+  std::cout << "hist entries: " << mHistoInvMass->GetEntries() << " class name: " << mHistoInvMass->ClassName() << std::endl;
   mIntegralHisto = mHistoInvMass->Integral(mHistoInvMass->FindBin(mMinMass), mHistoInvMass->FindBin(mMaxMass));
+  std::cout << "hist integral: " << mIntegralHisto << std::endl;
   mWorkspace = new RooWorkspace("mWorkspace");
   fillWorkspace(*mWorkspace);
   RooRealVar* mass = mWorkspace->var("mass");
@@ -334,11 +336,17 @@ void HFInvMassFitter::doFit()
       mSgnPdf->plotOn(mResidualFrame, Normalization(1.0, RooAbsReal::RelativeExpected), LineColor(kBlue));
     } else {
       mTotalPdf = new RooAddPdf("mTotalPdf", "background + signal pdf", RooArgList(*bkgPdf, *sgnPdf), RooArgList(*mRooNBkg, *mRooNSgn));
-      if (!strcmp(mFitOption.Data(), "Chi2")) {
-        mTotalPdf->chi2FitTo(dataHistogram);
-      } else {
-        mTotalPdf->fitTo(dataHistogram);
+      //if (!strcmp(mFitOption.Data(), "Chi2")) {
+      //  res = mTotalPdf->chi2FitTo(dataHistogram);
+      //} else {
+      std::unique_ptr<RooFitResult> res{mTotalPdf->fitTo(dataHistogram, Save(), PrintLevel(-1))};
+      //}
+      if (res == nullptr) {
+        cout << "res is null" << std::endl;
       }
+      res->Print();
+      cout << "final value of floating parameters" << endl;
+      res->floatParsFinal().Print("s");
       plotBkg(mTotalPdf);
       mTotalPdf->plotOn(mInvMassFrame, Name("Tot_c"), LineColor(kBlue));
       mSgnPdf->plotOn(mInvMassFrame, Normalization(1.0, RooAbsReal::RelativeExpected), DrawOption("F"), FillColor(TColor::GetColorTransparent(kBlue, 0.2)), VLines());
@@ -353,7 +361,7 @@ void HFInvMassFitter::doFit()
     //mBkgObservables = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getObservables(dataHistogram);
     //mBkgObservables = bkgPdf->getObservables(dataHistogram);
     //cout << "bkg observables " << *mBkgObservables << std::endl;
-    //mBkgParameters = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getParameters(dataHistogram);
+    //mBkgParameters = (*mTotalPdf->getComponents())["bkgFuncCheb"].getParameters(dataHistogram);
     //cout << "bkg parameters " << *mBkgParameters << std::endl;
     //mSgnObservables = mSgnPdf->getObservables(dataHistogram);
     //cout << "sgn observables " << *mSgnObservables << std::endl;
