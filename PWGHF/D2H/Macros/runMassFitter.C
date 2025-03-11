@@ -94,6 +94,7 @@ int runMassFitter(TString configFileName)
   vector<double> massMax;
   vector<double> fixSigmaManual;
   vector<double> fixSecondSigmaManual;
+  vector<double> fixMeanManual;
   vector<int> nRebin;
   vector<int> bkgFuncConfig;
   vector<int> sgnFuncConfig;
@@ -131,6 +132,9 @@ int runMassFitter(TString configFileName)
 
   const Value& fixSecondSigmaManualValue = config["FixSecondSigmaManual"];
   readArray(fixSecondSigmaManualValue, fixSecondSigmaManual);
+
+  const Value& fixMeanManualValue = config["FixMeanManual"];
+  readArray(fixMeanManualValue, fixMeanManual);
 
   const Value& ptMinValue = config["PtMin"];
   readArray(ptMinValue, ptMin);
@@ -396,16 +400,18 @@ int runMassFitter(TString configFileName)
 
   TH1D* hMeanToFix = NULL;
   if (fixMean) {
-    auto inputFileMean = TFile::Open(meanFile.data());
-    if (!inputFileMean) {
-      return -3;
+    if (fixMeanManual.empty()) {
+      auto inputFileMean = TFile::Open(meanFile.data());
+      if (!inputFileMean) {
+        return -3;
+      }
+      hMeanToFix = static_cast<TH1D*>(inputFileMean->Get("hRawYieldsMean"));
+      hMeanToFix->SetDirectory(0);
+      if (static_cast<unsigned int>(hMeanToFix->GetNbinsX()) != nPtBins) {
+        cout << "WARNING: Different number of bins for this analysis and histo for fix mean" << endl;
+      }
+      inputFileMean->Close();
     }
-    hMeanToFix = static_cast<TH1D*>(inputFileMean->Get("hRawYieldsMean"));
-    hMeanToFix->SetDirectory(0);
-    if (static_cast<unsigned int>(hMeanToFix->GetNbinsX()) != nPtBins) {
-      cout << "WARNING: Different number of bins for this analysis and histo for fix mean" << endl;
-    }
-    inputFileMean->Close();
   }
 
   TH1D* hSecondSigmaToFix = NULL;
@@ -550,7 +556,19 @@ int runMassFitter(TString configFileName)
         massFitter->setUseLikelihoodFit();
       }
       if (fixMean) {
-        massFitter->setFixGaussianMean(hMeanToFix->GetBinContent(iPt + 1));
+        if (fixMeanManual.empty()) {
+          massFitter->setFixGaussianMean(hMeanToFix->GetBinContent(iPt + 1));
+          cout << "*****************************"
+               << "\n"
+               << "FIXED MEAN: " << hMeanToFix->GetBinContent(iPt + 1) << "\n"
+               << "*****************************" << endl;
+        } else {
+          massFitter->setFixGaussianMean(fixMeanManual[iPt]);
+          cout << "*****************************"
+               << "\n"
+               << "FIXED MEAN: " << fixMeanManual[iPt] << "\n"
+               << "*****************************" << endl;
+        }
       }
       if (fixSigma) {
         if (fixSigmaManual.empty()) {
@@ -559,14 +577,12 @@ int runMassFitter(TString configFileName)
                << "\n"
                << "FIXED SIGMA: " << hSigmaToFix->GetBinContent(iPt + 1) << "\n"
                << "*****************************" << endl;
-        } else if (!fixSigmaManual.empty()) {
+        } else {
           massFitter->setFixGaussianSigma(fixSigmaManual[iPt]);
           cout << "*****************************"
                << "\n"
                << "FIXED SIGMA: " << fixSigmaManual[iPt] << "\n"
                << "*****************************" << endl;
-        } else {
-          cout << "WARNING: impossible to fix sigma! Wrong fix sigma file or value!" << endl;
         }
       }
       if (fixSecondSigma) {
@@ -576,14 +592,12 @@ int runMassFitter(TString configFileName)
                << "\n"
                << "FIXED SIGMA: " << hSecondSigmaToFix->GetBinContent(iPt + 1) << "\n"
                << "*****************************" << endl;
-        } else if (!fixSecondSigmaManual.empty()) {
+        } else {
           massFitter->setFixSecondGaussianSigma(fixSecondSigmaManual[iPt]);
           cout << "*****************************"
                << "\n"
                << "FIXED SIGMA: " << fixSecondSigmaManual[iPt] << "\n"
                << "*****************************" << endl;
-        } else {
-          cout << "WARNING: impossible to fix sigma! Wrong fix sigma file or value!" << endl;
         }
       }
 
