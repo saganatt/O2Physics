@@ -3,7 +3,7 @@
 INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-012025"
 INPUT_PATTERN="${INPUT_DIR}/projections-"
 
-CONFIG="config_massfitter"
+CONFIG="config_massfitter_prompt"
 CONFIG_EXT="${CONFIG}.json"
 PERM_PATTERN="prompt"
 
@@ -12,7 +12,7 @@ PERM_PATTERN="prompt"
 nprobs=(0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000)
 pprobs=(0.40 0.40 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25 0.25)
 
-RES_SUFFIX="-cheb-fixed-sigma"
+RES_SUFFIX="-cheb"
 #RES_SUFFIX="-figure"
 
 for dir in ${INPUT_PATTERN}${PERM_PATTERN}* ; do
