@@ -1,12 +1,14 @@
 {
-  "file_pattern": "/data8/majak/d2h-fitter/0125/results_nonprompt*/fits.root",
-  "dir_pattern": "results_nonprompt-",
+  "file_pattern": "/data8/majak/d2h-fitter/0325/results_prompt*/fits.root",
+  "dir_pattern": "results_prompt-",
   "histoname": "hRawYields",
+  "sel_histoname": "hRawYieldsChiSquare",
+  "selection": "lambda x : x < 7.0",
   "pt_bins_min": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 16],
   "pt_bins_max": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 16, 24],
   "x_axis": "Trial #",
   "y_axis": "Raw yield",
   "central_trial": "cheb",
   "outdir": "/data8/majak/multitrial",
-  "outfile": "result"
+  "outfile": "result-prompt"
 }
