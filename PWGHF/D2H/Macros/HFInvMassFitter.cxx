@@ -454,7 +454,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   workspace.import(*sgnFuncGaus);
   delete sgnFuncGaus;
   // signal double Gaussian
-  RooRealVar sigmaDoubleGaus("sigmaDoubleGaus", "sigma2Gaus", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.01);
+  RooRealVar sigmaDoubleGaus("sigmaDoubleGaus", "sigma2Gaus", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.03);
   if (mBoundSigma) {
     sigmaDoubleGaus.setMax(mSigmaSgn * (1 + mParamSgn));
     sigmaDoubleGaus.setMin(mSigmaSgn * (1 - mParamSgn));
