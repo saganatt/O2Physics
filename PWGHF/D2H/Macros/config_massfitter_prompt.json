@@ -1,6 +1,6 @@
 {
   "IsMC": false,
-  "InFileName": "%indir%/%infile%",
+  "InFileName": "/data8/majak/MLHEP/input-d2h-fitter-012025/projections-prompt.root",
   "ReflFileName": "input reflection file directory",
   "OutFileName": "%outdir%/fits.root",
   "InputHistoName": [
