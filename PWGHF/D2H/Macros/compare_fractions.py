@@ -93,7 +93,7 @@ def combine_syst_errors(syst_errors, value):
 
 
 def get_hist_limits(hist, graph_syst = None, miny = 0.0, maxy = 0.0):
-    for binn in range(0, hist.GetNbinsX()):
+    for binn in range(1, hist.GetNbinsX()):
         print(f"bin {binn + 1} [{hist.GetXaxis().GetBinLowEdge(binn + 1)}, "\
               f"{hist.GetXaxis().GetBinLowEdge(binn + 2)}) val {hist.GetBinContent(binn + 1)} "\
               f"err {hist.GetBinError(binn + 1)}")
@@ -192,7 +192,7 @@ def plot_compare(cfg):
     canv.SetLogy()
 
     maxy = 0.
-    miny = 1.
+    miny = 1000000.
 
     hists_models = []
     if cfg.get("models", None):
@@ -241,9 +241,9 @@ def plot_compare(cfg):
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
     print(f"Hist maxy: {maxy} miny: {miny}")
-    miny = min(miny - margin * miny, 0.1)
-    if miny == 0:
-        miny = 10000
+    miny = min(miny - margin * miny, 1000000)
+    if miny <= 0:
+        miny = 0.1
     print(f"Recalculated hist maxy: {maxy + margin * maxy} miny: {miny}")
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
@@ -270,8 +270,8 @@ def plot_ratio(cfg, hists):
     legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]))
 
     histsr = []
-    miny = 0.5
-    maxy = 1.6
+    miny = 0.9
+    maxy = 1.1
     maxx = 0.0
     central_hist = hists[cfg["default"]]
     for ind, (label, color) in enumerate(zip(hists, COLORS)):
