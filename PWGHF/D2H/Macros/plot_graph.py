@@ -81,7 +81,8 @@ def main():
         margin = 0.1
         print(f"Hist maxy: {maxy} miny: {miny}")
         for hist in hists:
-            hist.GetYaxis().SetRangeUser(miny - margin * miny, maxy + margin * maxy)
+            #hist.GetYaxis().SetRangeUser(miny - margin * miny, maxy + margin * maxy)
+            hist.GetYaxis().SetRangeUser(0.0, 0.7)
             #hist.GetYaxis().SetRangeUser(0.5, 1.0)
             hist.GetXaxis().SetRangeUser(0.0, 25.0)
 
