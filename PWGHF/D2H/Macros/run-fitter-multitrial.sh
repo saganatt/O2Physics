@@ -87,5 +87,5 @@ while IFS="" read -r trial || [ -n "$trial" ] ; do
   echo ""
   echo ""
 
-  #root -b -l -q -x "HFInvMassFitter.cxx" runMassFitter.C\(\"${CUR_CFG}\"\)
+  root -b -l -q -x "HFInvMassFitter.cxx" runMassFitter.C\(\"${CUR_CFG}\"\)
 done < ${TRIAL_FILE}
