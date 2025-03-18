@@ -1,6 +1,6 @@
 {
   "inputdir": "/data8/majak/systematics/032025/bdt",
-  "histoname": "hCorrFracPrompt",
+  "histoname": "hCorrFracNonPrompt",
   "default": "Default",
   "hists": {
     "Narrow left": {
@@ -32,10 +32,10 @@
   "bin_min": [1,2,3,4,5,6,7,8,10,12,16],
   "bin_max": [2,3,4,5,6,7,8,10,12,16,24],
   "y_axis": "Non-prompt #Lambda_{c}^{#plus} fraction",
-  "legend": [0.20, 0.18, 0.60, 0.38],
-  "legend_ratio": [0.20, 0.20, 0.60, 0.40],
+  "legend": [0.50, 0.18, 0.90, 0.38],
+  "legend_ratio": [0.50, 0.70, 0.90, 0.90],
   "output": {
     "outdir": "/data8/majak/systematics/032025/bdt",
-    "file": "NP_Frac_pp13TeV_bdt_1-24_prompt"
+    "file": "NP_Frac_pp13TeV_bdt_1-24"
   }
 }
