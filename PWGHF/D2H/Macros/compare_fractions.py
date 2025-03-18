@@ -189,7 +189,7 @@ def get_hist_model(label, color, style, cfg):
 
 def plot_compare(cfg):
     canv = prepare_canvas(f'c_{cfg["histoname"]}')
-    canv.SetLogy()
+    #canv.SetLogy()
 
     maxy = 0.
     miny = 1000000.
@@ -241,9 +241,10 @@ def plot_compare(cfg):
     #miny = miny - margin / k * rangey
     #maxy = maxy + margin / k * rangey
     print(f"Hist maxy: {maxy} miny: {miny}")
-    miny = min(miny - margin * miny, 1000000)
-    if miny <= 0:
-        miny = 0.1
+    #miny = min(miny - margin * miny, 0)
+    miny = miny - margin * miny
+    #if miny <= 0:
+    #    miny = 0.1
     print(f"Recalculated hist maxy: {maxy + margin * maxy} miny: {miny}")
     for hist_models in hists_models:
         hist_models.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
@@ -270,8 +271,8 @@ def plot_ratio(cfg, hists):
     legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]))
 
     histsr = []
-    miny = 0.9
-    maxy = 1.1
+    miny = 0.85
+    maxy = 1.15
     maxx = 0.0
     central_hist = hists[cfg["default"]]
     for ind, (label, color) in enumerate(zip(hists, COLORS)):
@@ -338,7 +339,7 @@ def calc_systematics(cfg, hists):
 
     str_err = "Systematic errors:"
     for err in syst_errors:
-        str_err = f"{str_err} {err:0.0f}"
+        str_err = f"{str_err} {err:0.2f}"
     print(str_err)
 
 
