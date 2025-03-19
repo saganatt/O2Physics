@@ -1,14 +1,14 @@
 {
-  "file_pattern": "/data8/majak/d2h-fitter/0325/results_prompt*/fits.root",
-  "dir_pattern": "results_prompt-",
-  "histoname": "hRawYields",
-  "sel_histoname": "hRawYieldsChiSquare",
+  "file_pattern": "/data8/majak/MLHEP/results-24022025-newtrain-multitrial-prompt*/LHC23pp_pass4/Results/resultsdatatot/yields_LcpKpi_Run3analysis.root",
+  "dir_pattern": "results-24022025-newtrain-multitrial-prompt",
+  "histoname": "hyields0",
+  "sel_histoname": "hchi0",
   "selection": "lambda x : x < 7.0",
-  "pt_bins_min": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 16],
-  "pt_bins_max": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 16, 24],
+  "pt_bins_min": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 16],
+  "pt_bins_max": [2, 3, 4, 5, 6, 7, 8, 10, 12, 16, 24],
   "x_axis": "Trial #",
   "y_axis": "Raw yield",
-  "central_trial": "cheb",
-  "outdir": "/data8/majak/multitrial",
+  "central_trial": "",
+  "outdir": "/data8/majak/multitrial/roofit",
   "outfile": "result-prompt"
 }
