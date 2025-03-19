@@ -41,7 +41,9 @@ def get_yields(cfg):
         with TFile.Open(filename) as fin:
             hist = fin.Get(cfg["histoname"])
             hist_sel = fin.Get(cfg["sel_histoname"])
-            dirname = re.split("/", filename)[-2]
+            if hist is None:
+                print(f"No hist in {filename}")
+            dirname = re.split("/", filename)[4] # [-2] for D2H fitter
             trial_name = dirname.replace(cfg["dir_pattern"], "")
             for ind, (pt_bin_min, pt_bin_max) in enumerate(zip(cfg["pt_bins_min"],
                                                                cfg["pt_bins_max"])):
@@ -70,7 +72,7 @@ def plot_yields_trials(yields, yields_err, trials, cfg, pt_string, plot_pt_strin
     #plt.grid(linestyle="-", linewidth=2)
     x_axis = range(len(trials[pt_string]))
     ax.errorbar(x_axis, yields[pt_string], yerr=yields_err[pt_string],
-                 c="b", elinewidth=2.5, linewidth=4.0)
+                fmt="o", c="b", elinewidth=2.5, linewidth=4.0)
     central_trial_ind = trials[pt_string].index(cfg["central_trial"])
     central_yield = yields[pt_string][central_trial_ind]
     ax.plot(x_axis, [central_yield] * len(x_axis), c="orange", linewidth=6.0)
