@@ -38,22 +38,27 @@ def get_yields(cfg):
         yields_err[f"{pt_bin_min}_{pt_bin_max}"] = []
         trials[f"{pt_bin_min}_{pt_bin_max}"] = []
     for filename in filenames:
+        print(f"Reading {filename}")
         with TFile.Open(filename) as fin:
             hist = fin.Get(cfg["histoname"])
             hist_sel = fin.Get(cfg["sel_histoname"])
-            if hist is None:
+            if hist.ClassName() != "TH1F":
                 print(f"No hist in {filename}")
+            if hist_sel.ClassName() != "TH1F":
+                print(f"No hist sel in {filename}")
             dirname = re.split("/", filename)[4] # [-2] for D2H fitter
             trial_name = dirname.replace(cfg["dir_pattern"], "")
             for ind, (pt_bin_min, pt_bin_max) in enumerate(zip(cfg["pt_bins_min"],
                                                                cfg["pt_bins_max"])):
-                if eval(cfg["selection"])(hist_sel.GetBinContent(ind + 1)):
+                if eval(cfg["selection"])(hist_sel.GetBinContent(ind + 1)) \
+                        and hist.GetBinContent(ind + 1) > 1.0 :
                     yields[f"{pt_bin_min}_{pt_bin_max}"].append(hist.GetBinContent(ind + 1))
                     yields_err[f"{pt_bin_min}_{pt_bin_max}"].append(hist.GetBinError(ind + 1))
                     trials[f"{pt_bin_min}_{pt_bin_max}"].append(trial_name)
                 else:
                     print(f"Rejected: {hist_sel.GetBinContent(ind + 1)} {trial_name} pt: {pt_bin_min}, {pt_bin_max}")
-    #print(f"final yields:\n{yields}\ntrials:\n{trials}\nyields error:\n{yields_err}")
+                    if hist.GetBinContent(ind + 1) < 1.0:
+                        print(f"Yield 0")
     return yields, yields_err, trials
 
 
