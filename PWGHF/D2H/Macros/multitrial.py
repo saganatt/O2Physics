@@ -166,14 +166,17 @@ def main():
             plot_pt_string = f"${pt_bin_min} < p_\\mathrm{{T}}/(\\mathrm{{GeV}}/c) < {pt_bin_max}$"
             pt_string = f"{pt_bin_min}_{pt_bin_max}"
 
-            central_trial_ind = trials[pt_string].index(cfg["central_trial"])
-            central_yield = yields[pt_string][central_trial_ind]
+            try:
+                central_trial_ind = trials[pt_string].index(cfg["central_trial"])
+                central_yield = yields[pt_string][central_trial_ind]
 
-            plot_yields_trials(yields[pt_string], yields_err[pt_string], trials[pt_string], cfg,
-                               pt_string, plot_pt_string, central_trial_ind, central_yield)
-            plot_yields_distr(yields[pt_string], cfg, pt_string, plot_pt_string,
-                              central_trial_ind, central_yield)
-            plot_chis(chis[pt_string], cfg, pt_string, plot_pt_string)
+                plot_yields_trials(yields[pt_string], yields_err[pt_string], trials[pt_string], cfg,
+                                   pt_string, plot_pt_string, central_trial_ind, central_yield)
+                plot_yields_distr(yields[pt_string], cfg, pt_string, plot_pt_string,
+                                  central_trial_ind, central_yield)
+                plot_chis(chis[pt_string], cfg, pt_string, plot_pt_string)
+            except:
+                pass
 
             with open(f'{cfg["outdir"]}/{cfg["outfile"]}_trials_{pt_string}.txt',
                       "w", encoding="utf-8") as ftext:
