@@ -1,36 +1,43 @@
 {
-  "inputdir": "/data8/majak/crosssec/202502",
+  "inputdir": "/data8/majak/crosssec/032025",
   "histoname": "hptspectrum",
-  "default": "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV",
+  "default": "#Lambda_{c}^{#plus}, pp, #sqrt{#it{s}} = 13 TeV",
   "hists": {
-    "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13 TeV": {
-      "file": [
-        "LcpKpi_merged_Run2_crosssec_scaled.root"
-      ]
-    },
     "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV": {
       "file": [
-        "finalcrossLcpKpiRun3analysistot_dd_pt0-1_12-24.root"
+        "finalcrossLcpKpiRun3analysis_0-1_scaled_6.root"
+      ],
+      "systematics": [
+        [0.0],
+        [0.19],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.16],
+        [0.24]
       ]
     },
-    "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{wide span}": {
+    "#Lambda_{c}^{#plus}, pp, #sqrt{#it{s}} = 13 TeV": {
       "file": [
-        "finalcrossLcpKpiRun3analysistot_dd_wide_pt0-1_12-24.root"
-      ]
-    },
-    "#splitline{#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus}, pp, #sqrt{#it{s}} = 13.6 TeV,}{Nb method}": {
-      "file": [
-        "finalcrossLcpKpiRun3analysistot_roofit_12-24.root"
+        "LcpKpi_generated_Run2.root"
+      ],
+      "systematics": [
+        "LcpKpi_generated_Run2.root",
+        "graph_syst"
       ]
     }
   },
-  "bin_min": [0,1,2,3,4,5,6,7,8,10,12,16],
-  "bin_max": [1,2,3,4,5,6,7,8,10,12,16,24],
-  "y_axis": "#Lambda_{c} cross section (pb)",
-  "legend": [0.40, 0.45, 0.90, 0.90],
+  "y_axis": "d^{2}#sigma/d#it{y}d#it{p}_{T} (#mub #it{c}/GeV)",
+  "legend": [0.40, 0.73, 0.90, 0.88],
   "legend_ratio": [0.40, 0.60, 0.90, 0.90],
+  "log_scale": true,
   "output": {
-    "outdir": "/data8/majak/crosssec/202502",
+    "outdir": "/data8/majak/crosssec/032025",
     "file": "crosssec_Lc_run2_run3"
   }
 }
