@@ -19,7 +19,7 @@ NORM = 47092223769.611162532
 BR = 0.0623
 
 # 2025 values for LHC23_pass4_thin
-MLHEP_EV_SEL = 258442910841.
+MLHEP_EV_SEL = 258442910841. # 2 x 10^1
 NORM = 3.0077675e+11
 
 def main():
@@ -39,7 +39,8 @@ def main():
         hist = fin.Get(args.histname)
         hist2 = hist.Clone(args.outhistname)
         hist2.SetDirectory(0)
-        hist2.Scale(MLHEP_EV_SEL / NORM)
+        #hist2.Scale(0.000001 * MLHEP_EV_SEL / NORM)
+        hist2.Scale(0.000001)
         #hist.Scale(1./59400000000) # luminosity scaling, lumi in pb
         #hist.Scale(BR) # BR scaling back
         fout.cd()
