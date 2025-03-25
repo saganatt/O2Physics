@@ -62,6 +62,7 @@ def get_legend(x_1, y_1, x_2, y_2, num_hists):
     leg = TLegend(x_1, y_1, x_2, y_2)
     if num_hists > 4:
         leg.SetNColumns(2)
+    leg.SetHeader("#it{p}_{V0M} multiplicity classes <d#it{N}_{ch}/d#eta>:")
     leg.SetTextAlign(12) #13)
     leg.SetTextSize(0.045)
     leg.SetMargin(0.1)
@@ -256,6 +257,7 @@ def plot_compare(cfg, canv_main, canv):
             axis.SetTitleSize(0.058)
             axis.SetTitleOffset(1.05)
             axis.SetTitleFont(42)
+        hist.GetXaxis().SetTitleOffset(0.95)
         hist.Draw(draw_opt)
         leg.AddEntry(hist, label, "p")
 
@@ -280,14 +282,15 @@ def plot_compare(cfg, canv_main, canv):
     miny = miny - margin * miny
     if miny <= 0:
         miny = 0.006
-    maxy = 4000
+    miny = 0.1
+    maxy = 100
     print(f"Recalculated hist maxy: {maxy + margin * maxy} miny: {miny}")
     for hist_models in hists_models:
-        hist_models.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
+        hist_models.GetYaxis().SetRangeUser(miny, maxy) # + margin * maxy)
     for _, hist in hists.items():
-        hist.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
+        hist.GetYaxis().SetRangeUser(miny, maxy) # + margin * maxy)
     for graph_syst in graphs_syst:
-        graph_syst.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
+        graph_syst.GetYaxis().SetRangeUser(miny, maxy) # + margin * maxy)
 
     leg.Draw()
     if len(hists_models) > 0:
@@ -358,9 +361,11 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr):
     for ind, (label, graph, color) in enumerate(zip(hists, graphs_syst, COLORS)):
         print(f"central hist bins: {central_hist.GetNbinsX()} "\
               f"{label} bins: {hists[label].GetNbinsX()}")
-        if label != cfg["default"]: #and hists[label].GetNbinsX() == central_hist.GetNbinsX():
+        if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
             print("Doing ratio")
-            hist_ratio, graph_ratio = hist_for_ratio(hists[label], graph, central_hist)
+            #hist_ratio, graph_ratio = hist_for_ratio(hists[label], graph, central_hist)
+            hist_ratio = hists[label]
+            graph_ratio = graph
             histr = central_hist.Clone()
             graphr = central_graph.Clone()
             for binn in range(1, central_hist.GetNbinsX() + 1):
@@ -371,7 +376,7 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr):
                       f"{label} hist bin [{hist_ratio.GetXaxis().GetBinLowEdge(binn)}, "\
                       f"{hist_ratio.GetXaxis().GetBinLowEdge(binn + 1)}): {hist_ratio.GetBinContent(binn)}")
             histr.Divide(central_hist)
-            for binn in range(2, central_hist.GetNbinsX() + 1):
+            for binn in range(1, central_hist.GetNbinsX() + 1):
                 x_err = histr.GetBinWidth(binn) / 4.0
                 y_low = divide_syst_error(histr.GetBinContent(binn),
                                           hist_ratio.GetBinContent(binn),
@@ -490,16 +495,16 @@ def main():
         for hist in hists_models:
             hist.Write()
 
-        canv, canvr, histr, graphr, legr, line = plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr)
+        #canv, canvr, histr, graphr, legr, line = plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr)
         output.cd()
         canv.Write()
         save_canvas(canv, cfg, f'{cfg["output"]["file"]}')
         canvr.Write()
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
-        for hist in histr:
-            hist.Write()
-        for graph in graphr:
-            graph.Write()
+        #for hist in histr:
+        #    hist.Write()
+        #for graph in graphr:
+        #    graph.Write()
 
         calc_systematics(cfg, hists)
 
