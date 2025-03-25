@@ -98,7 +98,6 @@ def prepare_canvas(cname, logy):
         canvas.SetBorderMode(0)
         canvas.SetBorderSize(2)
         canvas.SetFrameBorderMode(0)
-        canvas.SetGridy()
     canvr.Draw()
     canv_top.cd()
     canv_top.Draw()
