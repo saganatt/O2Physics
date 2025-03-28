@@ -2,6 +2,7 @@
   "inputdir": "/data8/majak/mult-ratios",
   "histoname": "hptspectrum",
   "default": "MB",
+  "model_default": "Monash MB",
   "hists": {
     "MB": {
       "file": [
@@ -123,13 +124,45 @@
       ]
     }
   },
+  "models": {
+    "Monash MB": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt"
+    },
+    "Monash 7085": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt_7085"
+    },
+    "Monash 5070": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt_5070"
+    },
+    "Monash 3050": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt_3050"
+    },
+    "Monash 1030": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt_1030"
+    },
+    "Monash 110": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt_110"
+    },
+    "Monash 0-1": {
+      "file": "MBratio_Monash.root",
+      "histoname": "hpythia_prompt_01"
+    }
+  },
   "y_axis": "Ratio to INEL > 0",
   "alice_text": "#Lambda_{c}^{#plus} baryon, |#it{y}| < 0.5",
   "legend": [0.50, 0.65, 0.90, 0.93],
+  "legend_models": [0.50, 0.65, 0.90, 0.93],
   "legend_ratio": [0.50, 0.63, 0.95, 0.88],
+  "legend_ratio_models": [0.18, 0.18, 0.90, 0.23],
   "log_scale": true,
   "output": {
     "outdir": "/data8/majak/mult-ratios",
-    "file": "mult_ratios_old_script"
+    "file": "mult_ratios"
   }
 }
