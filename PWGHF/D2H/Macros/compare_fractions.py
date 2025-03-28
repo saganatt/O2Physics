@@ -13,11 +13,13 @@ import os
 from array import array
 
 from ROOT import (  # pylint: disable=import-error,no-name-in-module
+    MakeNullPointer,
     TCanvas,
     TFile,
     TGraphAsymmErrors,
     TH1F,
     TLegend,
+    TObject,
     TPaveText,
     TLine,
     gROOT,
@@ -36,11 +38,11 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kYellow
 )
 
-COLORS=[kBlack, kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kBlue, kMagenta+2,
+COLORS=[kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kBlue, kMagenta+2,
         kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
-MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
-MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
+MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9, kBlue-6, kGreen-6, kOrange-5]
+MODELS_STYLES=[3001, 3004, 3245, 3250, 3244, 3254, 3209, 3245, 3250, 3244, 3254, 3209]
 
 
 def get_alice_text(alice_text_config):
@@ -58,11 +60,12 @@ def get_alice_text(alice_text_config):
     return alice_text
 
 
-def get_legend(x_1, y_1, x_2, y_2, num_hists):
+def get_legend(x_1, y_1, x_2, y_2, num_hists, header=None):
     leg = TLegend(x_1, y_1, x_2, y_2)
     if num_hists > 4:
         leg.SetNColumns(2)
-    leg.SetHeader("#it{p}_{FT0M} multiplicity classes<d#it{N}_{ch}/d#eta>:")
+    if header:
+        leg.SetHeader(header)
     leg.SetTextAlign(12) #13)
     leg.SetTextSize(0.04)
     leg.SetMargin(0.1)
@@ -126,7 +129,7 @@ def merge_fractions(inputdir, histname, filenames):
     return reshist
 
 
-def set_hist_style(hist, color, y_axis):
+def set_hist_style(hist, color, y_axis, style=None):
     for axis in (hist.GetXaxis(), hist.GetYaxis()):
         axis.SetLabelFont(42)
         axis.SetLabelSize(0.05)
@@ -139,10 +142,15 @@ def set_hist_style(hist, color, y_axis):
     hist.GetXaxis().SetTitleOffset(0.95)
 
     hist.SetMarkerColor(color)
+    hist.SetMarkerSize(1)
     hist.SetLineColor(color)
     hist.SetLineWidth(2)
-    hist.SetMarkerStyle(21)
-    hist.SetMarkerSize(1)
+    if style:
+        hist.SetFillColor(color)
+        hist.SetFillStyle(style)
+        #hist.SetTitle("")
+    else:
+        hist.SetMarkerStyle(21)
 
 
 def get_hist_for_label(label, color, cfg):
@@ -186,10 +194,8 @@ def get_hist_model(label, color, style, cfg):
         hist = fin.Get(cfg["models"][label]["histoname"])
         hist.SetDirectory(0)
 
-    hist.SetFillColor(color)
-    hist.SetFillStyle(style)
-    hist.SetTitle("")
-    set_hist_style(hist, color, cfg["y_axis"])
+    set_hist_style(hist, color, cfg["y_axis"], style)
+    #hist.SetTitle("")
 
     return hist
 
@@ -198,12 +204,13 @@ def plot_models(cfg, canv):
     maxy = 0.
     miny = 1000000.
     if cfg.get("models", None):
-        hists_models = []
+        hists_models = {}
         leg_models = get_legend(0.17, 0.62, 0.87, 0.72, len(cfg["models"]))
         leg = get_legend(0.17, 0.52, 0.87, 0.62, len(cfg["hists"]))
         for ind, (label, color, style) in \
                 enumerate(zip(cfg["models"], MODELS_COLORS, MODELS_STYLES)):
             hist = get_hist_model(label, color, style, cfg)
+            print(f"hist model for {label}: {hist.GetName()}")
             miny, maxy = get_hist_limits(hist, None, miny, maxy)
 
             canv.cd()
@@ -211,7 +218,7 @@ def plot_models(cfg, canv):
             hist.Draw(draw_opt)
             leg_models.AddEntry(hist, label, "f")
 
-            hists_models.append(hist)
+            hists_models[label] = hist
     else:
         leg = get_legend(*cfg["legend"], len(cfg["hists"]))
         leg_models = None
@@ -233,8 +240,8 @@ def set_figs_limits(miny, maxy, hists, graphs, hists_models):
         miny = 0.006
     print(f"Recalculated hist maxy: {maxy + margin * maxy} miny: {miny}")
     if hists_models:
-        for hist_models in hists_models:
-            hist_models.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
+        for _, hist in hists_models.items():
+            hist.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
     for _, hist in hists.items():
         hist.GetYaxis().SetRangeUser(miny, maxy + margin * maxy)
     if graphs:
@@ -365,57 +372,90 @@ def get_figs_ratio(central_graph, central_hist, hist_ratio, graph_ratio, label):
     return histr, graphr
 
 
-def plot_ratio(cfg, hists, graphs_syst, central_graph):
-    canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
-    canvr.SetLogy()
-    legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]))
-
+def plot_ratio_histos(canvr, legr, hists, graphs, central_hist,
+                      central_label, central_graph, styles):
+    maxx = 0.0
+    miny = 0.05
+    maxy = 300
     histsr = []
     graphsr = []
-    miny = 0.1
-    maxy = 100
-    maxx = 0.0
-    central_hist = hists[cfg["default"]]
-    for ind, (label, color) in enumerate(zip(hists, COLORS)):
+
+    for ind, (label, color, style) in enumerate(zip(hists, COLORS, styles)):
         print(f"central hist bins: {central_hist.GetNbinsX()} "\
               f"{label} bins: {hists[label].GetNbinsX()}")
-        if label != cfg["default"] and hists[label].GetNbinsX() == central_hist.GetNbinsX():
-            graph = graphs_syst[ind] if graphs_syst else None
+        if label != central_label and hists[label].GetNbinsX() == central_hist.GetNbinsX():
+            graph = graphs[ind] if graphs else None
             #hist_ratio, graph_ratio = hist_for_ratio(hists[label], graph, central_hist)
             hist_ratio = hists[label]
             graph_ratio = graph
 
             histr, graphr = get_figs_ratio(central_graph, central_hist,
                                            hist_ratio, graph_ratio, label)
-            set_hist_style(histr, color, "Ratio to INEL > 0")
+            #set_hist_style(histr, color, "Ratio to INEL > 0")
+            histr.GetYaxis().SetTitle("Ratio to INEL > 0")
 
-
-            draw_opt = "samePE1" if ind != 0 else "PE1"
+            if style:
+                set_hist_style(histr, color, "Ratio to INEL > 0", style)
+                draw_opt = "sameE3" if ind != 0 else "E3"
+            else:
+                draw_opt = "samePE1"
             histr.SetMaximum(maxy)
             histr.SetMinimum(miny)
+            canvr.cd()
             histr.Draw(draw_opt)
             histsr.append(histr)
             if graphr:
                 set_hist_style(graphr, color, "Ratio to INEL > 0")
                 graphr.Draw("sameE2")
                 graphsr.append(graphr)
-            legr.AddEntry(histr, label, "p")
+            if style and ind == 1:
+                entry = legr.AddEntry(MakeNullPointer(TObject), "Monash", "f")
+                entry.SetFillColor(kBlack)
+                entry.SetFillStyle(style)
+            elif not style:
+                legr.AddEntry(histr, label, "p")
             maxx = max(maxx, histr.GetBinLowEdge(histr.GetNbinsX() + 1))
+    return canvr, legr, histsr, graphsr, maxx
 
-    line = TLine(histr.GetBinLowEdge(1), 1.0, maxx, 1.0)
-    line.SetLineColor(COLORS[len(hists)])
+
+def plot_ratio(cfg, hists, graphs_syst, central_graph, hists_models):
+    canvr = prepare_canvas(f'c_ratio_{cfg["histoname"]}')
+    canvr.SetLogy()
+
+    if hists_models:
+        leg_models = get_legend(*cfg["legend_ratio_models"], len(cfg["models"]))
+        central_hist = hists_models[cfg["model_default"]]
+        canvr, leg_models, histsr_models, _, maxx =\
+                plot_ratio_histos(canvr, leg_models, hists_models, None,
+                                  central_hist, cfg["model_default"], None,
+                                  [3001] * len(cfg["models"]))
+        leg_models.Draw()
+    else:
+        histsr_models = {}
+        leg_models = None
+
+    legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]),
+                      "#it{p}_{FT0M} multiplicity classes<d#it{N}_{ch}/d#eta>:")
+    central_hist = hists[cfg["default"]]
+    canvr, legr, histsr, graphsr, maxx =\
+            plot_ratio_histos(canvr, legr, hists, graphs_syst,
+                              central_hist, cfg["default"], central_graph,
+                              [None] * len(cfg["hists"]))
+
+    legr.Draw()
+
+    line = TLine(histsr[0].GetBinLowEdge(1), 1.0, maxx, 1.0)
+    line.SetLineColor(COLORS[len(histsr)])
     line.SetLineWidth(3)
     line.SetLineStyle(kDashed)
     line.Draw()
-
-    legr.Draw()
 
     alice_text = None
     if cfg.get("alice_text", None):
         alice_text = get_alice_text(cfg["alice_text"])
         alice_text.Draw("same")
 
-    return canvr, histsr, graphsr, legr, line, alice_text
+    return canvr, histsr, graphsr, histsr_models, legr, line, alice_text, leg_models
 
 
 def calc_systematics(cfg, hists):
@@ -475,11 +515,11 @@ def main():
             for graph in graphs_syst:
                 graph.Write()
         if hists_models:
-            for hist in hists_models:
+            for _, hist in hists_models.items():
                 hist.Write()
 
-        canvr, histr, graphr, legr, line, alice_text =\
-                plot_ratio(cfg, hists, graphs_syst, central_graph) # pylint: disable=unused-variable
+        canvr, histr, graphr, histr_models, legr, line, alice_text, leg_models =\
+                plot_ratio(cfg, hists, graphs_syst, central_graph, hists_models) # pylint: disable=unused-variable
         output.cd()
         canvr.Write()
         save_canvas(canvr, cfg, f'{cfg["output"]["file"]}_ratio')
@@ -487,6 +527,8 @@ def main():
             hist.Write()
         for graph in graphr:
             graph.Write()
+        for hist in histr_models:
+            hist.Write()
 
         calc_systematics(cfg, hists)
 
