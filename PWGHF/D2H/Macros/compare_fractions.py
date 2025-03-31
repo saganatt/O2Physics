@@ -58,7 +58,7 @@ def get_alice_text(cfg):
 
     alice_text_config = cfg["alice_text"]
     alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
-    alice_text.AddText("#scale[1.05]{pp #sqrt{s} = 13.6 TeV}")
+    alice_text.AddText("#scale[1.05]{pp,#kern[-0.05]{ #sqrt{s} = 13.6 TeV}}")
     alice_text.AddText("#scale[1.05]{|#it{y}| < 0.5}")
     alice_text.AddText(f"#scale[1.20]{{{alice_text_config}}}")
 
@@ -440,7 +440,7 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, hists_models):
         leg_models = None
 
     legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]),
-                      "#it{p}_{FT0M} multiplicity classes<d#it{N}_{ch}/d#eta>:")
+                      "<d#it{N}_{ch}/d#eta>:")
     central_hist = hists[cfg["default"]]
     canvr, legr, histsr, graphsr, maxx =\
             plot_ratio_histos(canvr, legr, hists, graphs_syst,
