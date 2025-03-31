@@ -35,7 +35,7 @@
   "y_axis": "d^{2}#sigma/(d#it{y}d#it{p}_{T}) (#mub GeV^{-1}#it{c})",
   "alice_text": "|#it{y}| < 0.5",
   "_alice_text": "#splitline{#Lambda_{c}^{#plus} (and charge conj.)}{|#it{y}| < 0.5}",
-  "legend": [0.50, 0.50, 0.94, 0.77],
+  "legend": [0.52, 0.50, 0.89, 0.77],
   "legend_ratio": [0.40, 0.60, 0.90, 0.90],
   "log_scale": true,
   "output": {
