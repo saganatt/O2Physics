@@ -44,16 +44,16 @@ MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
 
 
 def get_alice_text(alice_text_config):
-    alice_text = TPaveText(0.17, 0.65, 0.50, 0.92, "brNDC")
+    alice_text = TPaveText(0.50, 0.75, 0.94, 0.90, "brNDC")
     alice_text.SetTextFont(42)
-    alice_text.SetTextSize(0.04)
+    alice_text.SetTextSize(0.045)
     alice_text.SetBorderSize(0)
     alice_text.SetFillStyle(0)
     alice_text.SetTextAlign(11)
 
-    alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
+    alice_text.AddText("#scale[1.40]{ALICE Preliminary}")
+    alice_text.AddText(f"#scale[1.30]{{{alice_text_config}}}")
     #alice_text.AddText("#scale[1.05]{pp #sqrt{s} = 13.6 TeV}")
-    alice_text.AddText(f"#scale[1.20]{{{alice_text_config}}}")
 
     return alice_text
 
@@ -82,7 +82,7 @@ def prepare_canvas(cname, logy):
         canv_top.SetLogy()
     canv_top.SetTickx(1)
     canv_top.SetTicky(1)
-    canv_top.SetLeftMargin(0.15)
+    canv_top.SetLeftMargin(0.20)
     canv_top.SetRightMargin(0.02)
     canv_top.SetBottomMargin(0.0)
     canv_top.SetTopMargin(0.05)
@@ -91,7 +91,7 @@ def prepare_canvas(cname, logy):
     canv.cd()
     canvr = TPad(f"{cname}_ratio", "", 0.01, 0.01, 0.99, 0.3)
     canvr.SetBottomMargin(0.35)
-    canvr.SetLeftMargin(0.15)
+    canvr.SetLeftMargin(0.20)
     canvr.SetRightMargin(0.02)
     canvr.SetTopMargin(0.0)
 
@@ -247,7 +247,7 @@ def plot_compare(cfg, canv_main, canv):
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
         leg = get_legend(*cfg["legend"], len(cfg["hists"]),
-                         "Prompt#kern[0.25]{#Lambda_{c}^{#plus},} |#it{y}| < 0.5")
+                         "#Lambda_{c}^{#plus} (and charge conj.)")
         leg_models = None
 
     hists = {}
@@ -259,9 +259,9 @@ def plot_compare(cfg, canv_main, canv):
         miny, maxy = get_hist_limits(hist, None, miny, maxy)
 
         canv.cd()
-        draw_opt = "samePE1" if ind != 0 or len(hists_models) > 0 else "PE1"
+        draw_opt = "sameE" if ind != 0 or len(hists_models) > 0 else "E"
         hist.Draw(draw_opt)
-        leg.AddEntry(hist, label, "lp")
+        leg.AddEntry(hist, label, "p")
 
         hists[label] = hist
 
@@ -373,6 +373,7 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr):
             histr.SetName(f"h_ratio_{label}")
             histr.SetMarkerColor(color)
             histr.SetLineColor(color)
+            histr.SetLineWidth(2)
             for binn in range(1, central_hist.GetNbinsX() + 1):
                 print(f"Ratio {binn}: {histr.GetBinContent(binn)}")
 
@@ -401,7 +402,7 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr):
                 fig.SetMarkerStyle(21)
                 fig.SetMarkerSize(1)
             canvr.cd()
-            draw_opt = "samePE1" if ind != 0 else "PE1"
+            draw_opt = "sameE" if ind != 0 else "E"
             histr.SetMaximum(maxy)
             histr.SetMinimum(miny)
             for axis in (histr.GetXaxis(), histr.GetYaxis()):
@@ -410,9 +411,11 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, canv, canvr):
             histr.GetXaxis().SetTitleOffset(0.95)
             histr.GetXaxis().SetTitleSize(0.15)
             histr.GetXaxis().SetLabelSize(0.15)
-            histr.GetYaxis().SetLabelSize(0.1)
+            histr.GetYaxis().SetLabelSize(0.15)
             histr.GetYaxis().SetTitleSize(0.15)
-            histr.GetYaxis().SetTitleOffset(0.4)
+            histr.GetYaxis().SetTitleOffset(0.53)
+            histr.GetYaxis().SetLabelOffset(0.02)
+            #histr.GetYaxis().SetNdivisions(6)
             histr.GetYaxis().SetTitle("#frac{13.6 TeV}{13 TeV}")
             histr.GetYaxis().CenterTitle(True)
             histr.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
