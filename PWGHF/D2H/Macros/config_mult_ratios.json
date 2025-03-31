@@ -155,7 +155,7 @@
     }
   },
   "y_axis": "Ratio to INEL > 0",
-  "alice_text": "#Lambda_{c}^{#plus} baryon, |#it{y}| < 0.5",
+  "alice_text": "#Lambda_{c}^{#plus} (and charge conj.)",
   "legend": [0.50, 0.65, 0.90, 0.93],
   "legend_models": [0.50, 0.65, 0.90, 0.93],
   "legend_ratio": [0.50, 0.63, 0.90, 0.88],
@@ -163,6 +163,6 @@
   "log_scale": true,
   "output": {
     "outdir": "/data8/majak/mult-ratios",
-    "file": "mult_ratios"
+    "file": "mult_ratios_review"
   }
 }
