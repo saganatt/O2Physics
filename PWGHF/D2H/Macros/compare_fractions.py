@@ -43,7 +43,7 @@ from ROOT import (  # pylint: disable=import-error,no-name-in-module
     kOpenTriangleUp,
 )
 
-COLORS=[kBlack, kRed-3, kAzure-7, kGreen+2, kOrange-3, kBlue, kMagenta+2, kTeal+3, kGreen, kAzure+8,
+COLORS=[kRed - 3, kBlack, kAzure-7, kGreen+2, kOrange-3, kBlue, kMagenta+2, kTeal+3, kGreen, kAzure+8,
         kYellow+3, kOrange-5, kMagenta+2, kBlue-6, kCyan+1, kGreen-6]
 MODELS_COLORS=[kGray+1, kOrange-3, kCyan-2, kRed-9, kAzure-9]
 MODELS_STYLES=[3245, 3250, 3244, 3254, 3209]
@@ -255,7 +255,7 @@ def plot_compare(cfg, canv_main, canv):
     else:
         #leg = get_legend(0.17, 0.58, 0.65, 0.70, len(cfg["hists"]))
         leg = get_legend(*cfg["legend"], len(cfg["hists"]),
-                         "#Lambda_{c}^{#plus}")
+                         "Prompt #kern[-0.5]{#Lambda_{c}^{#plus}}")
         leg_models = None
 
     hists = {}

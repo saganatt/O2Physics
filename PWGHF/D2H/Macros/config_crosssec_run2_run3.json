@@ -1,9 +1,9 @@
 {
   "inputdir": "/data8/majak/crosssec/032025",
   "histoname": "hptspectrum",
-  "default": "pp,#kern[0.15]{#sqrt{#it{s}}} = 13 TeV",
+  "default": "#sqrt{#it{s}} = 13 TeV",
   "hists": {
-    "pp,#kern[0.15]{#sqrt{#it{s}}} = 13.6 TeV": {
+    "#sqrt{#it{s}} = 13.6 TeV": {
       "file": [
         "finalcrossLcpKpiRun3analysis_0-1_scaled_6.root"
       ],
@@ -22,7 +22,7 @@
         [0.24]
       ]
     },
-    "pp,#kern[0.15]{#sqrt{#it{s}}} = 13 TeV": {
+    "#sqrt{#it{s}} = 13 TeV": {
       "file": [
         "LcpKpi_generated_Run2.root"
       ],
@@ -33,7 +33,7 @@
     }
   },
   "y_axis": "d^{2}#sigma/(d#it{y}d#it{p}_{T}) (#mub GeV^{-1}#it{c})",
-  "alice_text": "|#it{y}| < 0.5",
+  "alice_text": "pp, |#kern[0.06]{#it{y}| < 0.5}",
   "_alice_text": "#splitline{#Lambda_{c}^{#plus} (and charge conj.)}{|#it{y}| < 0.5}",
   "legend": [0.52, 0.50, 0.89, 0.77],
   "legend_ratio": [0.40, 0.60, 0.90, 0.90],
