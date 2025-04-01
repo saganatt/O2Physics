@@ -3,6 +3,15 @@
   "histoname": "hptspectrum",
   "default": "#sqrt{#it{s}} = 13 TeV",
   "hists": {
+    "#sqrt{#it{s}} = 13 TeV": {
+      "file": [
+        "LcpKpi_generated_Run2.root"
+      ],
+      "systematics": [
+        "LcpKpi_generated_Run2.root",
+        "graph_syst"
+      ]
+    },
     "#sqrt{#it{s}} = 13.6 TeV": {
       "file": [
         "finalcrossLcpKpiRun3analysis_0-1_scaled_6.root"
@@ -20,15 +29,6 @@
         [0.16],
         [0.16],
         [0.24]
-      ]
-    },
-    "#sqrt{#it{s}} = 13 TeV": {
-      "file": [
-        "LcpKpi_generated_Run2.root"
-      ],
-      "systematics": [
-        "LcpKpi_generated_Run2.root",
-        "graph_syst"
       ]
     }
   },
