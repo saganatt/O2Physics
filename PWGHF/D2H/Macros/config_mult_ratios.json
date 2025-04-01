@@ -154,8 +154,8 @@
       "histoname": "hpythia_prompt_01"
     }
   },
-  "y_axis": "Ratio to INEL > 0",
-  "alice_text": "#Lambda_{c}^{#plus}",
+  "y_axis": "#Lambda_{c}^{#plus} mult. class / MB",
+  "alice_text": "Prompt#kern[-0.3]{ #Lambda_{c}^{#plus}}",
   "legend": [0.50, 0.65, 0.90, 0.93],
   "legend_models": [0.50, 0.65, 0.90, 0.93],
   "legend_ratio": [0.50, 0.63, 0.90, 0.88],
