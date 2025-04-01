@@ -58,7 +58,7 @@ def get_alice_text(cfg):
 
     alice_text_config = cfg["alice_text"]
     alice_text.AddText("#scale[1.35]{ALICE Preliminary}")
-    alice_text.AddText("#scale[1.05]{pp,#kern[-0.05]{ #sqrt{s} = 13.6 TeV, |#it{y}| < 0.5}}")
+    alice_text.AddText("#scale[1.05]{pp,#kern[-0.05]{ #sqrt{#it{s}} = 13.6 TeV, |#it{y}| < 0.5}}")
     alice_text.AddText(f"#scale[1.20]{{{alice_text_config}}}")
 
     alice_text.Draw("same")
@@ -142,9 +142,10 @@ def set_hist_style(hist, color, y_axis, style=None):
         axis.SetLabelOffset(0.02)
         axis.SetTitleFont(42)
         axis.SetTitleSize(0.06)
-        axis.SetTitleOffset(1.05)
+        axis.SetTitleOffset(1.3)
     hist.GetXaxis().SetTitle("#it{p}_{T}(GeV/#it{c})")
     hist.GetYaxis().SetTitle(y_axis)
+    hist.GetYaxis().SetTitleSize(0.05)
     hist.GetXaxis().SetTitleOffset(1.1)
 
     hist.SetMarkerColor(color)
@@ -427,7 +428,7 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, hists_models):
 
     if hists_models:
         leg_models = get_legend(*cfg["legend_ratio_models"], len(cfg["models"]))
-        leg_models.SetMargin(0.9)
+        leg_models.SetMargin(0.5)
         central_hist = hists_models[cfg["model_default"]]
         canvr, leg_models, histsr_models, _, maxx =\
                 plot_ratio_histos(canvr, leg_models, hists_models, None,
