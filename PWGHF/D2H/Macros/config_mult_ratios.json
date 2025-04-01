@@ -154,7 +154,7 @@
       "histoname": "hpythia_prompt_01"
     }
   },
-  "y_axis": "#Lambda_{c}^{#plus} mult. class / MB",
+  "y_axis": "d^{2}#it{N}/(d#it{y}d#it{p}_{T})#left|_{mult.} / d^{2}#it{N}/(d#it{y}d#it{p}_{T})#right|_{INEL > 0}",
   "alice_text": "Prompt#kern[-0.3]{ #Lambda_{c}^{#plus}}",
   "legend": [0.50, 0.65, 0.90, 0.93],
   "legend_models": [0.50, 0.65, 0.90, 0.93],
