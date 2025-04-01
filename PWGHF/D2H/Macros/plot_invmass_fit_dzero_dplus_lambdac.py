@@ -340,7 +340,7 @@ def main(particle, i_pt, cfg, batch):
 
     lat_alice.DrawLatex(0.19, 0.85, 'ALICE Preliminary')
     lat_label.SetTextSize(SIZE_TEXT_LAT_LABEL_FOR_COLL_SYSTEM)
-    lat_label.DrawLatex(0.19, 0.79, 'pp,#kern[-0.08]{ #sqrt{#it{s}} = 13.6 TeV,}#kern[-0.08]{ #it{L}_{int} = 5 pb^{-1}}')
+    lat_label.DrawLatex(0.19, 0.79, 'pp,#kern[-0.08]{ #sqrt{#it{s}} = 13.6 TeV,}#kern[-0.08]{ #it{L}_{int} = 5 pb^{#minus1}}')
     lat_label.SetTextSize(SIZE_TEXT_LAT_LABEL)
     #draw_info(lat_label, particle)
     lat_label.DrawLatex(0.19, 0.73, f'{pt_mins[i_pt]:.0f} < #it{{p}}_{{T}} < {pt_maxs[i_pt]:.0f} GeV/#it{{c}}')
@@ -355,7 +355,7 @@ def main(particle, i_pt, cfg, batch):
     #lat_label.DrawLatex(0.19, 0.24, str_sig_promptEnhanced)
     if mult_latex[i_pt]:
         lat_label.DrawLatex(0.19, 0.24, mult_latex[i_pt])
-    lat_label.DrawLatex(0.19, 0.18, "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus} (and charge conj.)")
+    lat_label.DrawLatex(0.19, 0.18, "#Lambda_{c}^{#plus} #rightarrow pK^{#minus}#pi^{#plus} and charge conj.")
     #lat_label.DrawLatex(0.19, 0.16, "#it{L}_{int} = 5 pb^{-1}")
 
     legend.Draw()
