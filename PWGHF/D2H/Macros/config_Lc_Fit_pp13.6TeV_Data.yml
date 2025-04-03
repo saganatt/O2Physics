@@ -1,4 +1,4 @@
-__pp13.6TeVFD:
+_pp13.6TeVFD:
     Particle: 'LAMBDAC_TO_PKPI'
     PtMin: [1.]
     PtMax: [2.]
@@ -7,7 +7,7 @@ __pp13.6TeVFD:
     Rebin: [2]
     Mult: [null]
     MultLatex: ["Minimum Bias"]
-_pp13.6TeVFD:
+__pp13.6TeVFD:
     Particle: 'LAMBDAC_TO_PKPI'
     PtMin: [4.]
     PtMax: [5.]
@@ -15,7 +15,7 @@ _pp13.6TeVFD:
     MassMax: [2.38]
     Rebin: [2]
     Mult: ["01"]
-    MultLatex: ["<d#it{N}_{ch}/d#eta> = 20.07"]
+    MultLatex: ["<d#it{N}_{ch}/d#it{#eta}> = 20.07"]
 pp13.6TeVFD:
     Particle: 'LAMBDAC_TO_PKPI'
     PtMin: [8.]
@@ -24,4 +24,4 @@ pp13.6TeVFD:
     MassMax: [2.456]
     Rebin: [4]
     Mult: [7085]
-    MultLatex: ["<d#it{N}_{ch}/d#eta> = 3.52"]
+    MultLatex: ["<d#it{N}_{ch}/d#it{#eta}> = 4.34"]
