@@ -148,8 +148,6 @@ def set_hist_style(hist, color, y_axis, style=None):
     hist.GetYaxis().SetTitleSize(0.05)
     hist.GetXaxis().SetTitleOffset(1.1)
 
-    hist.SetMarkerColor(color)
-    hist.SetMarkerSize(1)
     hist.SetLineColor(color)
     hist.SetLineWidth(2)
     if style:
@@ -157,6 +155,8 @@ def set_hist_style(hist, color, y_axis, style=None):
         hist.SetFillStyle(style)
         #hist.SetTitle("")
     else:
+        hist.SetMarkerColor(color)
+        hist.SetMarkerSize(1)
         hist.SetMarkerStyle(21)
 
 
@@ -407,6 +407,14 @@ def plot_ratio_histos(canvr, legr, hists, graphs, central_hist,
             histr.SetMinimum(miny)
             canvr.cd()
             histr.Draw(draw_opt)
+            if style:
+                histr2 = histr.Clone()
+                histr2.SetFillStyle(0)
+                histr2.SetFillColor(0)
+                histr2.SetMarkerStyle(0)
+                histr2.Draw("hist same L")
+                histr2.SetFillStyle(style)
+                histsr.append(histr2)
             histsr.append(histr)
             if graphr:
                 set_hist_style(graphr, color, y_axis)
@@ -436,7 +444,7 @@ def plot_ratio(cfg, hists, graphs_syst, central_graph, hists_models):
                                   [3001] * len(cfg["models"]), cfg["y_axis"])
         leg_models.Draw()
     else:
-        histsr_models = {}
+        histsr_models = []
         leg_models = None
 
     legr = get_legend(*cfg["legend_ratio"], len(cfg["hists"]),
