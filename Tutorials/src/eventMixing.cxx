@@ -190,6 +190,10 @@ struct MixedEventsDynamicColumns {
   {
     LOGF(info, "Input data Collisions %d, Tracks %d ", collisions.size(), tracks.size());
 
+    for (auto& col : collisions) {
+      LOG(info) << "Collision " << col.globalIndex() << " bin: " << corrBinning.getBin({col.posZ(), col.multFV0M()});
+    }
+
     int count = 0;
     for (const auto& [c1, tracks1, c2, tracks2] : pair) {
       LOGF(info, "Mixed event collisions: (%d, %d)", c1.globalIndex(), c2.globalIndex());
