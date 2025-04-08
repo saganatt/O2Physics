@@ -181,7 +181,7 @@ struct MixedEventsDynamicColumns {
   Preslice<aod::Tracks> perCollison = aod::track::collisionId;
   using AODCollisions = soa::Join<aod::Collisions, aod::EvSels, aod::Mults>;
   std::vector<double> zBins{7, -7, 7};
-  std::vector<double> multBins{VARIABLE_WIDTH, 0, 5, 10, 20, 30, 40, 50, 100.1};
+  std::vector<double> multBins{VARIABLE_WIDTH, 0, 100, 500, 1000, 5000, 10000, 20000};
   using BinningType = ColumnBinningPolicy<aod::collision::PosZ, aod::mult::MultFV0M<aod::mult::MultFV0A, aod::mult::MultFV0C>>;
   BinningType corrBinning{{zBins, multBins}, true};                                       // true is for 'ignore overflows' (true by default)
   SameKindPair<AODCollisions, aod::Tracks, BinningType> pair{corrBinning, 5, -1, &cache}; // indicates that 5 events should be mixed and under/overflow (-1) to be ignored
