@@ -46,6 +46,7 @@ struct MixedEvents {
   using BinningType = ColumnBinningPolicy<aod::collision::PosX, aod::collision::PosY>;
   BinningType binningOnPositions{{xBins, yBins}, true};                                            // true is for 'ignore overflows' (true by default)
   SameKindPair<aod::Collisions, aod::Tracks, BinningType> pair{binningOnPositions, 5, -1, &cache}; // indicates that 5 events should be mixed and under/overflow (-1) to be ignored
+
   void process(aod::Collisions const& collisions, aod::Tracks const& tracks)
   {
     LOGF(info, "Input data Collisions %d, Tracks %d ", collisions.size(), tracks.size());
@@ -185,6 +186,8 @@ struct MixedEventsDynamicColumns {
   using BinningType = ColumnBinningPolicy<aod::collision::PosZ, aod::mult::MultFV0M<aod::mult::MultFV0A, aod::mult::MultFV0C>>;
   BinningType corrBinning{{zBins, multBins}, true};                                       // true is for 'ignore overflows' (true by default)
   SameKindPair<AODCollisions, aod::Tracks, BinningType> pair{corrBinning, 5, -1, &cache}; // indicates that 5 events should be mixed and under/overflow (-1) to be ignored
+  using myPair = SameKindPair<AODCollisions, aod::Tracks, BinningType>;
+  //static_assert(is_combinations_generator<myPair>);
 
   void process(AODCollisions const& collisions, aod::Tracks const& tracks)
   {
