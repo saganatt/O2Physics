@@ -505,9 +505,9 @@ WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
   return WorkflowSpec{
     //adaptAnalysisTask<MixedEvents>(cfgc),
     //adaptAnalysisTask<MixedEventsInsideProcess>(cfgc),
-    //adaptAnalysisTask<MixedEventsFilteredTracks>(cfgc),
+    adaptAnalysisTask<MixedEventsFilteredTracks>(cfgc),
     //adaptAnalysisTask<MixedEventsJoinedCollisions>(cfgc),
-    adaptAnalysisTask<MixedEventsDynamicColumns>(cfgc)//,
+    //adaptAnalysisTask<MixedEventsDynamicColumns>(cfgc)//,
     //adaptAnalysisTask<MixedEventsVariousKinds>(cfgc),
     //adaptAnalysisTask<MixedEventsTriple>(cfgc),
     //adaptAnalysisTask<MixedEventsTripleVariousKinds>(cfgc),
