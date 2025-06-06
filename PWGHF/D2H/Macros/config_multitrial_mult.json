@@ -1,16 +1,24 @@
 {
   "file_pattern": "/data8/majak/MLHEP/results-24022025-luigi-multitrial-mult-prompt*/LHC23pp_forw/Results/resultsdatatot/yields_LcpKpi_Run3analysis_forward.root",
+  "_file_pattern": "regex pattern for all multitrial fit files; note the asterisk to match all trial suffixes",
   "dir_pattern": "results-24022025-luigi-multitrial-mult-prompt",
+  "_dir_pattern": "the base directory prefix from the file pattern above",
   "histoname": "hyields5",
+  "_histoname": "histogram with mass fit",
   "sel_histoname": "hchi5",
+  "_sel_histoname": "histogram for filtering the results",
   "selection": "lambda x : x < 5.0",
+  "_selection": "filter to apply, e.g., chi < 5",
   "pt_bins_min": [1, 2, 3, 4, 5, 6, 7, 8, 10, 12],
   "pt_bins_max": [2, 3, 4, 5, 6, 7, 8, 10, 12, 24],
   "x_axis": "Trial #",
+  "_x_axis": "Could be hardcoded in *.py code",
   "y_axis": "Raw yield",
+  "_y_axis": "Could be hardcoded in *.py code",
   "central_trial": "",
+  "_central_trial": "suffix of the directory with the central trial",
   "outdir": "/data8/majak/multitrial/mult",
+  "_outdir": "output directory",
   "outfile": "result-prompt-0-1-narrow",
-  "_sel_binmin2": [70, 50, 30, 10, 1, 0],
-  "_sel_binmax2": [85, 70, 50, 30, 10, 1]
+  "_outfile": "output file pattern"
 }
