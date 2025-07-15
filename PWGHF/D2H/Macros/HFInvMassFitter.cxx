@@ -50,8 +50,6 @@
 #include <cmath>
 #include <cstring>
 
-#include <iostream>
-
 using namespace RooFit;
 
 ClassImp(HFInvMassFitter);
@@ -62,10 +60,10 @@ HFInvMassFitter::HFInvMassFitter() : TNamed(),
                                      mMinMass(0),
                                      mMaxMass(5),
                                      mTypeOfBkgPdf(Expo),
-                                     mMassParticle(TDatabasePDG::Instance()->GetParticle("Lc")->Mass()),
+                                     mMassParticle(TDatabasePDG::Instance()->GetParticle("D0")->Mass()),
                                      mTypeOfSgnPdf(SingleGaus),
                                      mTypeOfReflPdf(1),
-                                     mMass(2.286),
+                                     mMass(1.865),
                                      mSecMass(1.969),
                                      mSigmaSgn(0.012),
                                      mSecSigma(0.006),
@@ -129,10 +127,10 @@ HFInvMassFitter::HFInvMassFitter(const TH1* histoToFit, Double_t minValue, Doubl
                                                                                                                                     mMinMass(minValue),
                                                                                                                                     mMaxMass(maxValue),
                                                                                                                                     mTypeOfBkgPdf(fitTypeBkg),
-                                                                                                                                    mMassParticle(TDatabasePDG::Instance()->GetParticle("Lc")->Mass()),
+                                                                                                                                    mMassParticle(TDatabasePDG::Instance()->GetParticle("D0")->Mass()),
                                                                                                                                     mTypeOfSgnPdf(fitTypeSgn),
                                                                                                                                     mTypeOfReflPdf(1),
-                                                                                                                                    mMass(2.286),
+                                                                                                                                    mMass(1.865),
                                                                                                                                     mSecMass(1.969),
                                                                                                                                     mSigmaSgn(0.012),
                                                                                                                                     mSecSigma(0.006),
@@ -216,9 +214,9 @@ HFInvMassFitter::~HFInvMassFitter()
 
 void HFInvMassFitter::doFit()
 {
-  std::cout << "hist entries: " << mHistoInvMass->GetEntries() << " class name: " << mHistoInvMass->ClassName() << std::endl;
+  printf("hist entries: %d class name: %s\n", mHistoInvMass->GetEntries(), mHistoInvMass->ClassName());
   mIntegralHisto = mHistoInvMass->Integral(mHistoInvMass->FindBin(mMinMass), mHistoInvMass->FindBin(mMaxMass));
-  std::cout << "hist integral: " << mIntegralHisto << std::endl;
+  printf("hist integral: %.3f\n" mIntegralHisto);
   mWorkspace = new RooWorkspace("mWorkspace");
   fillWorkspace(*mWorkspace);
   RooRealVar* mass = mWorkspace->var("mass");
@@ -342,10 +340,10 @@ void HFInvMassFitter::doFit()
       std::unique_ptr<RooFitResult> res{mTotalPdf->fitTo(dataHistogram, Save(), PrintLevel(-1))};
       //}
       if (res == nullptr) {
-        cout << "res is null" << std::endl;
+        printf("res is null\n");
       }
       res->Print();
-      cout << "final value of floating parameters" << endl;
+      printf("final value of floating parameters\n");
       res->floatParsFinal().Print("s");
       plotBkg(mTotalPdf);
       mTotalPdf->plotOn(mInvMassFrame, Name("Tot_c"), LineColor(kBlue));
@@ -628,24 +626,25 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
 
     float max = mHistoInvMass->GetMaximum();
     float min = mHistoInvMass->GetMinimum();
-    std::cout << "Max y: " << max << " min y: " << min << " hist range: " << min - 100.f << ", " << max + 100.f << std::endl;
+    printf("Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max, min, min - 100.f, max + 100.f);
     int maxBin = mHistoInvMass->GetXaxis()->FindBin(max);
     int minBin = mHistoInvMass->GetXaxis()->FindBin(min);
-    std::cout << "Min bin: " << minBin << " max bin: " << maxBin << std::endl;
-    std::cout << "x for max: " << mHistoInvMass->GetXaxis()->GetBinCenter(maxBin) << " x for min: " << mHistoInvMass->GetXaxis()->GetBinCenter(minBin) << std::endl;
+    printf("Min bin: %d max bin: %d\n", minBin, maxBin);
+    printf("x for max: %.3f x for min: %.3f\n", mHistoInvMass->GetXaxis()->GetBinCenter(maxBin), mHistoInvMass->GetXaxis()->GetBinCenter(minBin));
     int minBinFunc = mHistoInvMass->GetMinimumBin();
     int maxBinFunc = mHistoInvMass->GetMaximumBin();
-    std::cout << "func bin min: " << minBinFunc << " bin max: " << maxBinFunc << std::endl;
-    std::cout << "func x min: " << mHistoInvMass->GetBinContent(minBinFunc) << " x max: " << mHistoInvMass->GetBinContent(maxBinFunc) << std::endl;
-    std::cout << "bin for min mass: " << mHistoInvMass->GetXaxis()->FindBin(mMinMass) << " max mass: " << mHistoInvMass->GetXaxis()->FindBin(mMaxMass) << std::endl;
+
+    printf("func bin min: %d bin max: %d\n", minBinFunc, maxBinFunc);
+    printf("func x min: %.3f x max: %.3f\n", mHistoInvMass->GetBinContent(minBinFunc), mHistoInvMass->GetBinContent(maxBinFunc));
+    printf("bin for min mass: %d max mass: %d\n", mHistoInvMass->GetXaxis()->FindBin(mMinMass), mHistoInvMass->GetXaxis()->FindBin(mMaxMass));
 
     float max2 = mInvMassFrame->GetMaximum();
     float min2 = mInvMassFrame->GetMinimum();
-    std::cout << "Frame Max y: " << max2 << " min y: " << min2 << " hist range: " << min2 - 100.f << ", " << max2 + 100.f << std::endl;
+    printf("Frame Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max2, min2, min2 - 100.f, max2 + 100.f);
     maxBin = mInvMassFrame->GetXaxis()->FindBin(max2);
     minBin = mInvMassFrame->GetXaxis()->FindBin(min2);
-    std::cout << "Frame min bin: " << minBin << " max bin: " << maxBin << std::endl;
-    std::cout << "Frame x for max: " << mInvMassFrame->GetXaxis()->GetBinCenter(maxBin) << " x for min: " << mInvMassFrame->GetXaxis()->GetBinCenter(minBin) << std::endl;
+    printf("Frame min bin: %d max bin: %d\n", minBin, maxBin);
+    printf("Frame x for max: %.3f x for min: %.3f\n", mInvMassFrame->GetXaxis()->GetBinCenter(maxBin), mInvMassFrame->GetXaxis()->GetBinCenter(minBin));
 
     mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
     //mHistoInvMass->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
