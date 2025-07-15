@@ -46,10 +46,11 @@ class HFInvMassFitter : public TNamed
     Pow = 3,
     PowExpo = 4,
     Poly3 = 5,
-    NoBkg = 6,
+    Cheb = 6,
+    NoBkg = 7,
     NTypesOfBkgPdf
   };
-  std::vector<std::string> namesOfBkgPdf{"bkgFuncExpo", "bkgFuncPoly1", "bkgFuncPoly2", "bkgFuncPow", "bkgFuncPowExpo", "bkgFuncPoly3"};
+  std::vector<std::string> namesOfBkgPdf{"bkgFuncExpo", "bkgFuncPoly1", "bkgFuncPoly2", "bkgFuncPow", "bkgFuncPowExpo", "bkgFuncPoly3", "bkgFuncCheb"};
   enum TypeOfSgnPdf {
     SingleGaus = 0,
     DoubleGaus = 1,

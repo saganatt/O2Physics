@@ -127,7 +127,8 @@
         "3 for Pow",
         "4 for PowEx",
         "5 for Poly3",
-        "6 for NoBkg"
+        "6 for Cheb",
+        "7 for NoBkg"
     ],
     "SgnFunc": [
         0,
