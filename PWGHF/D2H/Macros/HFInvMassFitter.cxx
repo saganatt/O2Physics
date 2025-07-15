@@ -419,9 +419,9 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   workspace.import(*bkgFuncPowExpo);
   delete bkgFuncPowExpo;
   // bkg chebychev 2
-  RooAbsPdf* bkgFuncCheb = new RooChebychev("bkgFuncCheb", "background fit function", mass, RooArgSet(polyParam0, polyParam1, polyParam2));
-  workspace.import(*bkgFuncCheb);
-  delete bkgFuncCheb;
+  RooAbsPdf* bkgFuncCheb2 = new RooChebychev("bkgFuncCheb2", "background fit function", mass, RooArgSet(polyParam0, polyParam1, polyParam2));
+  workspace.import(*bkgFuncCheb2);
+  delete bkgFuncCheb2;
 
   // signal pdf
   RooRealVar mean("mean", "mean for signal fit", mMass, 0, 5);
