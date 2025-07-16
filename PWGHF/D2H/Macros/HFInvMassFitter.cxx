@@ -226,9 +226,9 @@ HFInvMassFitter::~HFInvMassFitter()
 
 void HFInvMassFitter::doFit()
 {
-  printf("hist entries: %d class name: %s\n", mHistoInvMass->GetEntries(), mHistoInvMass->ClassName());
+  //printf("hist entries: %d class name: %s\n", mHistoInvMass->GetEntries(), mHistoInvMass->ClassName());
   mIntegralHisto = mHistoInvMass->Integral(mHistoInvMass->FindBin(mMinMass), mHistoInvMass->FindBin(mMaxMass));
-  printf("hist integral: %.3f\n", mIntegralHisto);
+  //printf("hist integral: %.3f\n", mIntegralHisto);
   mWorkspace = new RooWorkspace("mWorkspace");
   fillWorkspace(*mWorkspace);
   RooRealVar* mass = mWorkspace->var("mass");
@@ -357,12 +357,12 @@ void HFInvMassFitter::doFit()
       //} else {
       std::unique_ptr<RooFitResult> res{mTotalPdf->fitTo(dataHistogram, Save(), PrintLevel(-1))};
       //}
-      if (res == nullptr) {
-        printf("res is null\n");
-      }
-      res->Print();
-      printf("final value of floating parameters\n");
-      res->floatParsFinal().Print("s");
+      //if (res == nullptr) {
+      //  printf("res is null\n");
+      //}
+      //res->Print();
+      //printf("final value of floating parameters\n");
+      //res->floatParsFinal().Print("s");
       plotBkg(mTotalPdf);
       mTotalPdf->plotOn(mInvMassFrame, Name("Tot_c"), LineColor(kBlue));
       mSgnPdf->plotOn(mInvMassFrame, Normalization(1.0, RooAbsReal::RelativeExpected), DrawOption("F"), FillColor(TColor::GetColorTransparent(kBlue, 0.2)), VLines());
@@ -644,25 +644,25 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
 
     float max = mHistoInvMass->GetMaximum();
     float min = mHistoInvMass->GetMinimum();
-    printf("Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max, min, min - 100.f, max + 100.f);
-    int maxBin = mHistoInvMass->GetXaxis()->FindBin(max);
-    int minBin = mHistoInvMass->GetXaxis()->FindBin(min);
-    printf("Min bin: %d max bin: %d\n", minBin, maxBin);
-    printf("x for max: %.3f x for min: %.3f\n", mHistoInvMass->GetXaxis()->GetBinCenter(maxBin), mHistoInvMass->GetXaxis()->GetBinCenter(minBin));
-    int minBinFunc = mHistoInvMass->GetMinimumBin();
-    int maxBinFunc = mHistoInvMass->GetMaximumBin();
+    //printf("Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max, min, min - 100.f, max + 100.f);
+    //int maxBin = mHistoInvMass->GetXaxis()->FindBin(max);
+    //int minBin = mHistoInvMass->GetXaxis()->FindBin(min);
+    //printf("Min bin: %d max bin: %d\n", minBin, maxBin);
+    //printf("x for max: %.3f x for min: %.3f\n", mHistoInvMass->GetXaxis()->GetBinCenter(maxBin), mHistoInvMass->GetXaxis()->GetBinCenter(minBin));
+    //int minBinFunc = mHistoInvMass->GetMinimumBin();
+    //int maxBinFunc = mHistoInvMass->GetMaximumBin();
 
-    printf("func bin min: %d bin max: %d\n", minBinFunc, maxBinFunc);
-    printf("func x min: %.3f x max: %.3f\n", mHistoInvMass->GetBinContent(minBinFunc), mHistoInvMass->GetBinContent(maxBinFunc));
-    printf("bin for min mass: %d max mass: %d\n", mHistoInvMass->GetXaxis()->FindBin(mMinMass), mHistoInvMass->GetXaxis()->FindBin(mMaxMass));
+    //printf("func bin min: %d bin max: %d\n", minBinFunc, maxBinFunc);
+    //printf("func x min: %.3f x max: %.3f\n", mHistoInvMass->GetBinContent(minBinFunc), mHistoInvMass->GetBinContent(maxBinFunc));
+    //printf("bin for min mass: %d max mass: %d\n", mHistoInvMass->GetXaxis()->FindBin(mMinMass), mHistoInvMass->GetXaxis()->FindBin(mMaxMass));
 
-    float max2 = mInvMassFrame->GetMaximum();
-    float min2 = mInvMassFrame->GetMinimum();
-    printf("Frame Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max2, min2, min2 - 100.f, max2 + 100.f);
-    maxBin = mInvMassFrame->GetXaxis()->FindBin(max2);
-    minBin = mInvMassFrame->GetXaxis()->FindBin(min2);
-    printf("Frame min bin: %d max bin: %d\n", minBin, maxBin);
-    printf("Frame x for max: %.3f x for min: %.3f\n", mInvMassFrame->GetXaxis()->GetBinCenter(maxBin), mInvMassFrame->GetXaxis()->GetBinCenter(minBin));
+    //float max2 = mInvMassFrame->GetMaximum();
+    //float min2 = mInvMassFrame->GetMinimum();
+    //printf("Frame Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max2, min2, min2 - 100.f, max2 + 100.f);
+    //maxBin = mInvMassFrame->GetXaxis()->FindBin(max2);
+    //minBin = mInvMassFrame->GetXaxis()->FindBin(min2);
+    //printf("Frame min bin: %d max bin: %d\n", minBin, maxBin);
+    //printf("Frame x for max: %.3f x for min: %.3f\n", mInvMassFrame->GetXaxis()->GetBinCenter(maxBin), mInvMassFrame->GetXaxis()->GetBinCenter(minBin));
 
     mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
     //mHistoInvMass->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
