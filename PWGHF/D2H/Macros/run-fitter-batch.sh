@@ -7,10 +7,11 @@ CONFIG="config_massfitter"
 CONFIG_EXT="${CONFIG}.json"
 PERM_PATTERN="fd_"
 
-RES_SUFFIX="-mix-fixed-sigma-120-190"
+RES_SUFFIX="-poly2-fixed-sigma-120-190-test-base"
 #RES_SUFFIX="-figure"
 
-for dir in ${INPUT_PATTERN}${PERM_PATTERN}0.7[0-9][0-9]* ; do
+for dir in ${INPUT_PATTERN}${PERM_PATTERN}0.755.root ; do
+#for dir in ${INPUT_PATTERN}${PERM_PATTERN}0.7[0-9][0-9]* ; do
   echo $dir
 
   suffix=${dir##${INPUT_PATTERN}}
