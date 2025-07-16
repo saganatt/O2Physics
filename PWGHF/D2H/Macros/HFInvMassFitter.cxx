@@ -228,7 +228,7 @@ void HFInvMassFitter::doFit()
 {
   printf("hist entries: %d class name: %s\n", mHistoInvMass->GetEntries(), mHistoInvMass->ClassName());
   mIntegralHisto = mHistoInvMass->Integral(mHistoInvMass->FindBin(mMinMass), mHistoInvMass->FindBin(mMaxMass));
-  printf("hist integral: %.3f\n" mIntegralHisto);
+  printf("hist integral: %.3f\n", mIntegralHisto);
   mWorkspace = new RooWorkspace("mWorkspace");
   fillWorkspace(*mWorkspace);
   RooRealVar* mass = mWorkspace->var("mass");
