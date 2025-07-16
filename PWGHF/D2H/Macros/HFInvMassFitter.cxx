@@ -447,17 +447,17 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   delete bkgFuncCheb;
 
   // signal pdf
-  RooRealVar mean("mean", "mean for signal fit", mMass, 2.26, 2.30);
+  RooRealVar mean("mean", "mean for signal fit", mMass, 0, 5);
   if (mBoundMean) {
-    mean.setMax(2.36);
-    mean.setMin(2.21);
+    mean.setMax(mMassUpLimit);
+    mean.setMin(mMassLowLimit);
   }
   // signal Gaussian
   if (mFixedMean) {
     mean.setVal(mMass);
     mean.setConstant(kTRUE);
   }
-  RooRealVar sigma("sigma", "sigma for signal", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.02);
+  RooRealVar sigma("sigma", "sigma for signal", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.01);
   if (mFixedSigma) {
     sigma.setVal(mSigmaSgn);
     sigma.setConstant(kTRUE);
@@ -470,7 +470,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   workspace.import(*sgnFuncGaus);
   delete sgnFuncGaus;
   // signal double Gaussian
-  RooRealVar sigmaDoubleGaus("sigmaDoubleGaus", "sigma2Gaus", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.03);
+  RooRealVar sigmaDoubleGaus("sigmaDoubleGaus", "sigma2Gaus", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.01);
   if (mBoundSigma) {
     sigmaDoubleGaus.setMax(mSigmaSgn * (1 + mParamSgn));
     sigmaDoubleGaus.setMin(mSigmaSgn * (1 - mParamSgn));
@@ -642,8 +642,8 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
       mReflFrame->Draw("same");
     }
 
-    float max = mHistoInvMass->GetMaximum();
-    float min = mHistoInvMass->GetMinimum();
+    //float max = mHistoInvMass->GetMaximum();
+    //float min = mHistoInvMass->GetMinimum();
     //printf("Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max, min, min - 100.f, max + 100.f);
     //int maxBin = mHistoInvMass->GetXaxis()->FindBin(max);
     //int minBin = mHistoInvMass->GetXaxis()->FindBin(min);
@@ -664,7 +664,7 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     //printf("Frame min bin: %d max bin: %d\n", minBin, maxBin);
     //printf("Frame x for max: %.3f x for min: %.3f\n", mInvMassFrame->GetXaxis()->GetBinCenter(maxBin), mInvMassFrame->GetXaxis()->GetBinCenter(minBin));
 
-    mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
+    //mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
     //mHistoInvMass->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
   }
 }
