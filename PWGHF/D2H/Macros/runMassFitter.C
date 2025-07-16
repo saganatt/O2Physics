@@ -492,6 +492,7 @@ int runMassFitter(const TString& configFileName)
           printf("*****************************\n");
         } else {
           printf("WARNING: impossible to fix sigma! Wrong fix sigma file or value!\n");
+        }
       }
       if (fixSecondSigma) {
         if (fixSecondSigmaManual.empty()) {
