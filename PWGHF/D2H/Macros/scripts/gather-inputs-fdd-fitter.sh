@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Copy the D2H mass fitter fits into a common directory for the cut variation macro.
+
 MLHEP_DIR="/data8/majak/MLHEP"
 OUTPUT_DIR="${MLHEP_DIR}/input-fd-012025"
 
