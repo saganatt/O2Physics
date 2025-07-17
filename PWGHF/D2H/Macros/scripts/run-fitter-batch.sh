@@ -2,6 +2,7 @@
 
 # Run the D2H mass fitter in batch on a set of input mass histograms.
 # For example, you can use it to obtain fits for different non-prompt BDT cuts.
+# You need a D2H mass fitter config with %indir%, %infile%, %outdir%, and %sf...% placeholders.
 
 # Directory and filename pattern of the files with mass histograms.
 INPUT_DIR="/data8/majak/MLHEP/input-d2h-fitter-012025"

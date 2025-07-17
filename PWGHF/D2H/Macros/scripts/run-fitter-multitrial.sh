@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Run the D2H mass fitter in batch for all multitrial trials.
+# You need a D2H mass fitter config with an %outdir% placeholder.
 
 # Base mass config file.
 PERM_PATTERN="prompt"
