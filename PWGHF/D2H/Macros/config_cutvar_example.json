@@ -1,73 +1,85 @@
 {
-    "rawyields": {
-        "inputdir": "path/to/RawYields/files",
-        "inputfiles": [
-            "RawYieldsDplus_outFD_pos10.root",
-            "RawYieldsDplus_outFD_pos11.root",
-            "RawYieldsDplus_outFD_pos12.root",
-            "RawYieldsDplus_outFD_pos13.root",
-            "RawYieldsDplus_outFD_pos14.root",
-            "RawYieldsDplus_outFD_pos15.root",
-            "RawYieldsDplus_outFD_pos16.root",
-            "RawYieldsDplus_outFD_pos17.root",
-            "RawYieldsDplus_outFD_pos18.root",
-            "RawYieldsDplus_outFD_pos19.root",
-            "RawYieldsDplus_outFD_pos20.root",
-            "RawYieldsDplus_outFD_pos21.root",
-            "RawYieldsDplus_outFD_pos22.root",
-            "RawYieldsDplus_outFD_pos23.root",
-            "RawYieldsDplus_outFD_pos24.root",
-            "RawYieldsDplus_outFD_pos25.root",
-            "RawYieldsDplus_outFD_pos26.root",
-            "RawYieldsDplus_outFD_pos27.root",
-            "RawYieldsDplus_outFD_pos28.root",
-            "RawYieldsDplus_outFD_pos29.root"
-        ],
-        "histoname": "hRawYields"
-    },
-    "efficiencies": {
-        "inputdir": "path/to/efficiencies/files",
-        "inputfiles": [
-            "Eff_times_Acc_Dplus_outFD_pos10.root",
-            "Eff_times_Acc_Dplus_outFD_pos11.root",
-            "Eff_times_Acc_Dplus_outFD_pos12.root",
-            "Eff_times_Acc_Dplus_outFD_pos13.root",
-            "Eff_times_Acc_Dplus_outFD_pos14.root",
-            "Eff_times_Acc_Dplus_outFD_pos15.root",
-            "Eff_times_Acc_Dplus_outFD_pos16.root",
-            "Eff_times_Acc_Dplus_outFD_pos17.root",
-            "Eff_times_Acc_Dplus_outFD_pos18.root",
-            "Eff_times_Acc_Dplus_outFD_pos19.root",
-            "Eff_times_Acc_Dplus_outFD_pos20.root",
-            "Eff_times_Acc_Dplus_outFD_pos21.root",
-            "Eff_times_Acc_Dplus_outFD_pos22.root",
-            "Eff_times_Acc_Dplus_outFD_pos23.root",
-            "Eff_times_Acc_Dplus_outFD_pos24.root",
-            "Eff_times_Acc_Dplus_outFD_pos25.root",
-            "Eff_times_Acc_Dplus_outFD_pos26.root",
-            "Eff_times_Acc_Dplus_outFD_pos27.root",
-            "Eff_times_Acc_Dplus_outFD_pos28.root",
-            "Eff_times_Acc_Dplus_outFD_pos29.root"
-        ],
-        "histonames": {
-            "prompt": "hAccEffPrompt",
-            "nonprompt": "hAccEffFD"
-        }
-    },
-    "minimisation": {
-        "correlated": true
-    },
-    "central_efficiency": {
-        "computerawfrac": true,
-        "inputdir": "path/to/central/efficiency",
-        "inputfile": "efficiency.root",
-        "histonames": {
-            "prompt": "hAccEffPrompt",
-            "nonprompt": "hAccEffFD"
-        }
-    },
-    "output": {
-        "directory": ".",
-        "file": "CutVarDplus_pp13TeV_MB.root"
+  "rawyields": {
+    "inputdir": "/data8/majak/MLHEP/input-fd-012025",
+    "inputfiles": [
+      "yields-fd_0.070-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.150-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.170-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.190-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.210-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.230-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.250-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.270-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.290-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.320-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.350-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.370-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.390-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.410-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.425-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.450-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.470-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.490-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.510-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.530-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.550-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.570-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.590-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.610-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.630-cheb-fixed-sigma-125-190.root",
+      "yields-fd_0.650-cheb-fixed-sigma-125-190.root"
+    ],
+    "histoname": "hRawYields"
+  },
+  "efficiencies": {
+    "inputdir": "/data8/majak/MLHEP/input-fd-012025",
+    "inputfiles": [
+      "efficienciesLcpKpiRun3analysis_fd_0.070.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.150.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.170.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.190.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.210.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.230.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.250.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.270.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.290.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.320.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.350.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.370.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.390.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.410.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.425.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.450.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.470.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.490.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.510.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.530.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.550.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.570.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.590.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.610.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.630.root",
+      "efficienciesLcpKpiRun3analysis_fd_0.650.root"
+    ],
+    "histonames": {
+      "prompt": "eff",
+      "nonprompt": "eff_fd"
     }
+  },
+  "minimisation": {
+    "correlated": "true"
+  },
+  "central_efficiency": {
+    "computerawfrac": false,
+    "inputdir": "/data8/majak/MLHEP/input-fd-012025",
+      "inputfile": "efficiency.root",
+      "histonames": {
+          "prompt": "eff",
+          "nonprompt": "eff_fd"
+      }
+  },
+  "output": {
+    "directory": "/data8/majak/fdd-results/012025/fdd-results-3-4-cheb-wide",
+    "file": "CutVarLc_pp13TeV_LHC23_pass4.root"
+  }
 }
