@@ -1,4 +1,9 @@
-
+"""
+file: generate_trials.py
+brief: Generate compound names of the multitrial trials.
+usage: python generate_trials.py
+author: Maja Karwowska <mkarwowska@cern.ch>, Warsaw University of Technology
+"""
 
 BASE_TRIALS = (
     ["min_narrow", "min_narrow2", "min_wide", "min_wide2"],
