@@ -226,9 +226,7 @@ HFInvMassFitter::~HFInvMassFitter()
 
 void HFInvMassFitter::doFit()
 {
-  //printf("hist entries: %d class name: %s\n", mHistoInvMass->GetEntries(), mHistoInvMass->ClassName());
   mIntegralHisto = mHistoInvMass->Integral(mHistoInvMass->FindBin(mMinMass), mHistoInvMass->FindBin(mMaxMass));
-  //printf("hist integral: %.3f\n", mIntegralHisto);
   mWorkspace = new RooWorkspace("mWorkspace");
   fillWorkspace(*mWorkspace);
   RooRealVar* mass = mWorkspace->var("mass");
@@ -352,17 +350,11 @@ void HFInvMassFitter::doFit()
       mSgnPdf->plotOn(mResidualFrame, Normalization(1.0, RooAbsReal::RelativeExpected), LineColor(kBlue));
     } else {
       mTotalPdf = new RooAddPdf("mTotalPdf", "background + signal pdf", RooArgList(*bkgPdf, *sgnPdf), RooArgList(*mRooNBkg, *mRooNSgn));
-      //if (!strcmp(mFitOption.Data(), "Chi2")) {
-      //  res = mTotalPdf->chi2FitTo(dataHistogram);
-      //} else {
-      std::unique_ptr<RooFitResult> res{mTotalPdf->fitTo(dataHistogram, Save(), PrintLevel(-1))};
-      //}
-      //if (res == nullptr) {
-      //  printf("res is null\n");
-      //}
-      //res->Print();
-      //printf("final value of floating parameters\n");
-      //res->floatParsFinal().Print("s");
+      if (!strcmp(mFitOption.Data(), "Chi2")) {
+        mTotalPdf->chi2FitTo(dataHistogram);
+      } else {
+        mTotalPdf->fitTo(dataHistogram);
+      }
       plotBkg(mTotalPdf);
       mTotalPdf->plotOn(mInvMassFrame, Name("Tot_c"), LineColor(kBlue));
       mSgnPdf->plotOn(mInvMassFrame, Normalization(1.0, RooAbsReal::RelativeExpected), DrawOption("F"), FillColor(TColor::GetColorTransparent(kBlue, 0.2)), VLines());
@@ -373,20 +365,6 @@ void HFInvMassFitter::doFit()
       mResidualFrame->addPlotable(residualHistogram, "P");
       mSgnPdf->plotOn(mResidualFrame, Normalization(1.0, RooAbsReal::RelativeExpected), LineColor(kBlue));
     }
-
-    //mBkgObservables = (*mTotalPdf->getComponents())["bkgFuncPoly2"].getObservables(dataHistogram);
-    //mBkgObservables = bkgPdf->getObservables(dataHistogram);
-    //cout << "bkg observables " << *mBkgObservables << std::endl;
-    //mBkgParameters = (*mTotalPdf->getComponents())["bkgFuncCheb"].getParameters(dataHistogram);
-    //cout << "bkg parameters " << *mBkgParameters << std::endl;
-    //mSgnObservables = mSgnPdf->getObservables(dataHistogram);
-    //cout << "sgn observables " << *mSgnObservables << std::endl;
-    //mSgnParameters = mSgnPdf->getParameters(dataHistogram);
-    //cout << "sgn parameters " << *mSgnParameters << std::endl;
-    //mTotalObservables = mTotalPdf->getObservables(dataHistogram);
-    //cout << "total observables " << *mTotalObservables << std::endl;
-    //mTotalParameters = mTotalPdf->getParameters(dataHistogram);
-    //cout << "total parameters " << *mTotalParameters << std::endl;
 
     mass->setRange("bkgForSignificance", mRooMeanSgn->getVal() - mNSigmaForSgn * mRooSigmaSgn->getVal(), mRooMeanSgn->getVal() + mNSigmaForSgn * mRooSigmaSgn->getVal());
     bkgIntegral = mBkgPdf->createIntegral(*mass, NormSet(*mass), Range("bkgForSignificance"));
@@ -447,7 +425,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   delete bkgFuncCheb;
 
   // signal pdf
-  RooRealVar mean("mean", "mean for signal fit", mMass, 0, 5);
+  RooRealVar mean("mean", "mean for signal fit", mMass, 2.26, 2.30);
   if (mBoundMean) {
     mean.setMax(mMassUpLimit);
     mean.setMin(mMassLowLimit);
@@ -457,7 +435,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
     mean.setVal(mMass);
     mean.setConstant(kTRUE);
   }
-  RooRealVar sigma("sigma", "sigma for signal", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.01);
+  RooRealVar sigma("sigma", "sigma for signal", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.02);
   if (mFixedSigma) {
     sigma.setVal(mSigmaSgn);
     sigma.setConstant(kTRUE);
@@ -470,7 +448,7 @@ void HFInvMassFitter::fillWorkspace(RooWorkspace& workspace) const
   workspace.import(*sgnFuncGaus);
   delete sgnFuncGaus;
   // signal double Gaussian
-  RooRealVar sigmaDoubleGaus("sigmaDoubleGaus", "sigma2Gaus", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.01);
+  RooRealVar sigmaDoubleGaus("sigmaDoubleGaus", "sigma2Gaus", mSigmaSgn, mSigmaSgn - 0.01, mSigmaSgn + 0.03);
   if (mBoundSigma) {
     sigmaDoubleGaus.setMax(mSigmaSgn * (1 + mParamSgn));
     sigmaDoubleGaus.setMin(mSigmaSgn * (1 - mParamSgn));
@@ -641,31 +619,6 @@ void HFInvMassFitter::drawFit(TVirtualPad* pad, Int_t writeFitInfo)
     if (mHistoTemplateRefl) {
       mReflFrame->Draw("same");
     }
-
-    //float max = mHistoInvMass->GetMaximum();
-    //float min = mHistoInvMass->GetMinimum();
-    //printf("Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max, min, min - 100.f, max + 100.f);
-    //int maxBin = mHistoInvMass->GetXaxis()->FindBin(max);
-    //int minBin = mHistoInvMass->GetXaxis()->FindBin(min);
-    //printf("Min bin: %d max bin: %d\n", minBin, maxBin);
-    //printf("x for max: %.3f x for min: %.3f\n", mHistoInvMass->GetXaxis()->GetBinCenter(maxBin), mHistoInvMass->GetXaxis()->GetBinCenter(minBin));
-    //int minBinFunc = mHistoInvMass->GetMinimumBin();
-    //int maxBinFunc = mHistoInvMass->GetMaximumBin();
-
-    //printf("func bin min: %d bin max: %d\n", minBinFunc, maxBinFunc);
-    //printf("func x min: %.3f x max: %.3f\n", mHistoInvMass->GetBinContent(minBinFunc), mHistoInvMass->GetBinContent(maxBinFunc));
-    //printf("bin for min mass: %d max mass: %d\n", mHistoInvMass->GetXaxis()->FindBin(mMinMass), mHistoInvMass->GetXaxis()->FindBin(mMaxMass));
-
-    //float max2 = mInvMassFrame->GetMaximum();
-    //float min2 = mInvMassFrame->GetMinimum();
-    //printf("Frame Max y: %.3f min y: %.3f hist range: %.3f, %.3f\n", max2, min2, min2 - 100.f, max2 + 100.f);
-    //maxBin = mInvMassFrame->GetXaxis()->FindBin(max2);
-    //minBin = mInvMassFrame->GetXaxis()->FindBin(min2);
-    //printf("Frame min bin: %d max bin: %d\n", minBin, maxBin);
-    //printf("Frame x for max: %.3f x for min: %.3f\n", mInvMassFrame->GetXaxis()->GetBinCenter(maxBin), mInvMassFrame->GetXaxis()->GetBinCenter(minBin));
-
-    //mInvMassFrame->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
-    //mHistoInvMass->GetYaxis()->SetRangeUser(min - 100.f, max + 100.f);
   }
 }
 
