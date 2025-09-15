@@ -104,7 +104,7 @@ o2physics_add_dpl_workflow(cascpolsp
     PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore
     COMPONENT_NAME Analysis)
 
-if(FastJet_FOUND)
+if(false)
 o2physics_add_dpl_workflow(strangeness-in-jets
     SOURCES strangenessInJets.cxx
     PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib O2Physics::EventFilteringUtils
@@ -141,10 +141,10 @@ o2physics_add_dpl_workflow(lambdalambda
     PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::EventFilteringUtils
     COMPONENT_NAME Analysis)
 
-o2physics_add_dpl_workflow(lambdajetpolarization
-    SOURCES lambdaJetpolarization.cxx
-    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib O2Physics::EventFilteringUtils
-    COMPONENT_NAME Analysis)
+  #o2physics_add_dpl_workflow(lambdajetpolarization
+  #    SOURCES lambdaJetpolarization.cxx
+  #    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib O2Physics::EventFilteringUtils
+  #    COMPONENT_NAME Analysis)
 
 o2physics_add_dpl_workflow(lambdaspincorrderived
     SOURCES lambdaspincorrderived.cxx

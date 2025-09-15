@@ -24,15 +24,15 @@ o2physics_add_dpl_workflow(nuclei-filter
     PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2::TOFBase
     COMPONENT_NAME Analysis)
 
-o2physics_add_dpl_workflow(diffraction-filter
-    SOURCES PWGUD/diffractionFilter.cxx
-    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::DGCutparHolder
-    COMPONENT_NAME Analysis)
-
-o2physics_add_dpl_workflow(diffraction-bcfilter
-    SOURCES PWGUD/diffractionBCFilter.cxx
-    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::DGCutparHolder
-    COMPONENT_NAME Analysis)
+  #o2physics_add_dpl_workflow(diffraction-filter
+  #    SOURCES PWGUD/diffractionFilter.cxx
+  #    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::DGCutparHolder
+  #    COMPONENT_NAME Analysis)
+  #
+  #o2physics_add_dpl_workflow(diffraction-bcfilter
+  #    SOURCES PWGUD/diffractionBCFilter.cxx
+  #    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::DGCutparHolder
+  #    COMPONENT_NAME Analysis)
 
 o2physics_add_header_only_library(HFFilterHelpers
     HEADERS PWGHF/HFFilterHelpers.h)
@@ -67,20 +67,20 @@ o2physics_add_dpl_workflow(cf-filter-ppphi
     PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore
     COMPONENT_NAME Analysis)
 
-o2physics_add_dpl_workflow(je-filter
-    SOURCES PWGJE/jetFilter.cxx
-    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib
-    COMPONENT_NAME Analysis)
+  #o2physics_add_dpl_workflow(je-filter
+  #    SOURCES PWGJE/jetFilter.cxx
+  #    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib
+  #    COMPONENT_NAME Analysis)
 
-o2physics_add_dpl_workflow(je-hf-filter
-    SOURCES PWGJE/jetHFFilter.cxx
-    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib
-    COMPONENT_NAME Analysis)
-
-o2physics_add_dpl_workflow(fje-filter
-    SOURCES PWGJE/fullJetFilter.cxx
-    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib Boost::system
-    COMPONENT_NAME Analysis)
+  #o2physics_add_dpl_workflow(je-hf-filter
+  #    SOURCES PWGJE/jetHFFilter.cxx
+  #    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib
+  #    COMPONENT_NAME Analysis)
+  #
+  #o2physics_add_dpl_workflow(fje-filter
+  #    SOURCES PWGJE/fullJetFilter.cxx
+  #    PUBLIC_LINK_LIBRARIES O2Physics::AnalysisCore O2Physics::PWGJECore FastJet::FastJet FastJet::Contrib Boost::system
+  #    COMPONENT_NAME Analysis)
 
 o2physics_add_dpl_workflow(lf-strangeness-filter
     SOURCES PWGLF/strangenessFilter.cxx
