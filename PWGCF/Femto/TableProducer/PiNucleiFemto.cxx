@@ -1144,26 +1144,26 @@ struct PiNucleiFemto {
   }
   PROCESS_SWITCH(PiNucleiFemto, processMixedEvent, "Process Mixed event", false);
 
-  void processMixedEventHyper(const CollisionsFull& collisions, o2::aod::DataHypCandsWColl const& V0Hypers, const TrackCandidates& pitracks)
-  {
-    LOG(debug) << "Processing mixed event for hypertriton";
-    mTrackHypPairs.clear();
+  //void processMixedEventHyper(const CollisionsFull& collisions, const TrackCandidates& pitracks, o2::aod::DataHypCandsWColl const& V0Hypers)
+  //{
+  //  LOG(debug) << "Processing mixed event for hypertriton";
+  //  mTrackHypPairs.clear();
 
-    for (const auto& [c1, tracks1, c2, V0Hypers2] : hyperPair) {
-      if (!c1.sel8() || !c2.sel8()) {
-        continue;
-      }
+  //  for (const auto& [c1, tracks1, c2, V0Hypers2] : hyperPair) {
+  //    if (!c1.sel8() || !c2.sel8()) {
+  //      continue;
+  //    }
 
-      mQaRegistry.fill(HIST("hNcontributor"), c2.numContrib());
-      //mQaRegistry.fill(HIST("hCentrality"), c2.centFT0C());
-      mQaRegistry.fill(HIST("hVtxZ"), c2.posZ());
+  //    mQaRegistry.fill(HIST("hNcontributor"), c2.numContrib());
+  //    //mQaRegistry.fill(HIST("hCentrality"), c2.centFT0C());
+  //    mQaRegistry.fill(HIST("hVtxZ"), c2.posZ());
 
-      pairHyperEventMixing(tracks1, V0Hypers2);
-    }
+  //    pairHyperEventMixing(tracks1, V0Hypers2);
+  //  }
 
-    fillPairsHyper(collisions, pitracks, V0Hypers,/*isMixedEvent*/ false);
-  }
-  PROCESS_SWITCH(PiNucleiFemto, processMixedEventHyper, "Process Mixed event", false);
+  //  fillPairsHyper(collisions, pitracks, V0Hypers,/*isMixedEvent*/ false);
+  //}
+  //PROCESS_SWITCH(PiNucleiFemto, processMixedEventHyper, "Process Mixed event", false);
 };
 
 WorkflowSpec defineDataProcessing(const ConfigContext& cfgc)
