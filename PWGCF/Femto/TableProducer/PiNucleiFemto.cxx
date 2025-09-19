@@ -210,7 +210,7 @@ struct PiNucleiFemto {
   BinningType binningPolicy{{axisVertex, axisCentrality}, true};
   SliceCache cache;
   SameKindPair<CollisionsFull, TrackCandidates, BinningType> mPair{binningPolicy, settingNoMixedEvents, -1, &cache};
-  Pair<CollisionsFull, TrackCandidates, o2::aod::DataHypCandsWColl, BinningType> hyperPair{binningPolicy, settingNoMixedEvents, -1, &cache};
+  //Pair<CollisionsFull, TrackCandidates, o2::aod::DataHypCandsWColl, BinningType> hyperPair{binningPolicy, settingNoMixedEvents, -1, &cache};
 
   std::array<float, 6> mBBparamsDe;
 
