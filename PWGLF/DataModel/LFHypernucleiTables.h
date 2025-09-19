@@ -34,7 +34,7 @@ DECLARE_SOA_COLUMN(QFT0C, qFT0C, float);                   // Amplitude with FT0
 DECLARE_SOA_COLUMN(MultFT0C, multFT0C, float);             // Multiplicity with FT0C estimator
 DECLARE_SOA_COLUMN(PsiTPC, psiTPC, float);                 // Psi with TPC estimator
 DECLARE_SOA_COLUMN(MultTPC, multTPC, float);               // Multiplicity with TPC estimator
-DECLARE_SOA_COLUMN(CollisionId, collisionId, int64_t);     // CollisionID
+DECLARE_SOA_INDEX_COLUMN(Collision, collision);            // CollisionID
 
 DECLARE_SOA_COLUMN(IsMatter, isMatter, bool);                         // bool: true for matter
 DECLARE_SOA_COLUMN(PtHe3, ptHe3, float);                              // Pt of the He daughter
